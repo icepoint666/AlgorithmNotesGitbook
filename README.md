@@ -15,7 +15,7 @@
 * 一定要总结常用编程模板 参考：[https://mnmunknown.gitbooks.io/algorithm-notes/content/](https://mnmunknown.gitbooks.io/algorithm-notes/content/)
 * 一定要总结一些小的编程tricks：例如迭代器遍历，例如定义STL容器，例如二分查找，快速排序等
 * 代码：**代码的第一原则是：“自己觉得易懂 + 当场能写清楚和讲明白”**
-* 代码**：注意要有良好的命名原则，以及编码封装规范**
+* 代码：注意要有良好的**命名原则，以及编码封装规范**
 * 笔记记得标明日期，体现进展
 
 ### 书籍

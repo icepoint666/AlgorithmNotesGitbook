@@ -18,5 +18,7 @@
 
 ## Problem Notes
 
-* [Untitled](problem-notes/untitled.md)
+* [Undefined](problem-notes/undefined/README.md)
+  * [Leetcode42 接雨水](problem-notes/undefined/leetcode42-jie-yu-shui.md)
+  * [傻子坐飞机](problem-notes/undefined/sha-zi-zuo-fei-ji.md)
 

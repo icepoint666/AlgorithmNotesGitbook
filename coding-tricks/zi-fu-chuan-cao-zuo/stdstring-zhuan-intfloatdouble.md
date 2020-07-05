@@ -29,3 +29,24 @@ int main() {
 }
 ```
 
+### C风格：利用atoi与strtol
+
+```cpp
+#include <cstdlib> //atoi,strtoi
+
+string str = "16s";
+int a = atoi(str.c_str());
+int b = strtol(str.c_str(), nullptr, 10);
+```
+
+### stoi
+
+```cpp
+#include <string> //stoi
+
+string str1 = "asq,";
+//    int c = stoi(str1);    // 报异常
+string str2 = "12312";
+int c = stoi(str2);     // ok
+```
+

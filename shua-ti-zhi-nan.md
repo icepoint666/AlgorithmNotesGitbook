@@ -2,6 +2,8 @@
 
 ### 第一遍（上手）：
 
+[https://www.zhihu.com/answer/879710574](https://www.zhihu.com/answer/879710574)
+
 《剑指offer》
 
 ### 第二遍（专题）：

@@ -8,6 +8,7 @@
 ## Coding Tricks
 
 * [Base](coding-tricks/coding-tricks-base.md)
+* [容器](coding-tricks/rong-qi.md)
 * [字符串操作](coding-tricks/zi-fu-chuan-cao-zuo/README.md)
   * [std::string转int,float,double](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)
 

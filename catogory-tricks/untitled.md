@@ -6,12 +6,14 @@
 
 **优点：**单调栈可以时刻从头部front弹出当前（访问过数组）的最大元素值
 
+（也就是只保留现阶段最大值的信息）
+
 **实现：**
 
 **deque&lt;T&gt;deq;  
 deq.empty\(\) deq.back\(\) deq.pop\_back\(\) deq.push\_back\(\) deq.front\(\)** 
 
-```text
+```cpp
 vector<int>& nums
 deque<int> deq; //单调栈
 

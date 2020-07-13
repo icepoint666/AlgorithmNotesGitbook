@@ -13,11 +13,11 @@
 
 ## Catogory Tricks
 
-* [Untitled](catogory-tricks/untitled.md)
+* [单调栈](catogory-tricks/untitled.md)
 
 ## Catogory Notes
 
-* [Untitled](catogory-notes/untitled.md)
+* [滑动窗口（Sliding Window）](catogory-notes/untitled.md)
 
 ## Problem Notes
 

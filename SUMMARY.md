@@ -15,6 +15,7 @@
 ## Catogory Tricks
 
 * [单调栈](catogory-tricks/untitled.md)
+* [双指针滑窗模板](catogory-tricks/shuang-zhi-zhen-hua-chuang-mo-ban.md)
 
 ## Catogory Notes
 

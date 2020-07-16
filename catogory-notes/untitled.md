@@ -11,11 +11,12 @@
 
 **题目**
 
-| 序号/难度 | 名字 | 备注 |
-| :--- | :--- | :--- |
-| 239（剑指offer59） | 滑动窗口最大值 | 单调栈\(deque实现）+ 窗口判定 |
-| 76 | 最小覆盖子串 | 双指针（right右扫描，left左优化） |
-| 438 | 找到字符串中字母异位词 | 与上题类似滑窗+双指针+双计数map |
+| 序号/难度 | 名字 | 备注 |  |
+| :--- | :--- | :--- | :--- |
+| 239（剑指offer59） | 滑动窗口最大值 | 单调栈\(deque实现）+ 窗口判定 | 中等 |
+| 76 | 最小覆盖子串 | 双指针（right右扫描，left左优化） | 中等 |
+| 438 | 找到字符串中字母异位词 | 与上题类似滑窗+双指针+双计数map | 简单 |
+| 3 | 无重复字符的最长子串 | 一样的双指针+滑窗 | 简单 |
 
 #### 题目笔记
 
@@ -160,5 +161,31 @@ while (right < s.size()) {
             left++;
         }
     }
+```
+
+**3. 无重复字符的最长子串**
+
+**直接贴代码：**
+
+```cpp
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int left = 0, right = 0;
+        unordered_map<char, int> window;
+        int n = s.size();
+        int maxLength = 0;
+        while(right < n){
+            window[s[right]]++;
+            while(window[s[right]]>1){
+                window[s[left]]--;
+                left++;
+            }
+            right++;
+            maxLength = max(maxLength, right - left);
+        }
+        return maxLength;
+    }
+};
 ```
 

@@ -99,3 +99,45 @@ a.erase("aaa"); //清除元素"aaa"
 a.size(); //返回元素个数
 ```
 
+### unordered\_multimap（不常用）
+
+关键在于**可以存储多个重复key的元素**
+
+初始化
+
+```cpp
+unordered_multimap<int, int>mp;
+unordered_multimap<int, int>mp = {{1,10},{2,20},{3,30}};
+```
+
+插入元素（不能通过map的方法，mp\[key\]这种方式插入）
+
+```cpp
+mp.insert({1，10});
+```
+
+删除元素
+
+```cpp
+mp.erase(key);
+```
+
+查找元素是否存在
+
+```cpp
+if(mp.count(key)>0)
+```
+
+查找元素内容（比较不太一样）
+
+```cpp
+pair<unordered_multimap<int, int>::iterator, unordered_multimap<int, int>::iterator> myRange;
+myRange = mp.equal_range(key);
+//或者
+auto myRange = mp.equal_range(key);
+
+for (auto it = myRange.first; it != myRange.second; ++it) {
+		cout << it->first << " -> " << it->second << endl;
+}
+```
+

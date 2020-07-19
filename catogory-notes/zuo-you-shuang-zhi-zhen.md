@@ -12,6 +12,7 @@
 | 704 | 二分查找 | 模板 | 简单 |
 | 1 | 两数之和 | 哈希表！绝妙的方法！ | 中等 |
 |  |  | 排序+左右指针+遍历 | 笨办法 |
+| 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
 
 #### 题目笔记
 
@@ -93,5 +94,79 @@ public:
         return res;
     }
 };
+```
+
+**42. 接雨水**
+
+**题目：**就是柱状的形状，能存多少积水思路
+
+**做题思路：刚开始可能想不到好办法，先暴力，然后对暴力进行时间上，空间上的优化，最后达到最优解**
+
+\*\*\*\*[**https://www.zhihu.com/question/339135205/answer/913555025**](https://www.zhihu.com/question/339135205/answer/913555025)\*\*\*\*
+
+**暴力：**
+
+每一个柱子height\[i\]上可能积多少水，由左边最大值和右边最大值的最小值决定
+
+暴力寻找最小值O\(N^2\)复杂度
+
+**备忘录优化：**
+
+先循环一遍，来记录每个位置左边最大值和右边最大值，这样时间复杂度O\(N\)但是空间复杂度也有O\(N\)
+
+（注意特判）
+
+```cpp
+int trap(vector<int>& height) {
+    int n = height.size();
+    if(n == 0)return 0; // 特判
+    int l_maxs[n];
+    int l_max = 0, r_max = 0;
+    int r_maxs[n];
+    for(int i = 0; i < n; ++i){
+        l_max = max(l_max, height[i]);
+        l_maxs[i] = l_max;
+        r_max = max(r_max, height[n - i - 1]);
+        r_maxs[n - i - 1] = r_max;
+    }//储存l_max, r_max
+    int ans = 0;
+    for(int i = 0; i < n; ++i){
+        if (i == 0 || i == n - 1)continue; //特判
+        ans += max(min(l_maxs[i-1], r_maxs[i+1]) - height[i], 0);
+    }
+    return ans;
+}
+```
+
+**双指针：**
+
+ 双指针**边走边算O\(N\)**，节省下空间复杂度。
+
+**核心思想**：因为只需要`min(l_max, r_max)`，
+
+左值针left,右指针right，虽然l\_max记录的是 \[0,left\] 的最大值，r\_max记录的是\[right,n-1\]，中间\(left,right\)不知道最值
+
+但是其实如果想计算height\[left+1\]处的积水，只要保证l\_max要小于r\_max（也就是\[right, n-1\]的最大值），就可以保证：`l_max = min(l_max, r_max)`如果无法保证，那么另一端height\[right-1\]就可以保证，然后更新它即可
+
+```cpp
+int trap(vector<int>& height) {
+    if(height.empty())return 0;
+    int n = height.size();
+    int left = 0, right = n - 1;
+    int l_max = 0, r_max = 0;
+    int ans = 0;
+    while(left <= right){
+        l_max = max(l_max, height[left]);
+        r_max = max(r_max, height[right]);
+        if(l_max <= r_max){
+            ans += max(l_max - height[left], 0);
+            left++;
+        }else{
+            ans += max(r_max - height[right], 0);
+            right--;
+        }
+    }
+    return ans;
+}
 ```
 

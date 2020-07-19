@@ -13,6 +13,7 @@
 | 1 | 两数之和 | 哈希表！绝妙的方法！ | 中等 |
 |  |  | 排序+左右指针+遍历 | 笨办法 |
 | 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
+| 15 | 三数之和 | 排序+双指针 |  |
 
 #### 题目笔记
 
@@ -168,5 +169,58 @@ int trap(vector<int>& height) {
     }
     return ans;
 }
+```
+
+**15. 三数之和**
+
+**双指针复杂度：O\(N^2\)** 关键是不能重复，需要保证与上次枚举的不同，如果用哈希表的话超时
+
+**其实这里只需要在前面加一个限制，保证和上次枚举的数不同就行了**
+
+通过循环确定第一个数first
+
+然后second数以及third在first后面的nums数组搜索，这部分等价于**二数之和**的解法
+
+（下面代码用的是二数之和的第一种解法）
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        // 枚举 a
+        for (int first = 0; first < n; ++first) {
+            // 需要和上一次枚举的数不相同
+            if (first > 0 && nums[first] == nums[first - 1]) {
+                continue;
+            }
+            // c 对应的指针初始指向数组的最右端
+            int third = n - 1;
+            int target = -nums[first];
+            // 枚举 b
+            for (int second = first + 1; second < n; ++second) {
+                // 需要和上一次枚举的数不相同
+                if (second > first + 1 && nums[second] == nums[second - 1]) {
+                    continue;
+                }
+                // 需要保证 b 的指针在 c 的指针的左侧
+                while (second < third && nums[second] + nums[third] > target) {
+                    --third;
+                }
+                // 如果指针重合，随着 b 后续的增加
+                // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
+                if (second == third) {
+                    break;
+                }
+                if (nums[second] + nums[third] == target) {
+                    ans.push_back({nums[first], nums[second], nums[third]});
+                }
+            }
+        }
+        return ans;
+    }
+};
 ```
 

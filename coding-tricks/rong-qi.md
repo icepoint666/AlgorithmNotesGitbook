@@ -1,4 +1,13 @@
-# 容器
+# STL容器
+
+这些标准库STL容器，在正常C++代码需要，这样使用
+
+```cpp
+#include <map>
+#include <vector>
+std::vector<int> vec;
+std::map<int,int> mp;
+```
 
 ### vector
 
@@ -6,12 +15,74 @@
 
 ```cpp
 vector<int> vec;
+vector<int> vec(1，2，3);
+vector<int> vec = {1,2,3};
+```
+
+如果不想声明+初始化，想直接返回vec
+
+```cpp
+return vector<int>{0,0,0}; //直接返回一个vec对象
 ```
 
 添加元素
 
 ```cpp
 vec.push_back(e);
+```
+
+删除元素（删除指定数值的元素）
+
+```cpp
+vector<int> vec = {1,2,3,4,5};
+//想删除数值为3的元素
+for(auto it=vec.begin(); it!=vec.end(); ++it){
+    if(*it == 3){
+        it = vec.erase(it);//因为删除元素迭代器会失效，所以让它指向下一个元素
+    }
+}
+//删完后会得到{1，2，4，5}
+```
+
+删除元素（删除指定位置的元素）
+
+```cpp
+vector<int> vec = {1,2,3,4,5};
+//想删除vec[3]
+for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
+    if(i == 3){
+        it = vec.erase(it);//因为删除元素迭代器会失效，所以让它指向下一个元素
+    }
+}
+//删完后会得到{1，2，3，5}
+```
+
+### pair,tuple
+
+c++标准库实现的Pair与Tuple都不是hashable，里面也允许放置动态vector，放置string，允许随时更改
+
+```cpp
+pair<int,int> pr = make_pair(2,3);
+pair<int,int> pr(2,3);
+pr.first pr.second
+```
+
+存放3个元素
+
+```cpp
+pair<int, pair<int,int> > pr;
+```
+
+tuple
+
+```cpp
+#include <tuple> //std::tuple std::get std::make_tuple
+
+std::tuple<int&,string&, int&> tp;
+std::tuple<int, char> tp(3, 'x');
+std::tuple<int, int, int> tp1 = make_tuple(3,4,54);
+
+cout << std::get<2>(tp1) << endl;
 ```
 
 ### map,unordered\_map

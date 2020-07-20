@@ -24,6 +24,7 @@
 * [滑动窗口（Sliding Window）](catogory-notes/untitled.md)
 * [快慢双指针](catogory-notes/kuai-man-shuang-zhi-zhen.md)
 * [左右双指针](catogory-notes/zuo-you-shuang-zhi-zhen.md)
+* [回溯算法](catogory-notes/hui-su-suan-fa.md)
 
 ## Problem Notes
 

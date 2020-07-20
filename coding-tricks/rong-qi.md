@@ -57,6 +57,27 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 //删完后会得到{1，2，3，5}
 ```
 
+### string
+
+初始化
+
+```cpp
+string s("aaaa");
+string s(10,'a');
+string s = "ssss";
+```
+
+添加字符串或者元素
+
+```cpp
+string s1 = "aaa";
+string s2 = "bbb";
+string s = s1 + s2;
+s.append("aaa");
+s.append("a");
+s.insert(0, "aaa");
+```
+
 ### pair,tuple
 
 c++标准库实现的Pair与Tuple都不是hashable，里面也允许放置动态vector，放置string，允许随时更改

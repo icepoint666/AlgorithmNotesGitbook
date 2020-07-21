@@ -40,8 +40,8 @@ void traverse(TreeNode root) {
 | :--- | :--- | :--- | :--- |
 | 46 | 全排列 | 回溯模板 |  |
 | 51 | N皇后 | 回溯模板+特殊判定 | 中等 |
-|  |  |  |  |
-|  |  |  |  |
+| 78 | 子集 | 回溯模板变体 |  |
+| 77 | 组合 | 回溯模板变体 |  |
 |  |  |  |  |
 
 **46. 全排列**
@@ -125,6 +125,72 @@ public:
             output.push_back(mat);
         }
         return output;
+    }
+};
+```
+
+**78. 子集**
+
+因为是子集，每个track一被更新就直接push进去，回溯中加一个参数记录处理过的个数
+
+注意：要添加空集
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> res;
+    void backtrack(vector<int>& nums, vector<int>& track, int l){
+        int n = nums.size();
+        if(l == n){
+            return;
+        }
+        for(int i = l; i < n; ++i){
+            track.push_back(nums[i]);
+            res.push_back(track);
+            backtrack(nums, track, i+1);
+            track.pop_back();
+        }
+        return;
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        if(nums.empty())return res;
+        res.push_back(vector<int>{});
+        vector<int>track;
+        backtrack(nums, track, 0);
+        return res;
+    }
+};
+```
+
+**77. 组合**
+
+ 给定两个整数 _n_ 和 _k_，返回 1 ... _n_ 中所有可能的 _k_ 个数的组合
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> res;
+    void backtrack(vector<int>&track, int n, int k, int v){
+        int l = track.size();
+        if(l == k){
+            res.push_back(track);
+            return;
+        }
+        if(n == v){
+            return;
+        }
+        for(int i = v; i < n; ++i){
+            track.push_back(i+1);
+            backtrack(track, n, k, i+1);
+            track.pop_back();
+        }
+        return;
+    }
+    vector<vector<int>> combine(int n, int k) {
+        if(k == 0 || n == 0)return res;
+        vector<int> track;
+        backtrack(track, n, k, 0);
+        return res;
     }
 };
 ```

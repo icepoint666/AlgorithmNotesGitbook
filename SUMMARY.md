@@ -18,6 +18,7 @@
 * [单调栈](catogory-tricks/untitled.md)
 * [双指针滑窗模板](catogory-tricks/shuang-zhi-zhen-hua-chuang-mo-ban.md)
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
+* [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)
 
 ## Catogory Notes
 
@@ -25,6 +26,7 @@
 * [快慢双指针](catogory-notes/kuai-man-shuang-zhi-zhen.md)
 * [左右双指针](catogory-notes/zuo-you-shuang-zhi-zhen.md)
 * [回溯算法](catogory-notes/hui-su-suan-fa.md)
+* [前缀和](catogory-notes/qian-zhui-he.md)
 
 ## Problem Notes
 

@@ -19,6 +19,9 @@
 * [双指针滑窗模板](catogory-tricks/shuang-zhi-zhen-hua-chuang-mo-ban.md)
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
 * [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)
+* [递归](catogory-tricks/di-gui.md)
+* [二叉树](catogory-tricks/er-cha-shu.md)
+* [排序算法](catogory-tricks/pai-xu-suan-fa.md)
 
 ## Catogory Notes
 
@@ -27,10 +30,10 @@
 * [左右双指针](catogory-notes/zuo-you-shuang-zhi-zhen.md)
 * [回溯算法](catogory-notes/hui-su-suan-fa.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
+* [二叉树](catogory-notes/er-cha-shu.md)
 
 ## Problem Notes
 
-* [Undefined](problem-notes/undefined/README.md)
-  * [Leetcode42 接雨水](problem-notes/undefined/leetcode42-jie-yu-shui.md)
+* [概率问题](problem-notes/undefined/README.md)
   * [傻子坐飞机](problem-notes/undefined/sha-zi-zuo-fei-ji.md)
 

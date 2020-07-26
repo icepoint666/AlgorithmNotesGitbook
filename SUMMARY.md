@@ -25,6 +25,7 @@
 
 ## Catogory Notes
 
+* [链表（面试重点）](catogory-notes/lian-biao-mian-shi-zhong-dian.md)
 * [滑动窗口（Sliding Window）](catogory-notes/untitled.md)
 * [快慢双指针](catogory-notes/kuai-man-shuang-zhi-zhen.md)
 * [左右双指针](catogory-notes/zuo-you-shuang-zhi-zhen.md)

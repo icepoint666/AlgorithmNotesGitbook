@@ -10,6 +10,15 @@
 * [ ] 多解法（从暴力解法 到 一般解法 到 最高效解法）
 * [ ] 练习白板代码
 
+### 解题过程
+
+一定要把整个思路捋清
+
+* 先把基本过程仿真的讲出来
+* 然后边写代码边讲
+* 然后考虑特殊边界判定的情况
+* 代入一两个样例，例如奇偶链表就把奇情况偶情况各自代入一个样例检查一遍
+
 ### 关于笔记
 
 * 一定要总结常用编程模板 参考：[https://mnmunknown.gitbooks.io/algorithm-notes/content/](https://mnmunknown.gitbooks.io/algorithm-notes/content/)

@@ -1,5 +1,19 @@
 # 二叉树
 
+**二叉树定义与声明（模板）：**
+
+```cpp
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+ 
+int val = 10;
+TreeNode* root = new TreeNode(val);
+```
+
 二叉树以及多叉树的遍历
 
 ```cpp

@@ -6,6 +6,7 @@
 | :--- | :--- | :--- | :--- |
 | 437 | 路径总和Ⅲ | 二叉树遍历，双重递归 | 简单 |
 | 1367 | 二叉树中的列表 | 二叉树遍历，双重递归 | 做的时间有点长 |
+| 108/109 | 数组/链表转平衡二叉搜索树 | 快慢指针+分割链表 | 简单/中等 |
 
 **437.路径总和**
 
@@ -51,6 +52,58 @@ public:
         if(find)return true;
         find = isSubPath(head, root->right);
         return find;
+    }
+};
+```
+
+**108/109.有序数组转平衡二叉树 / 有序链表转平衡二叉树** 
+
+都不用排序了
+
+**有序数组**比较简单，一直取中点作为根节点，小的作为左树，大的作为右树，递归下去就可以了
+
+**有序链表**的话: 快慢指针 找到后半段的开头 + 分割链表
+
+**注意记忆：创建二叉树或者链表的模板**
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head == NULL)return NULL;
+        if(head->next == NULL){
+            TreeNode* root = new TreeNode(head->val);
+            return root;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        TreeNode* root = new TreeNode(slow->next->val);
+        ListNode* beg = slow->next->next;
+        slow->next = NULL;
+        root->left = sortedListToBST(head);
+        root->right = sortedListToBST(beg);
+        return root;
     }
 };
 ```

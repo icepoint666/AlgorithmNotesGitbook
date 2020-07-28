@@ -19,6 +19,7 @@ for(int i = 0; i < n; ++i){
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 560 | 和为K的子数组 | 前缀和 | 简单 |
+| 牛客网6219/B | 疯狂过山车 | 前缀和记录的思想 | 中等（没想到这种方法） |
 
 **560.和为K的子数组**
 
@@ -64,4 +65,57 @@ public:
     }
 };
 ```
+
+**牛客网竞赛6219/B：疯狂过山车**
+
+题目链接：[https://ac.nowcoder.com/acm/contest/6219/B](https://ac.nowcoder.com/acm/contest/6219/B)
+
+给定一个数组，找到最长的上升+下降的“金字塔”段，输出这个长度的最大值（必须既有包含上升，也有包含下降）
+
+**解法**：遍历每个金字塔的中间节点，找一下从左下降的长度是多少，从右下降的长度是多少
+
+length = l + r + 1
+
+暴力的话，显然不可取O\(n^2\)
+
+所以利用前缀和的思想，事先循环记录每个中间节点到左右两端额度下降长度，可以优化到O\(N\)
+
+先从左向右循环，记录从左到右的连续递增长度，再从右到左循环，记录从右到左的连续递增长度
+
+代码：
+
+```cpp
+class Solution {
+public:
+    int getMaxLength(int n, vector<int>& num) {
+        if(n == 0)return 0;
+        vector<int> l, r;
+        l.resize(n);
+        r.resize(n);
+        l[0] = 0;
+        r[n-1] = 0;
+        for (int i = 1; i < n; ++i){
+            if(num[i] > num[i-1]){
+                l[i] = l[i-1] + 1;
+            }else{
+                l[i] = 0;
+            }
+        }
+        for (int i = n - 2; i >= 0; i--){
+            if(num[i+1] < num[i]){
+                r[i] = r[i+1] + 1;
+            }else{
+                r[i] = 0;
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < n; i++){
+            res = max(res, l[i] + r[i] + 1);
+        }
+        return res;
+    }
+};
+```
+
+
 

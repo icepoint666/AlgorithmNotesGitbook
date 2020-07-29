@@ -33,6 +33,8 @@
 * [前缀和](catogory-notes/qian-zhui-he.md)
 * [二叉树](catogory-notes/er-cha-shu.md)
 * [贪心算法](catogory-notes/tan-xin-suan-fa.md)
+* [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)
+* [栈，队列](catogory-notes/zhan-dui-lie.md)
 
 ## Problem Notes
 

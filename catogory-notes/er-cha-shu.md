@@ -7,6 +7,7 @@
 | 437 | 路径总和Ⅲ | 二叉树遍历，双重递归 | 简单 |
 | 1367 | 二叉树中的列表 | 二叉树遍历，双重递归 | 做的时间有点长 |
 | 108/109 | 数组/链表转平衡二叉搜索树 | 快慢指针+分割链表 | 简单/中等 |
+| 剑指offer 07 | 前序中序结果推二叉树 | 迭代器+find功能 | 做的时间有点长 |
 
 **437.路径总和**
 
@@ -104,6 +105,30 @@ public:
         root->left = sortedListToBST(head);
         root->right = sortedListToBST(beg);
         return root;
+    }
+};
+```
+
+**剑指 Offer 07. 重建二叉树**
+
+利用 **迭代器+find** 完成整个过程会比较优雅
+
+```cpp
+class Solution {
+public:
+    int i = 0;
+    TreeNode* build_tree(vector<int>&preorder, vector<int>::iterator beg, vector<int>::iterator ed){
+        if(i == preorder.size())return NULL;
+        auto it = find(beg, ed, preorder[i]); //返回找到的迭代器位置
+        if(it == ed)return NULL;
+        TreeNode* root = new TreeNode(preorder[i]);
+        i++;
+        root->left = build_tree(preorder, beg, it); //找到迭代器处，左边就是左树
+        root->right = build_tree(preorder, ++it, ed); //右边就是右树
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return build_tree(preorder, inorder.begin(), inorder.end());
     }
 };
 ```

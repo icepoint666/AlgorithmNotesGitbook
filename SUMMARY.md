@@ -35,6 +35,7 @@
 * [贪心算法](catogory-notes/tan-xin-suan-fa.md)
 * [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
+* [数学问题](catogory-notes/shu-xue-wen-ti.md)
 
 ## Problem Notes
 

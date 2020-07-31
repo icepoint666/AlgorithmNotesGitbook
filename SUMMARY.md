@@ -22,6 +22,7 @@
 * [递归](catogory-tricks/di-gui.md)
 * [二叉树](catogory-tricks/er-cha-shu.md)
 * [排序算法](catogory-tricks/pai-xu-suan-fa.md)
+* [动态规划](catogory-tricks/dong-tai-gui-hua.md)
 
 ## Catogory Notes
 

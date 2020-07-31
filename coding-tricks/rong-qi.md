@@ -67,6 +67,29 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 //删完后会得到{1，2，3，5}
 ```
 
+### stack
+
+```cpp
+stack<int> s1;
+s.push(5); //入栈
+s.pop();  //出栈
+s.top(); //返回栈顶
+s.empty(); //判断是否为空
+s.size(); //长度
+```
+
+### queue
+
+```cpp
+queue<int> q1;
+q.push(5); //入队
+q.pop(); //出队
+q.front(); //队首
+q.back(); //队尾
+q.empty();
+q.size();
+```
+
 ### string
 
 初始化

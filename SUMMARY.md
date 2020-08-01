@@ -33,10 +33,12 @@
 * [回溯算法](catogory-notes/hui-su-suan-fa.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
 * [二叉树](catogory-notes/er-cha-shu.md)
+* [二分查找](catogory-notes/er-fen-cha-zhao.md)
 * [贪心算法](catogory-notes/tan-xin-suan-fa.md)
 * [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
+* [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 
 ## Problem Notes
 

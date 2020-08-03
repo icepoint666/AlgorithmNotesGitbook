@@ -5,6 +5,7 @@
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 12 |  矩阵中的路径 | 经典字符矩阵中找一个字符串路径，经典dfs | 不够熟练 |
+| 剑指 Offer 13 | 机器人的运动范围 | 经典dfs + 记录访问过的地方 | 熟练完成 |
 
 **剑指 Offer 12. 矩阵中的路径**
 
@@ -43,6 +44,38 @@ public:
             }
         }
         return false;
+    }
+};
+```
+
+**剑指 Offer 13. 机器人的运动范围**
+
+**直接贴代码**
+
+```cpp
+class Solution {
+public:
+    int cnt = 0;
+    bool vis[101][101];
+    void dfs(int x, int y, int m, int n, int k){
+        bool invalid = (x/10)+(x%10)+(y/10)+(y%10) > k;
+        if(x < 0 || x >= m || y < 0 || y >= n || invalid || vis[x][y])return;
+        vis[x][y] = true;
+        cnt++;
+        int dx[] = {-1, 0, 1, 0};
+        int dy[] = {0, 1, 0, -1};
+        for(int i = 0; i < 4; i++){
+            int xx = x + dx[i];
+            int yy = y + dy[i];
+            dfs(xx, yy, m, n, k);
+        }
+        return;
+    }
+    int movingCount(int m, int n, int k) {
+        memset(vis, false, sizeof(vis));
+        cnt = 0;
+        dfs(0, 0, m, n, k);
+        return cnt;
     }
 };
 ```

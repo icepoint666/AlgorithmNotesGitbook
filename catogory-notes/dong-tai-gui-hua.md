@@ -61,7 +61,7 @@ int lengthOfLIS(vector<int>& nums) {
     for(int i = 0; i < n; ++i){
         bool flag = false;
         for(int j = 0; j < temp.size(); ++j){
-            if(nums[i] <= temp[j]){
+            if(nums[i] <= temp[j]){ // 到底加不加等号，想一下极端情况全是5的话会怎么样
                 temp[j] = nums[i];
                 flag = true;
                 break;

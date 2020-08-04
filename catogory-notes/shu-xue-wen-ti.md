@@ -24,13 +24,32 @@ bool isPrime(int n){
 }
 ```
 
+**MOD的处理**
 
+有时候数字过大，可能会overflow，为了防止这种情况，需要将结果模MOD
+
+但是如果模的数很接近1e9+7，这时候再乘3，很容易会overflow，因为int overflow范围也就比2e9多一点
+
+这时候需要转换为**long long类型**
+
+**long long类型 + MOD版本的pow：**
+
+```cpp
+long long MOD = 1e9+7;
+int mod_pow(int a, int b){
+    long long res = 1;
+    while(b--){
+        res = (res * a) % MOD;
+    }
+    return (int)res;
+}
+```
 
 **题目**
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 343 | 整数拆分 | 归纳/记忆，另外也有dp的方法 | 中等 |
+| 343/剑指offer14 | 整数拆分 | 归纳/记忆，另外也有dp的方法 | 中等 |
 
 
 
@@ -63,4 +82,6 @@ public:
     }
 };
 ```
+
+**进阶版: n最大到1000，需要MOD=1e9+7，使用MOD\_POW + long long类型**
 

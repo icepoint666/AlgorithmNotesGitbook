@@ -33,3 +33,43 @@ public:
 };
 ```
 
+**300. 最长上升子序列**
+
+**解法1：动态规划（存在一个容易粗心的地方）**
+
+```cpp
+for(int i = 1; i <=n; ++i){
+    dp[i] = 1;
+    for(int j = 1; j < i; j++){
+        dp[i] = max(dp[i], nums[i-1]>nums[j-1]?dp[j]+1:1);
+    }
+}
+```
+
+容易粗心的地方：注意返回所有dp\[i\]的最大值**（看清要返回什么）**
+
+**解法2：**patience sorting（耐心排序）O\(NlogN\)
+
+解法讲解：类似蜘蛛纸牌那种问题
+
+[**https://github.com/labuladong/fucking-algorithm/blob/master/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97.md\#%E4%BA%8C%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E8%A7%A3%E6%B3%95**](https://github.com/labuladong/fucking-algorithm/blob/master/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97.md#%E4%BA%8C%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E8%A7%A3%E6%B3%95)\*\*\*\*
+
+```cpp
+int lengthOfLIS(vector<int>& nums) {
+    vector<int> temp;
+    int n = nums.size();
+    for(int i = 0; i < n; ++i){
+        bool flag = false;
+        for(int j = 0; j < temp.size(); ++j){
+            if(nums[i] <= temp[j]){
+                temp[j] = nums[i];
+                flag = true;
+                break;
+           }
+       }
+       if(!flag)temp.push_back(nums[i]);
+    }
+    return temp.size();
+}
+```
+

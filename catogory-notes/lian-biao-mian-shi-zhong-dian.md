@@ -12,7 +12,7 @@
 | :--- | :--- | :--- | :--- |
 | 328 | 奇偶链表 | 捋清思路 | 中等 |
 | 142 | 环形链表 | 双指针 | 中等 |
-|  |  |  |  |
+| 剑指 Offer 24 | 翻转链表 | 缕清思路 | 简单 |
 |  |  |  |  |
 
 **328. 奇偶链表**
@@ -65,6 +65,31 @@ public:
             odd = odd->next;
         }
         return head;
+    }
+};
+```
+
+**剑指 Offer 24 反转链表**
+
+有条件尽量在纸上画一下，node, nxt怎么移动，以及next指针怎么更新
+
+**反转链表需要tmp node来协助**
+
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL)return NULL;
+        ListNode * nxt = head->next;
+        ListNode * node = head;
+        node->next = NULL;
+        while(nxt!=NULL){
+            ListNode * tmp = nxt;
+            nxt = nxt->next;
+            tmp->next = node;
+            node = tmp;
+        }
+        return node;
     }
 };
 ```

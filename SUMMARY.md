@@ -40,6 +40,7 @@
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
+* [字符串](catogory-notes/zi-fu-chuan.md)
 
 ## Problem Notes
 

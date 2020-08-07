@@ -2,7 +2,7 @@
 
 leetcode内置了`math.h`库，所以不需要实现一些数学运算的函数
 
-一些常见操作：
+### 一些常见操作：
 
 * pow\(a, n\)
 * sqrt\(n\)
@@ -11,7 +11,7 @@ leetcode内置了`math.h`库，所以不需要实现一些数学运算的函数
 * int quotient = n / d;
 * int reminder = n % d;
 
-验证素数
+### 验证素数
 
 ```cpp
 bool isPrime(int n){
@@ -24,7 +24,7 @@ bool isPrime(int n){
 }
 ```
 
-**MOD的处理**
+### **MOD的处理**
 
 有时候数字过大，可能会overflow，为了防止这种情况，需要将结果模MOD
 
@@ -32,7 +32,7 @@ bool isPrime(int n){
 
 这时候需要转换为**long long类型**
 
-**long long类型 + MOD版本的pow：**
+**long long类型 + MOD版本的普通pow：**
 
 ```cpp
 long long MOD = 1e9+7;
@@ -44,6 +44,33 @@ int mod_pow(int a, int b){
     return (int)res;
 }
 ```
+
+### **快速幂**
+
+```cpp
+int qpow(int a, int n){
+    int ans = 1;
+    while(n){
+        if(n&1)        //如果n的当前末位为1
+            ans *= a;  //ans乘上当前的a
+        a *= a;        //a自乘
+        n >>= 1;       //n往右移一位
+    }
+    return ans;
+}
+```
+
+### **负数位运算 与 overflow的坑**
+
+注意负数的位运算，并不会考虑前面的“负位”
+
+例如：-32&gt;&gt;1 = -16
+
+但是注意**-1是不能在右移** -1&gt;&gt;1 = -1
+
+注意：MIN\_INT = -\(1&lt;&lt;31\)，如果它取反会overflow，因为范围是 -\(1&lt;&lt;31\) ~\(1 &lt;&lt;31-1\)，注意取反的话转成**long类型**就可以了
+
+
 
 **题目**
 

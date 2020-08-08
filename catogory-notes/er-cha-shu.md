@@ -9,7 +9,7 @@
 | 108/109 | 数组/链表转平衡二叉搜索树 | 快慢指针+分割链表 | 简单/中等 |
 | 剑指offer 07 | 前序中序结果推二叉树 | 迭代器+find功能 | 做的时间有点长 |
 | 剑指Offer 26 | 树的子结构 | 二叉树遍历，双重递归 | 快速做出 |
-|  |  |  |  |
+| 剑指Offer 28 | 判断二叉树是否对称 | 先镜像右子树，再判断左右是否相等 | 有一个条件容易漏 |
 
 **437.路径总和**
 
@@ -156,6 +156,31 @@ bool isSubStructure(TreeNode* A, TreeNode* B) {
     if(B == NULL || A == NULL)return false; //不管A为空B为空都是说明不是子结构
     if(isContain(A, B))return true;
     return isSubStructure(A->left, B) || isSubStructure(A->right, B);
+}
+```
+
+**剑指 Offer 28. 对称的二叉树**
+
+先将镜像反转其中一子树，再比较左右两子树是否完全相等
+
+```cpp
+TreeNode* mirrorTree(TreeNode* root){
+    if(root==NULL)return NULL;
+    TreeNode* tmp = mirrorTree(root->left);
+    root->left = mirrorTree(root->right);
+    root->right = tmp;
+    return root;
+}
+bool isSame(TreeNode* A, TreeNode *B){
+    if(A==NULL && B==NULL)return true;
+    else if(A == NULL || B == NULL)return false; //容易漏掉这个条件
+    if(A->val == B->val)return isSame(A->left, B->left) && isSame(A->right, B->right);
+    else return false;
+}
+bool isSymmetric(TreeNode* root) {
+    if(root==NULL)return true;
+    root->right = mirrorTree(root->right);
+    return isSame(root->left, root->right);
 }
 ```
 

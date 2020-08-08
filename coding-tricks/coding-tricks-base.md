@@ -18,3 +18,12 @@ if(nums.size()==0){}
 if(nums.begin()==nums.end()){}
 ```
 
+**swap指针**
+
+```cpp
+//剑指 Offer 27. 二叉树的镜像 的代码举例
+TreeNode *temp = mirrorTree(root->left);
+root->left = mirrorTree(root->right);
+root->right = temp;
+```
+

@@ -8,6 +8,7 @@
 | 1367 | 二叉树中的列表 | 二叉树遍历，双重递归 | 做的时间有点长 |
 | 108/109 | 数组/链表转平衡二叉搜索树 | 快慢指针+分割链表 | 简单/中等 |
 | 剑指offer 07 | 前序中序结果推二叉树 | 迭代器+find功能 | 做的时间有点长 |
+| 剑指Offer 26 | 树的子结构 | 二叉树遍历，双重递归 | 快速做出 |
 
 **437.路径总和**
 
@@ -131,5 +132,29 @@ public:
         return build_tree(preorder, inorder.begin(), inorder.end());
     }
 };
+```
+
+**剑指 Offer 26. 树的子结构**
+
+一个函数遍历子结构的起点
+
+一个函数负责验证是否逐元素匹配
+
+\(注意一些细节：题目中说明了B为空的话不是任何树的子结构，就是A为NULL或者B为NULL的时候的判定\)
+
+\(注意这里的 && 和 \|\|）
+
+```cpp
+bool isContain(TreeNode * A, TreeNode *B){
+    if(B == NULL)return true;  //到这里B为空说明匹配陈宫，前面B本身已经不可能为空
+    if(A == NULL)return false; 
+    if(A->val == B->val)return isContain(A->left, B->left) && isContain(A->right, B->right);
+    return false;
+}
+bool isSubStructure(TreeNode* A, TreeNode* B) {
+    if(B == NULL || A == NULL)return false; //不管A为空B为空都是说明不是子结构
+    if(isContain(A, B))return true;
+    return isSubStructure(A->left, B) || isSubStructure(A->right, B);
+}
 ```
 

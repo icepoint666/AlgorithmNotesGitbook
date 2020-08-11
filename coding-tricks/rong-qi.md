@@ -67,6 +67,21 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 //删完后会得到{1，2，3，5}
 ```
 
+### list
+
+```cpp
+list<int>lst;
+lst.push_back(); //插入尾部
+lst.push_front(); //插入前面
+lst.pop_back();
+lst.pop_front();
+lst.empty();
+for(auto it = lst.begin(); it!=lst.end(); it++){
+    ...
+    it = lst.erase(it); // 删除元素后，迭代器失效，要重新让迭代器指向被删元素的后面
+}
+```
+
 ### stack
 
 ```cpp

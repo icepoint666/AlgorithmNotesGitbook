@@ -6,14 +6,29 @@
 * 指针之间怎么更新和移动
 * 怎么判定边界和终止条件**（一定要切记开头判断一下head是否为空）**
 
-**题目**
+### **移动链表节点：tmp指针4步法**
+
+**移动链表节点到指定位置的后面：取出+缝合+接头部+接尾部**
+
+e.g.把`right->next节点`移动到`left位置`的后面，再把right缺口处缝合
+
+```cpp
+ListNode * tmp = right->next;  //取出
+right->next = right->next->next; //缝合
+tmp->next = left->next; //接尾部
+left->next = tmp; //接头部
+```
+
+**注意：处理后并没有移动right,left的位置**
+
+### **题目**
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 328 | 奇偶链表 | 捋清思路 | 中等 |
 | 142 | 环形链表 | 双指针 | 中等 |
 | 剑指 Offer 24 | 翻转链表 | 缕清思路 | 简单 |
-|  |  |  |  |
+| 面试题 02.04 | 分割链表 | 经典：节点移动来移动去（需要总结这类规律） | 很容易乱 |
 
 **328. 奇偶链表**
 
@@ -92,5 +107,71 @@ public:
         return node;
     }
 };
+```
+
+**面试题 02.04. 分割链表**
+
+**题意：**要把小于x的数移动到链表的左边，大于等于x的数移动到链表的右边
+
+**题解：**维护两个指针
+
+指针①：表示小于x的末尾指针
+
+指针②：表示当前往前扫的指针
+
+处理开头如果有特殊情况+指针初始化
+
+* 如果开头是大于x的，要找到一个小于x的第一个节点，把它作为新的开头
+  * 如果找不到直接返回head
+  * 如果找到就移动这个节点到开头
+* 如果开头就是小于x的，把往前扫的指针移动到第一个不是小于x的位置
+
+然后处理正式部分
+
+* 从当前右边的指针开始如果扫到小于x的节点，把它插入到前面部分的末尾
+
+```cpp
+ListNode* partition(ListNode* head, int x) {
+    if(head==NULL)return NULL;
+    ListNode* newhead = NULL;
+    ListNode* right = head;
+    //处理开头特殊情况以及指针初始化
+    if(head->val >= x){
+       while(right->next!=NULL){
+           if(right->next->val < x){
+               newhead = right->next;
+               right->next = right->next->next;
+               newhead->next = head;
+               break;
+           }
+           right = right->next;
+       }
+    }else{
+        while(right->next!=NULL){
+            if(right->next->val < x){
+                right = right->next;
+            }else{
+                right = right->next;
+                break;
+            }
+        }
+    }
+    if(newhead == NULL)newhead = head;
+    //不加这个，会漏了一种关键情况，就是本身list中就没有比x小的
+    ListNode* left = newhead;
+    //处理正式部分
+    while(right->next!=NULL){
+        if(right->next->val < x){
+            //tmp指针法：4行移动节点到指定位置后面
+            ListNode * tmp = right->next;
+            right->next = right->next->next;
+            tmp->next = left->next;
+            left->next = tmp;
+        }else{
+            right = right->next;    
+        }
+    }
+    return newhead;
+}
 ```
 

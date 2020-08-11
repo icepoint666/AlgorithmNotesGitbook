@@ -28,5 +28,5 @@ for (int i = 0; i < n; i++){
 }
 ```
 
-题目：Leetcode239滑动窗口最大值
+题目：Leetcode239滑动窗口最大值 以及 剑指offer30
 

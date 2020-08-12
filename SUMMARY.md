@@ -38,6 +38,7 @@
 * [贪心算法](catogory-notes/tan-xin-suan-fa.md)
 * [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
+* [单调栈](catogory-notes/dan-tiao-zhan.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 * [字符串](catogory-notes/zi-fu-chuan.md)

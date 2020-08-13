@@ -29,6 +29,7 @@ left->next = tmp; //接头部
 | 142 | 环形链表 | 双指针 | 中等 |
 | 剑指 Offer 24 | 翻转链表 | 缕清思路 | 简单 |
 | 面试题 02.04 | 分割链表 | 经典：节点移动来移动去（需要总结这类规律） | 很容易乱 |
+| 138 | 复杂链表的复制 | 链表里面包含random指针，怎么深拷贝，用hashmap存 | 中等/做出 |
 
 **328. 奇偶链表**
 
@@ -174,4 +175,14 @@ ListNode* partition(ListNode* head, int x) {
     return newhead;
 }
 ```
+
+**剑指 Offer 35. 复杂链表的复制**
+
+**题意：深拷贝一个带有随机指针的链表**
+
+**题解：**第一遍先循环一遍普通指针，然后建立unordered\_map&lt;Node\*, Node\*&gt;存新旧指针
+
+第二遍更新new linked list的random指针
+
+代码见leetcode 剑指offer35
 

@@ -34,6 +34,7 @@
 * [回溯算法](catogory-notes/hui-su-suan-fa.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
 * [二叉树](catogory-notes/er-cha-shu.md)
+* [二叉搜索树](catogory-notes/er-cha-sou-suo-shu.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
 * [贪心算法](catogory-notes/tan-xin-suan-fa.md)
 * [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)

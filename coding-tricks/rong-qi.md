@@ -121,10 +121,24 @@ string s = "ssss";
 string s1 = "aaa";
 string s2 = "bbb";
 string s = s1 + s2;
+//append可以整个字符串添加的
 s.append("aaa");
 s.append("a");
 s.insert(0, "aaa");
+//push_back必须是一个一个字符添加的
+s.push_back('h')
+s.push_back('e')
+s.push_back('l')
+s.push_back('l')
+s.push_back('o')
 ```
+
+**注意：string字符串处理添加操作的时候，不要使用"+"，使用push\_back和append**
+
+**push\_back与append的区别**
+
+* push\_back一个一个字符的添加
+* append是整个字符串添加
 
 ### pair,tuple
 

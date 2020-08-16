@@ -28,6 +28,7 @@
 
 ## Catogory Notes
 
+* [数组相关](catogory-notes/shu-zu-xiang-guan.md)
 * [动态规划](catogory-notes/dong-tai-gui-hua.md)
 * [堆](catogory-notes/dui.md)
 * [链表（面试重点）](catogory-notes/lian-biao-mian-shi-zhong-dian.md)

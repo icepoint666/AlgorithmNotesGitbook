@@ -17,6 +17,7 @@
 ## Catogory Tricks
 
 * [单调栈](catogory-tricks/untitled.md)
+* [堆和优先队列](catogory-tricks/dui-he-you-xian-dui-lie.md)
 * [双指针滑窗模板](catogory-tricks/shuang-zhi-zhen-hua-chuang-mo-ban.md)
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
 * [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)

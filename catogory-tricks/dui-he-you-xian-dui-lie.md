@@ -1,21 +1,12 @@
 # 堆和优先队列
 
-#### 题目
-
-| 序号/难度 | 名字 | 备注 |  |
-| :--- | :--- | :--- | :--- |
-| 剑指 Offer 41 | 数据流中的中位数 | 最大堆/最小堆来做 | 思考 |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-
 ## C++优先队列
 
 ```cpp
 #include <queue> //需要
-//升序队列
+//升序队列，小顶堆，最小堆
 priority_queue <int,vector<int>,greater<int> > q;
-//降序队列
+//降序队列，大顶堆，最大堆
 priority_queue <int,vector<int>,less<int> >q;
 //greater和less是std实现的两个仿函数
 

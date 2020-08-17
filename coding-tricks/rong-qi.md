@@ -115,6 +115,13 @@ string s(10,'a');
 string s = "ssss";
 ```
 
+切片：substr\(start\_pos, length\)
+
+```cpp
+string a = "hello"
+string s = a.substr(3,2); // "lo"
+```
+
 添加字符串或者元素
 
 ```cpp

@@ -142,6 +142,12 @@ s.push_back('o')
 
 **注意：string字符串处理添加操作的时候，不要使用"+"，使用push\_back和append**
 
+**再注意！！有时leetcode使用append会报莫名其妙的错误，'+'就不会**
+
+```cpp
+pointer index expression with base 0xbebebebebebebebe overflowed to 0x7d7d7d7d7d7d7d7c (basic_string.h)
+```
+
 **push\_back与append的区别**
 
 * push\_back一个一个字符的添加

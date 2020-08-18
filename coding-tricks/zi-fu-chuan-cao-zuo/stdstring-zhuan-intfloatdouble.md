@@ -1,5 +1,16 @@
 # std::string转int,float,double
 
+### stoi \(leetcode推荐这种方法）
+
+```cpp
+#include <string> //stoi
+
+string str1 = "asq,";
+//    int c = stoi(str1);    // 报异常
+string str2 = "12312";
+int c = stoi(str2);     // ok
+```
+
 ### 利用stringstream可以完成向任何类型的转换
 
 ```cpp

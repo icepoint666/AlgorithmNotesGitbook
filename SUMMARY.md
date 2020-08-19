@@ -51,6 +51,9 @@
 
 ## Problem Notes
 
+* [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
+  * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)
+* [智力题](problem-notes/zhi-li-ti.md)
 * [概率问题](problem-notes/undefined/README.md)
   * [傻子坐飞机](problem-notes/undefined/sha-zi-zuo-fei-ji.md)
 

@@ -49,12 +49,10 @@ int left_bound(int[] nums, int target) {
     
     while (left < right) { // 注意
         int mid = (left + right) / 2;
-        if (nums[mid] == target) {
+        if (nums[mid] >= target) {
             right = mid; //注意
-        } else if (nums[mid] < target) {
+        } else {
             left = mid + 1;
-        } else if (nums[mid] > target) {
-            right = mid; // 注意
         }
     }
     //终止条件是left == right，所以其实返回left与返回right都是一样的
@@ -64,15 +62,17 @@ int left_bound(int[] nums, int target) {
 }
 ```
 
-**注意1：搜索区间左闭右开：**
+**注意1：（循环内部有三个不同）搜索区间左闭右开：**
 
-因为 `right = nums.length` 而不是 `nums.length - 1`。因此每次循环的「搜索区间」是 `[left, right)` 左闭右开。
+①因为 `right = nums.length` 而不是 `nums.length - 1`。
+
+②因此每次循环的「搜索区间」是 `[left, right)` 左闭右开。
 
 `while(left < right)` 终止的条件是 `left == right`，此时搜索区间 `[left, left)` 为空，所以可以正确终止。
 
 一般左右侧边界的二分查找，这种半闭半开的写法比较普遍
 
-左闭右开所以更新方式也变得有所不同： **`left = mid + 1`，`right = mid`**
+③左闭右开所以更新方式也变得有所不同： **`left = mid + 1`，`right = mid`**
 
 **注意2：如果没有找到，return lef是不会返回-1的，而是返回`nums.length`**或者**`0`**
 
@@ -107,11 +107,9 @@ int right_bound(int nums[], int target){
     
     while (left < right) {
         int mid = (left + right) / 2;
-        if (nums[mid] == target) {
+        if (nums[mid] <= target) {
             left = mid + 1; // 注意
-        } else if (nums[mid] < target) {
-            left = mid + 1;
-        } else if (nums[mid] > target) {
+        } else {
             right = mid;
         }
     }

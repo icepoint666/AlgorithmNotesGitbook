@@ -189,7 +189,7 @@ bool isMatch(string s, string p) {
 }
 ```
 
-**剑指 Offer49：丑数**
+**剑指 Offer49. 丑数**
 
 [https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/](https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/)
 

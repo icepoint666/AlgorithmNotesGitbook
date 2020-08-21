@@ -48,6 +48,7 @@
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 * [字符串](catogory-notes/zi-fu-chuan.md)
+* [排序算法](catogory-notes/pai-xu-suan-fa.md)
 
 ## Problem Notes
 

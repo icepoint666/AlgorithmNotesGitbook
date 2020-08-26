@@ -50,6 +50,8 @@
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 * [字符串](catogory-notes/zi-fu-chuan.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa.md)
+* [概率题](catogory-notes/gai-lv-ti.md)
+* [其他题](catogory-notes/qi-ta-ti.md)
 
 ## Problem Notes
 

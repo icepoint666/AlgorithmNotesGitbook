@@ -5,7 +5,7 @@
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 剑指Offer 33 | 二叉搜索树后序遍历序列 | 逆序后序遍历，单调栈 | 不会，值得记忆 |
-|  |  |  |  |
+| 剑指Offer 59-II | 队列的最大值 | 单调栈来维护最大值 | 中等 |
 
 **剑指 Offer 33. 二叉搜索树的后序遍历序列**
 
@@ -44,6 +44,60 @@ public:
             stk.push(postorder[i]);
         }
         return true;
+    }
+};
+```
+
+**剑指 Offer 59 - II. 队列的最大值**
+
+ 函数`max_value`、`push_back` 和 `pop_front` 的**均摊**时间复杂度都是O\(1\)
+
+**关键：如何维护一个deque使它能返回队列的最大值**
+
+**讨论两种情况：**
+
+* **如果新加入的元素，大于deque的顶端值，那么pop这个顶端值，直到pop到比它大的值**
+* **如果新加入的元素，小于deque的顶端值，直接加入**
+
+**需要保证deque能记录，元素的index（插入顺序）**
+
+**如果队列移除一个元素，这时队列开始点的index大于deque最底端元素的index，那么也要清楚这个deque的最底端元素**
+
+```cpp
+class MaxQueue {
+public:
+    queue<int>q;
+    deque<pair<int,int>>dq;
+    int start,end;
+    MaxQueue() {
+        start = 0;
+        end = 0;
+    }
+    
+    int max_value() {
+        if(dq.empty())return -1;
+        return dq.front().first;
+    }
+    
+    void push_back(int value) {
+        q.push(value);
+        if(dq.empty()){
+            dq.push_back(make_pair(value,end++));
+        }else{
+            while(!dq.empty()&&value >= dq.back().first){
+                dq.pop_back();
+            }
+            dq.push_back(make_pair(value,end++));
+        }
+    }
+    
+    int pop_front() {
+        if(q.empty())return -1;
+        start++;
+        if(start > dq.front().second)dq.pop_front();
+        int tmp = q.front();
+        q.pop();
+        return tmp;
     }
 };
 ```

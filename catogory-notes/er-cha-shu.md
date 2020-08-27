@@ -11,6 +11,7 @@
 | 剑指Offer 26 | 树的子结构 | 二叉树遍历，双重递归 | 快速做出 |
 | 剑指Offer 28 | 判断二叉树是否对称 | 先镜像右子树，再判断左右是否相等 | 有一个条件容易漏 |
 | 剑指Offer 37 | 二叉树序列化 | 层序遍历bfs +vector存结果 | 过程复杂但不难 |
+| 剑指Offer 68-II | 二叉树的最近公共祖先 | 想到处理关键点（后序遍历） | 不太容易立刻想出 |
 
 **437.路径总和**
 
@@ -182,6 +183,25 @@ bool isSymmetric(TreeNode* root) {
     if(root==NULL)return true;
     root->right = mirrorTree(root->right);
     return isSame(root->left, root->right);
+}
+```
+
+**剑指 Offer 68 - II. 二叉树的最近公共祖先**
+
+**关键点：**分四种情况讨论，如果在左边，在右边，一个在左一个在右（说明这个就是结果），都没有返回NULL
+
+**记住这个做法和思想**
+
+```cpp
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if(root==NULL)return NULL;
+    if(root==p || root==q)return root;
+    TreeNode* left = lowestCommonAncestor(root->left, p, q);
+    TreeNode* right = lowestCommonAncestor(root->right, p, q);
+    if(left==NULL && right==NULL)return NULL;
+    else if(left==NULL)return right;
+    else if(right==NULL)return left;
+    return root; 
 }
 ```
 

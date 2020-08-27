@@ -194,9 +194,149 @@ bool isMatch(string s, string p) {
 
 **121. 买卖股票的最佳时机——只能买卖一次**
 
+**状态**
+
+有 **买入（buy）** 和 **卖出（sell）** 这两种状态。
+
+**转移方程**
+
+对于买来说，买之后可以卖出（进入卖状态），也可以不再进行股票交易（保持买状态）。
+
+对于卖来说，卖出股票后不在进行股票交易（还在卖状态）。
+
+只有在手上的钱才算钱，手上的钱购买当天的股票后相当于亏损。也就是说当天买的话意味着损失`-prices[i]`，当天卖的话意味着增加`prices[i]`，当天卖出总的收益就是 `buy+prices[i]` 。
+
+所以我们只要考虑当天买和之前买哪个收益更高，当天卖和之前卖哪个收益更高。
+
+* buy = max\(buy, -price\[i\]\) （注意：根据定义 buy 是负数）
+* sell = max\(sell, prices\[i\] + buy\)
+
+**边界**
+
+第一天 `buy = -prices[0]`, `sell = 0`，最后返回 sell 即可。
+
+代码实现
+
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.size() <= 1)
+            return 0;
+        int buy = -prices[0], sell = 0;
+        for(int i = 1; i < prices.size(); i++) {
+            buy = max(buy, -prices[i]);
+            sell = max(sell, prices[i] + buy);
+        
+        }
+        return sell;
+    }
+}
+```
+
 **122. 买卖股票的最佳时机——可以买卖无数次**
 
+**状态**
+
+有 **买入（buy）** 和 **卖出（sell）** 这两种状态。
+
+**转移方程**
+
+对比上题，这里可以有无限次的买入和卖出，也就是说 **买入** 状态之前可拥有 **卖出** 状态，所以买入的转移方程需要变化。
+
+* buy = max\(buy, sell - price\[i\]\)
+* sell = max\(sell, buy + prices\[i\] \)
+
+**边界**
+
+第一天 `buy = -prices[0]`, `sell = 0`，最后返回 sell 即可。
+
+#### 代码实现
+
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.size() <= 1)
+            return 0;
+        int buy = -prices[0], sell = 0;
+        for(int i = 1; i < prices.size(); i++) {
+            sell = max(sell, prices[i] + buy);
+            buy = max( buy,sell - prices[i]);
+        }
+        return sell;
+    }
+};
+```
+
 **123. 买卖股票的最佳时机——可以买卖 k 次**
+
+**题目是k=2**
+
+**状态**
+
+有 **第一次买入（fstBuy）** 、 **第一次卖出（fstSell）**、**第二次买入（secBuy）** 和 **第二次卖出（secSell）** 这四种状态。
+
+**转移方程**
+
+这里最多两次买入和两次卖出，也就是说 **买入** 状态之前可拥有 **卖出** 状态，**卖出** 状态之前可拥有 **买入** 状态，所以买入和卖出的转移方程都需要变化。
+
+* fstBuy = max\(fstBuy ， -price\[i\]\)
+* fstSell = max\(fstSell，fstBuy + prices\[i\] \)
+* secBuy = max\(secBuy ，fstSell -price\[i\]\) \(受第一次卖出状态的影响\)
+* secSell = max\(secSell ，secBuy + prices\[i\] \)
+
+**边界**
+
+* 一开始 `fstBuy = -prices[0]`
+* 买入后直接卖出，`fstSell = 0`
+* 买入后再卖出再买入，`secBuy - prices[0]`
+* 买入后再卖出再买入再卖出，`secSell = 0`
+
+最后返回 secSell 。
+
+#### 代码实现\(两次）
+
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int fstBuy = INT_MIN, fstSell = 0;
+        int secBuy = INT_MIN, secSell = 0;
+        for(int i = 0; i < prices.size(); i++) {
+            fstBuy = max(fstBuy, -prices[i]);
+            fstSell = max(fstSell, fstBuy + prices[i]);
+            secBuy = max(secBuy, fstSell -  prices[i]);
+            secSell = max(secSell, secBuy +  prices[i]); 
+        }
+        return secSell;
+        
+    }
+};
+```
+
+**代码实现\(k次\)**
+
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int k) {
+        int buy[k+1];
+        int sell[k+1];
+        for(int i = 0; i <= k; i++){
+            buy[i] = INT_MIN;
+            sell[i] = 0;
+        }
+        for(int i = 0; i < prices.size(); i++){
+            for(int j = 1; j <= k; j++){
+                buy[j] = max(buy[j], sell[j-1]-prices[i]);
+                sell[j] = max(sell[j], buy[j]+prices[i]);
+            }
+        }
+        return sell[k];
+    }
+};
+```
 
 {% embed url="https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/" %}
 

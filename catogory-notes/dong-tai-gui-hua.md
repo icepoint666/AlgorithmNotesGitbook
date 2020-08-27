@@ -12,6 +12,7 @@
 | 剑指 Offer 19 | 正则表达式匹配 | 因为匹配规则特性，从后往前会更容易 | 复杂（很容易错细节） |
 | 剑指 Offer 46 | 数字翻译成字符串 | 动态规划基础 | 简单 |
 | 剑指Offer 49 | 丑数 | 分条件动态规划 | 记一下 |
+| 121.122.123 | 买卖股票的最佳时机 | 三道类似，记忆状态转移方法 | 类型题 |
 
 **剑指 Offer 14- I. 剪绳子**
 
@@ -191,5 +192,13 @@ bool isMatch(string s, string p) {
 
 **剑指 Offer49. 丑数**
 
-[https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/](https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/)
+**121. 买卖股票的最佳时机——只能买卖一次**
+
+**122. 买卖股票的最佳时机——可以买卖无数次**
+
+**123. 买卖股票的最佳时机——可以买卖 k 次**
+
+{% embed url="https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/" %}
+
+
 

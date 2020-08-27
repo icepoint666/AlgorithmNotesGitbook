@@ -79,7 +79,7 @@ int qpow(int a, int n){
 | 343/剑指offer14 | 整数拆分 | 归纳/记忆，另外也有dp的方法 | 中等 |
 | 剑指Offer43 | 1~n整数中1出现的次数 | 掌握规律，判断每一个位的1的个数 | 易错，overflow |
 | 剑指Offer44 | 数字序列中某一位的数字 | 掌握规律，注意个位数因为有10个具有特殊性 | 中等 |
-| 剑指 Offer 62 | 圆圈中最后剩下的数字 | 约瑟夫环问题 | 套路 |
+| 剑指 Offer 62 | 圆圈中最后剩下的数字 | 约瑟夫环问题 | 套路**/**记忆 |
 
 
 
@@ -134,4 +134,34 @@ public:
 **注意：**想想什么情况下需要longlong
 
 代码见leetcode
+
+
+
+**剑指 Offer 62. 圆圈中最后剩下的数字**
+
+**约瑟夫环问题**：记忆
+
+```cpp
+int lastRemaining(int n, int m) {
+    int dp[n+1];
+    dp[1] = 0;
+    for(int i = 2; i <=n; i++){
+        dp[i] = (m + dp[i-1]) % i; 
+    }
+    return dp[n];
+}
+//方便理解：
+int f(int n, int m) {
+     if (n == 1) {
+         return 0;
+     }
+     return (m + f(n-1, m)) % n; //在不考虑溢出的情况下，(a%d + c)%d == (a+c)%d
+     //return (m%n + f(n-1, m)) % n;
+}
+int lastRemaining(int n, int m) {
+     return f(n,m);
+}
+```
+
+\*\*\*\*
 

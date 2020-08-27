@@ -53,3 +53,17 @@ Node* treeToDoublyList(Node* root) {
 }
 ```
 
+**剑指 Offer 68 - I. 二叉搜索树的最近公共祖先**
+
+**关键点：**想到一点：如果一个大于root一个小于root那么必然，当前就是最近祖先
+
+```cpp
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if(root==NULL)return NULL;
+    if(root->val == p->val || root->val == q->val)return root;
+    if(root->val > p->val && root->val < q->val || root->val < p->val && root->val >q->val)return root;
+    if(root->val > p->val && root->val > q->val)return lowestCommonAncestor(root->left, p, q);
+    else return lowestCommonAncestor(root->right, p, q);
+}
+```
+

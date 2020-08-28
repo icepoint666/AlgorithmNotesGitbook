@@ -12,6 +12,8 @@ dp\[i,j\]表示第i个石子到第j个石子合并的最小代价，dp\[1,n\]表
 
 dp\[i,j\] = dp\[i,k\] + dp\[k+1,j\] + sum\[j\] - sum\[i-1\] \(sum表示前缀和）
 
+很多类似问题暴力复杂度都是阶乘级别的，所以一般关于这类是用动态规划，优化到O\(N^2\)已经是比较满意的了
+
 **题目**
 
 | 序号/难度 | 名字 | 备注 |  |
@@ -23,6 +25,8 @@ dp\[i,j\] = dp\[i,k\] + dp\[k+1,j\] + sum\[j\] - sum\[i-1\] \(sum表示前缀和
 | 剑指 Offer 46 | 数字翻译成字符串 | 动态规划基础 | 简单 |
 | 剑指Offer 49 | 丑数 | 分条件动态规划 | 记一下 |
 | 121.122.123 | 买卖股票的最佳时机 | 三道类似，记忆状态转移方法 | 类型题 |
+| 516 | 最长回文子序列 | 定义dp\[i\]\[j\]区间最优解+关键状态转移 | 记一下 |
+| 5 | 最长回文子串 | 与 |  |
 
 **剑指 Offer 14- I. 剪绳子**
 
@@ -348,7 +352,43 @@ public:
 };
 ```
 
-{% embed url="https://leetcode-cn.com/problems/chou-shu-lcof/solution/mian-shi-ti-49-chou-shu-dong-tai-gui-hua-qing-xi-t/" %}
+**516. 最长回文子序列**
 
+**状态：**
 
+f\[i\]\[j\] 表示 s 的第 i 个字符到第 j 个字符组成的子串中，最长的回文序列长度是多少。
+
+**转移方程：**
+
+ 如果 s 的第 i 个字符和第 j 个字符相同的话
+
+f\[i\]\[j\] = f\[i + 1\]\[j - 1\] + 2
+
+**\(关键\)** 如果 s 的第 i 个字符和第 j 个字符不同的话
+
+f\[i\]\[j\] = max\(f\[i + 1\]\[j\], f\[i\]\[j - 1\]\)
+
+```cpp
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        int dp[n][n];
+        memset(dp, 0, sizeof(dp));
+        for(int i = 0; i < n; i++){
+            dp[i][i] = 1;
+        }
+        for(int i = n - 2; i >= 0; i--){
+            for(int j = i + 1; j < n; j++){
+                if(s[i] == s[j]){
+                    dp[i][j] = dp[i+1][j-1] + 2;
+                }else{
+                    dp[i][j] = max(dp[i+1][j], dp[i][j-1]);
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+};
+```
 

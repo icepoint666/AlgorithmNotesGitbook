@@ -32,6 +32,8 @@ left->next = tmp; //接头部
 | 138 | 复杂链表的复制 | 链表里面包含random指针，怎么深拷贝，用hashmap存 | 中等/做出 |
 | 剑指 Offer 52 | 两个链表的第一个公共交点 | O\(1\)的空间，所以不能用哈希表，用双指针 | 中等 |
 | 445. | 两数相加II | 反转链表完成 / 栈完成 / 正向处理 | 中等 |
+| 61 | 旋转链表 | 缕清思路 | 中等 |
+| 24 | 两两交换链表中获得节点 | 注意长度可能是奇偶，也可能是0或1要讨论一下 | 中等 |
 
 **328. 奇偶链表**
 
@@ -248,5 +250,47 @@ public:
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 ```
 
+**61.旋转链表**
 
+```text
+输入: 1->2->3->4->5->NULL, k = 2
+输出: 4->5->1->2->3->NULL
+其中k可能大于len，也可能等于0
+```
+
+坑：注意是向右移动
+
+**题解：**
+
+①计算长度，并且获得一个末尾的node
+
+②因为题意是向右移动，所以前面用长度减去k的mod就是从head移动move次到达中断节点
+
+③找到中断两边的节点left与right，也有末尾节点end，以及head
+
+```cpp
+ListNode* rotateRight(ListNode* head, int k) {
+    if(head==NULL)return NULL;
+    ListNode* newhead = NULL;
+    ListNode* right = head;
+    ListNode* tail = head;
+    int len = 1;
+    while(tail->next!=NULL){
+        tail = tail->next;
+        len++;
+    }
+    int move = (len - k%len)%len; //表示中断的节点位置，从head向后移动了move次
+    ListNode* left = NULL;
+    while(move--){
+        left = right;
+        right = right->next; //找到中断节点的左右节点，move范围就是0~len-1
+    }
+    newhead = right;
+    if(left!=NULL){ //left==NULL的时候就是move=0的时候，要判定一下
+        tail->next = head;
+        left->next = NULL;
+    }
+    return newhead;
+}
+```
 

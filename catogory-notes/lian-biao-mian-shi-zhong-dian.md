@@ -31,6 +31,7 @@ left->next = tmp; //接头部
 | 面试题 02.04 | 分割链表 | 经典：节点移动来移动去（需要总结这类规律） | 很容易乱 |
 | 138 | 复杂链表的复制 | 链表里面包含random指针，怎么深拷贝，用hashmap存 | 中等/做出 |
 | 剑指 Offer 52 | 两个链表的第一个公共交点 | O\(1\)的空间，所以不能用哈希表，用双指针 | 中等 |
+| 445. | 两数相加II | 反转链表完成 / 栈完成 / 正向处理 | 中等 |
 
 **328. 奇偶链表**
 
@@ -186,4 +187,66 @@ ListNode* partition(ListNode* head, int x) {
 第二遍更新new linked list的random指针
 
 代码见leetcode 剑指offer35
+
+**445.两数相加II**
+
+写一个正向处理不用 翻转链表/栈 的方法
+
+**题解：**先计算两个长度
+
+然后为了避免讨论如果l1是短的那个，就交换，保证l1是长的链表
+
+正向处理，先创建一个首位节点为0，因为sum的长度最多也就是比l1多一位
+
+数位对齐后，计算下一位的值注意更新上一位的carry位
+
+最后判断首位节点还是不是0，如果是0返回head-&gt;next就好了
+
+```cpp
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int count = 0, temp;
+        ListNode *head, *last;
+        for(head = l1; head; head = head->next)
+            count++;
+        for(head = l2; head; head = head->next)
+            count--;
+        if(count < 0)                       //计算两链表长度，将l1指向长链，l2指向短链，将l2的值加到l1中
+            swap(l1,l2);            
+        last = head = new ListNode(0);      //在链首加一个值为0的节点作为初始的last节点，如果最终该节点值仍为0则删除该节点
+        head->next = l1;
+        for(int i = abs(count); i != 0; i--){  //将两链数位对齐
+            if(l1->val != 9)
+                last = l1;
+            l1 = l1->next;
+        }
+        while(l1){
+            temp = l1->val + l2->val;
+            if(temp > 9){                   //如果发生进位，则更新last到l1之间所有数位的值
+                temp -= 10;                 //进位后当前数位最大值为8，故将last指针指向当前数位
+                last->val += 1;
+                last = last->next;
+                while(last != l1){
+                    last->val = 0;
+                    last = last->next;
+                }
+            }
+            else if(temp != 9)             
+                last = l1;
+            l1->val = temp;
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+        return head->val == 1 ? head : head->next;
+    }
+};
+
+作者：aninvalidname
+链接：https://leetcode-cn.com/problems/add-two-numbers-ii/solution/c-bu-yong-di-gui-bu-yong-zhan-yuan-di-ji-suan-by-a/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
 

@@ -4,6 +4,7 @@
 * [相关链接](xiang-guan-lian-jie.md)
 * [系统学习指南](xi-tong-xue-xi-zhi-nan.md)
 * [刷题指南](shua-ti-zhi-nan.md)
+* [必记高频题](bi-ji-gao-pin-ti.md)
 
 ## Coding Tricks
 

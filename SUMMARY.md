@@ -57,6 +57,8 @@
 
 ## Problem Notes
 
+* [经典算法数据结构（重点）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/README.md)
+  * [LRU算法（重点）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
 * [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
   * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)
 * [智力题](problem-notes/zhi-li-ti.md)

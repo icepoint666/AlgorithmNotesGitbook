@@ -21,6 +21,16 @@ struct PairHash{
 //使用：这里哈希表实现允许加入一个hash<key>的参数
 unordered_map<std::pair<int, int>, int, PairHash<int,int> > mp;
 unordered_set<std::pair<int, int>, PairHash<int,int> >s;
+//=============================或===================================
+struct pair_hash{
+    template<class T1, class T2>
+    size_t operator() (const pair<T1, T2>& p) const{
+        auto h1 = hash<T1>{}(p.first);
+        auto h2 = hash<T2>{}(p.second);
+        return h1 ^ h2;
+    }
+};
+unordered_map<pair<int,int>, int, pair_hash> mp;
 ```
 
 ```cpp
@@ -37,4 +47,10 @@ template < class Key,                                    // unordered_map::key_t
            class Alloc = allocator< pair<const Key,T> >  // unordered_map::allocator_type
            > class unordered_map;
 ```
+
+题目：
+
+| 序号/难度 | 名字 | 备注 |  |
+| :--- | :--- | :--- | :--- |
+| 1267 | 统计参与通信的服务器 | 用哈希表来存位置坐标\(i,j\) | 中等 |
 

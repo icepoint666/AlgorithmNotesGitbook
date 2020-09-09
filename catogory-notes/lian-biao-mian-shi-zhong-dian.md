@@ -6,6 +6,8 @@
 * 指针之间怎么更新和移动
 * 怎么判定边界和终止条件**（一定要切记开头判断一下head是否为空）**
 
+一般处理链表时，如果可能**涉及到删除头的操作**，可以事先添加一个dummyhead，详情参考**82. 删除排序链表中的重复元素 II**
+
 ### **移动链表节点：tmp指针4步法**
 
 **移动链表节点到指定位置的后面：取出+缝合+接头部+接尾部**
@@ -27,13 +29,16 @@ left->next = tmp; //接头部
 | :--- | :--- | :--- | :--- |
 | 328 | 奇偶链表 | 捋清思路 | 中等 |
 | 142 | 环形链表 | 双指针 | 中等 |
-| 剑指 Offer 24 | 翻转链表 | 缕清思路 | 简单 |
+| 剑指 Offer 24 | 反转链表 | 缕清思路 | 简单 |
 | 面试题 02.04 | 分割链表 | 经典：节点移动来移动去（需要总结这类规律） | 很容易乱 |
 | 138 | 复杂链表的复制 | 链表里面包含random指针，怎么深拷贝，用hashmap存 | 中等/做出 |
 | 剑指 Offer 52 | 两个链表的第一个公共交点 | O\(1\)的空间，所以不能用哈希表，用双指针 | 中等 |
 | 445. | 两数相加II | 反转链表完成 / 栈完成 / 正向处理 | 中等 |
 | 61 | 旋转链表 | 缕清思路 | 中等 |
 | 24 | 两两交换链表中获得节点 | 注意长度可能是奇偶，也可能是0或1要讨论一下 | 中等 |
+| 82 | 删除排序链表中的重复元素-II | 涉及到删除头的操作，在前面添加一个**dummyhead** + 双指针prev,next**（这个模板很推荐！）** | 记忆 |
+| 234 | 回文链表 | 要求空间复杂度O\(1\)不能用栈，用双指针+反转一半链表 | 中等 |
+|  |  | 个人做法：找到中间（对于偶数个偏后）节点，利用函数栈实现（属于投机取巧，不推荐） |  |
 
 **328. 奇偶链表**
 
@@ -293,4 +298,66 @@ ListNode* rotateRight(ListNode* head, int k) {
     return newhead;
 }
 ```
+
+**82. 删除排序链表中的重复元素 II**
+
+这种问题需要考虑到prev,curr甚至prev可能是head之前
+
+解法：
+
+①dummyhead
+
+②prev，curr指针，特殊的是prev-&gt;next与curr-&gt;next进行比较
+
+这种设计prev,curr双相邻指针都要对开头结尾进行特判
+
+```cpp
+ListNode* deleteDuplicates(ListNode* head) {
+    if(!head || !head->next) return head;
+    ListNode *dummyhead = new ListNode(INT_MAX);
+    dummyhead -> next = head;
+    ListNode *prev = dummyhead;
+    while(prev && prev->next)
+    {
+        ListNode *curr = prev -> next;
+        // 如果curr到最后一位了或者当前curr所指元素没有重复值
+        if(!curr->next || curr->next->val != curr->val) prev = curr;
+        else
+        {
+            // 将curr定位到一串重复元素的最后一位
+            while(curr->next && curr->next->val == curr->val) curr = curr -> next;
+            // prev->next跳过中间所有的重复元素
+            prev -> next = curr -> next;
+        }  
+    }
+    return dummyhead -> next;
+}
+```
+
+**234. 回文链表**
+
+**利用快慢指针只反转链表的一半**
+
+```cpp
+bool isPalindrome(ListNode* head) {
+    ListNode* fast = head; //快指针
+    ListNode* slow = head, * prev = NULL; //反转链表的模板
+    while(fast && fast->next) { 
+        fast = fast->next->next; //2倍慢指针的速度
+        ListNode* temp = slow->next; //反转链表的模板
+        slow->next = prev;
+        pre = slow;
+        slow = temp;
+    }
+    if(fast) slow = slow->next; //奇数链表处理
+    while(prev) { //开始对比
+        if(prev->val != slow->val) return false;
+        prev = prev->next;
+        slow = slow->next;
+    }
+    return true;
+}
+```
+
+**利用函数栈来存储，本质上空间开销其实更大\(投机取巧\) 代码见leetcode**
 

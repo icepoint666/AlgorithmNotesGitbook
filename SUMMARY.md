@@ -45,7 +45,6 @@
 * [二叉树](catogory-notes/er-cha-shu.md)
 * [二叉搜索树](catogory-notes/er-cha-sou-suo-shu.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
-* [贪心算法](catogory-notes/tan-xin-suan-fa.md)
 * [字符串操作](catogory-notes/zi-fu-chuan-cao-zuo.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈](catogory-notes/dan-tiao-zhan.md)

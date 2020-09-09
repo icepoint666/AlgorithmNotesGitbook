@@ -31,8 +31,10 @@
 ## Catogory Notes
 
 * [数组相关](catogory-notes/shu-zu-xiang-guan.md)
+* [贪心算法](catogory-notes/tan-xin-suan-fa-1.md)
 * [动态规划](catogory-notes/dong-tai-gui-hua/README.md)
   * [高楼扔鸡蛋：动态规划/递归](catogory-notes/dong-tai-gui-hua/gao-lou-reng-ji-dan-dong-tai-gui-hua-di-gui.md)
+  * [打家劫舍问题](catogory-notes/dong-tai-gui-hua/da-jia-jie-she-wen-ti.md)
 * [堆](catogory-notes/dui.md)
 * [链表（面试重点）](catogory-notes/lian-biao-mian-shi-zhong-dian.md)
 * [滑动窗口（Sliding Window）](catogory-notes/untitled.md)

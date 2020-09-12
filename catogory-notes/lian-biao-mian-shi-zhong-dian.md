@@ -10,7 +10,7 @@
 
 ### **移动链表节点：tmp指针4步法**
 
-**移动链表节点到指定位置的后面：取出+缝合+接头部+接尾部**
+**移动链表节点到指定位置的后面：\(remove + add）取出+缝合+接头部+接尾部**
 
 e.g.把`right->next节点`移动到`left位置`的后面，再把right缺口处缝合
 
@@ -39,6 +39,8 @@ left->next = tmp; //接头部
 | 82 | 删除排序链表中的重复元素-II | 涉及到删除头的操作，在前面添加一个**dummyhead** + 双指针prev,next**（这个模板很推荐！）** | 记忆 |
 | 234 | 回文链表 | 要求空间复杂度O\(1\)不能用栈，用双指针+反转一半链表 | 中等 |
 |  |  | 个人做法：找到中间（对于偶数个偏后）节点，利用函数栈实现（属于投机取巧，不推荐） |  |
+| 237 | 删除链表中的节点 | 理解题意，很奇怪的题 |  |
+| 817 | 链表组件 | 理解题意 | 简单 |
 
 **328. 奇偶链表**
 
@@ -360,4 +362,43 @@ bool isPalindrome(ListNode* head) {
 ```
 
 **利用函数栈来存储，本质上空间开销其实更大\(投机取巧\) 代码见leetcode**
+
+**237. 删除链表中的节点**
+
+刚看这个代码有点奇怪，不是要删除链表中一个节点吗，按理应该要传入两个参数，一个链表，一个节点，怎么只传入了一个参数，要删除的节点？
+
+**其实就是单纯把这个节点的值用后面的值覆盖，然后把最后一个节点直接移除**
+
+**方法：需要在node前面加一个dummyhead**
+
+**817. 链表组件**
+
+**关键：理解题意，搞清楚组件到底是什么**
+
+```cpp
+class Solution {
+public:
+    int numComponents(ListNode* head, vector<int>& G) {
+        unordered_set<int> g_set;
+        for(auto& g:G){
+            g_set.insert(g);
+        }
+        ListNode* node = head;
+        bool flag = false;
+        int count = 0;
+        while(node){
+            while(node && g_set.count(node->val)){
+                flag = true;
+                node = node->next;
+            }
+            if(flag){
+                count++;
+                flag = false;
+            }
+            if(node)node = node->next;
+        }
+        return count;
+    }
+};
+```
 

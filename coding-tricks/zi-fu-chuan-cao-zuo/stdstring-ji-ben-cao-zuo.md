@@ -1,6 +1,6 @@
 # std::string基本操作
 
-初始化
+### 初始化
 
 ```cpp
 string s("aaaa");
@@ -8,14 +8,14 @@ string s(10,'a');
 string s = "ssss";
 ```
 
-切片：substr\(start\_pos, length\)
+### 切片：substr\(start\_pos, length\)
 
 ```cpp
 string a = "hello"
 string s = a.substr(3,2); // "lo"
 ```
 
-添加字符串或者元素
+### 添加字符串或者元素
 
 ```cpp
 string s1 = "aaa";
@@ -46,9 +46,19 @@ pointer index expression with base 0xbebebebebebebebe overflowed to 0x7d7d7d7d7d
 * push\_back一个一个字符的添加
 * append是整个字符串添加
 
-**find函数查找子串：**
+### **find函数查找子串：**
 
 ```cpp
 a.find(b, 3) # 表示从字符串的index = 3处开始查找，找为b的子串
 ```
+
+### 字符串删除的小技巧
+
+有时候需要一边遍历，一边删除，如果erase的话可能需要迭代器来完成，比较麻烦而且也不方便记录index
+
+对于字符串，可以**把要删除的元素用‘ ’空格或者其他特殊字符替代**，就表示删除了这个字符
+
+整个字符串扫描完后，再重新用一个新字符串把非空字符保存下来，就相当于完成了删除
+
+leetcode1249用到了
 

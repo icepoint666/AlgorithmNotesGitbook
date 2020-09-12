@@ -46,3 +46,9 @@ pointer index expression with base 0xbebebebebebebebe overflowed to 0x7d7d7d7d7d
 * push\_back一个一个字符的添加
 * append是整个字符串添加
 
+**find函数查找子串：**
+
+```cpp
+a.find(b, 3) # 表示从字符串的index = 3处开始查找，找为b的子串
+```
+

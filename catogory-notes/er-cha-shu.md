@@ -252,5 +252,37 @@ TreeNode* insertIntoBST(TreeNode* root, int val) {
 
 **②如果只有子节点：直接移上去**
 
-**③如果有两个子节点：可以通过找到左子树最大节点，右子树最小节点**
+**③如果有两个子节点：可以通过找到左子树最大节点，或者右子树最小节点换上去**
+
+```cpp
+class Solution {
+private:
+    int maxval = 0;
+public:
+    TreeNode* findNode(TreeNode* root){
+        if(root->right == NULL){
+            maxval = root->val;
+            return root->left; //注意这里把最右节点移除后，用左节点替代到移除的位置
+        }
+        root->right = findNode(root->right);// 修改模板常用语句
+        return root;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root)return root;
+        if(root->val == key){
+            if(!root->left && !root->right)return NULL;
+            if(!root->left)return root->right;
+            if(!root->right)return root->left;
+            root->left = findNode(root->left); // 修改模板常用语句
+            root->val = maxval;
+            return root;
+        }
+        if(root->val < key)root->right = deleteNode(root->right, key);
+        root->left = deleteNode(root->left, key);
+        return root;
+    }
+};
+```
+
+
 

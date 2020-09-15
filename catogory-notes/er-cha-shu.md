@@ -1,5 +1,18 @@
 # 二叉树
 
+**代码模板：二叉树的查找**
+
+```cpp
+void BST(TreeNode* root, int target) {
+    if (root->val == target)
+        // 找到目标，做点什么
+    if (root->val < target) 
+        BST(root->right, target);
+    if (root->val > target)
+        BST(root->left, target);
+}
+```
+
 **题目：**
 
 | 序号/难度 | 名字 | 备注 |  |
@@ -14,6 +27,8 @@
 | 剑指Offer 68-II | 二叉树的最近公共祖先 | 想到处理关键点（后序遍历） | 不太容易立刻想出 |
 | 543 | 二叉树的直径 | 二叉树遍历，双重递归\(外面维护最大值 + 坑：直径是节点数要减1） | 简单 |
 | 617 | 合并二叉树 | 将t1与t2覆盖合并，直接在t1上修改处理最后返回t1 | 简单 |
+| 101 | 对称二叉树 | 递归实现 + 多记忆一种队列实现 | 简答 |
+| 450 & 701 | 二叉树的插入与删除 | 先找再改,记忆当成模板 | 记忆 |
 
 **437.路径总和**
 
@@ -206,4 +221,36 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     return root; 
 }
 ```
+
+**101. 对称二叉树**
+
+**递归实现：见leetcode**
+
+**使用队列迭代实现：见leetcod**
+
+**450 二叉树的插入值**
+
+原则：一直查找，直到找不到为止，然后把这个NULL的节点换成新插入的节点
+
+```cpp
+TreeNode* insertIntoBST(TreeNode* root, int val) {
+    if(root == NULL){
+        root = new TreeNode(val);
+        return root;
+    }
+    if(root->val < val)root->right = insertIntoBST(root->right, val); //一定要修改root->right
+    else if(root->val > val)root->left = insertIntoBST(root->left, val);
+    return root;
+}
+```
+
+**701 二叉树的删除节点**
+
+**删除节点的三种情况：**
+
+**①如果没有子节点：它可以当场去世**
+
+**②如果只有子节点：直接移上去**
+
+**③如果有两个子节点：可以通过找到左子树最大节点，右子树最小节点**
 

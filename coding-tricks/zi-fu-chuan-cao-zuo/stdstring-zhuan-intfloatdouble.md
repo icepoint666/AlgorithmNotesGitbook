@@ -1,4 +1,4 @@
-# std::string转int,float,double
+# std::string转int,float,double,long
 
 ### stoi \(leetcode推荐这种方法）
 
@@ -50,7 +50,7 @@ int a = atoi(str.c_str());
 int b = strtol(str.c_str(), nullptr, 10);
 ```
 
-### stoi
+### stoi\(string to int）
 
 ```cpp
 #include <string> //stoi
@@ -60,4 +60,6 @@ string str1 = "asq,";
 string str2 = "12312";
 int c = stoi(str2);     // ok
 ```
+
+注意：对于不同类型还有**stoi；stol；stoul；stoll；stoull；stof；stod；stold**
 

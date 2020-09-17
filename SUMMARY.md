@@ -13,7 +13,7 @@
 * [哈希表中使用pair或者tuple作为key](coding-tricks/ha-xi-biao-zhong-shi-yong-pair-huo-zhe-tuple-zuo-wei-key.md)
 * [字符串操作](coding-tricks/zi-fu-chuan-cao-zuo/README.md)
   * [std::string基本操作](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-ji-ben-cao-zuo.md)
-  * [std::string转int,float,double](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)
+  * [std::string转int,float,double,long](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)
   * [int, float等类型转std::string](coding-tricks/zi-fu-chuan-cao-zuo/int-float-deng-lei-xing-zhuan-stdstring.md)
 
 ## Catogory Tricks

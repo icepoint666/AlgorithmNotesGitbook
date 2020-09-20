@@ -47,6 +47,7 @@
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈](catogory-notes/dan-tiao-zhan.md)
+* [单调队列](catogory-notes/dan-tiao-dui-lie.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [位运算，数位](catogory-notes/wei-yun-suan-shu-wei.md)
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)

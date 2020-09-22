@@ -135,7 +135,7 @@ struct cmp{
     bool operator()(Tweet* a, Tweet* b){
         return a->getTime() > b->getTime();
     };
-};
+};//注意这种情况是小的在前！！
 
 priority_queue<Tweet*, vector<Tweet*>, cmp> que;
 ```

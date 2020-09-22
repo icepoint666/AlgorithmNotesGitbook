@@ -1,27 +1,4 @@
-# 堆和优先队列
-
-## C++优先队列
-
-```cpp
-#include <queue> //需要
-//升序队列，小顶堆，最小堆
-priority_queue <int,vector<int>,greater<int> > q;
-//降序队列，大顶堆，最大堆
-priority_queue <int,vector<int>,less<int> >q;
-//greater和less是std实现的两个仿函数
-
-//对于基础类型 默认是大顶堆
-priority_queue<int> a; 
-//等同于 priority_queue<int, vector<int>, less<int> > a;
-```
-
-本质还是一个队列
-
-```cpp
-q.push(e);
-q.pop();
-q.top();
-```
+# 堆实现
 
 ## 最大堆/最小堆
 

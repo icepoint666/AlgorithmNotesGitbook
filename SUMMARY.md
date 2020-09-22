@@ -68,4 +68,6 @@
 * [智力题](problem-notes/zhi-li-ti.md)
 * [概率问题](problem-notes/undefined/README.md)
   * [傻子坐飞机](problem-notes/undefined/sha-zi-zuo-fei-ji.md)
+* [面向对象设计问题](problem-notes/mian-xiang-dui-xiang-she-ji-wen-ti/README.md)
+  * [Leetcode355 设计推特](problem-notes/mian-xiang-dui-xiang-she-ji-wen-ti/leetcode355-she-ji-tui-te.md)
 

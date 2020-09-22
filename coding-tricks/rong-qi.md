@@ -105,6 +105,41 @@ q.empty();
 q.size();
 ```
 
+### priority\_queue
+
+```cpp
+#include <queue> //需要
+//升序队列，小顶堆，最小堆
+priority_queue <int,vector<int>,greater<int> > q;
+//降序队列，大顶堆，最大堆
+priority_queue <int,vector<int>,less<int> >q;
+//greater和less是std实现的两个仿函数
+
+//对于基础类型 默认是大顶堆
+priority_queue<int> a; 
+//等同于 priority_queue<int, vector<int>, less<int> > a;
+```
+
+本质还是一个队列\(front与top不太一样）
+
+```cpp
+q.push(e);
+q.pop();
+q.top();
+```
+
+自定义比较规则
+
+```cpp
+struct cmp{
+    bool operator()(Tweet* a, Tweet* b){
+        return a->getTime() > b->getTime();
+    };
+};
+
+priority_queue<Tweet*, vector<Tweet*>, cmp> que;
+```
+
 ### pair,tuple
 
 c++标准库实现的Pair与Tuple都不是hashable，里面也允许放置动态vector，放置string，允许随时更改
@@ -145,7 +180,7 @@ unordered_map<char,int> mp; //哈希表容器：
 遍历容器、遍历map：
 
 ```cpp
-for(auto it=mp.begin();it!=end();it++){
+for(auto it=mp.begin();it!=c.end();it++){
     it->first it->second
 }
 ```
@@ -194,6 +229,14 @@ unordered_set<ListNode*> c{ "aaa", "bbb", "ccc" }; //初始化容器，并将"aa
 
 ```cpp
 c.insert(e);
+```
+
+遍历set容器，类似的做法
+
+```cpp
+for(auto it=c.begin();it!=c.end();it++){
+    *it
+}
 ```
 
 查找元素

@@ -64,9 +64,143 @@ public:
 
 ### 实现
 
+```cpp
+class Tweet{
+private:
+    int id;
+    int time;
+    Tweet* next;
+public:
+    Tweet(int id, int time){
+        this->id = id;
+        this->time = time;
+        this->next = NULL;
+    }
+    void setNext(Tweet* next){
+        this->next = next;
+    }
+    Tweet* getNext(){
+        return next;
+    }
+    int getTime(){
+        return time;
+    }
+    int getId(){
+        return id;
+    }
+};
 
+class User{
+private:
+    int id;
+    unordered_set<int> followed;
+    Tweet* head;
+public:
+    User(int id){
+        this->id = id;
+        this->followed.clear();
+        this->head = NULL;
+    }
+    Tweet* getHead(){
+        return head;
+    }
+    unordered_set<int> getFollowed(){
+        return followed;
+    }
+    void setHead(Tweet* head){
+        this->head = head;
+    }
+    void follow(int id){
+        if(!followed.count(id)){
+            followed.insert(id);
+        }
+    }
+    void unfollow(int id){
+        if(followed.count(id)){
+            followed.erase(id);
+        }
+    }
+};
+
+struct cmp{
+    bool operator()(Tweet* a, Tweet* b){
+        return a->getTime() < b->getTime();
+    };
+};
+
+class Twitter {
+private:
+    unordered_map<int, User*> users;
+    int timestamp = 0;
+public:
+    /** Initialize your data structure here. */
+    Twitter(){
+        users.clear();
+        timestamp = 0;
+    }
+    void createUser(int userId){
+        users[userId] = new User(userId);
+    }
+    /** Compose a new tweet. */
+    void postTweet(int userId, int tweetId) {
+        if(!users.count(userId))createUser(userId); //不存在就创建！
+        Tweet* newtweet = new Tweet(tweetId, timestamp++);
+        newtweet->setNext(users[userId]->getHead());
+        users[userId]->setHead(newtweet);
+    }
+    
+    /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
+    vector<int> getNewsFeed(int userId) {
+        vector<int> res;
+        if(users.count(userId)){
+            priority_queue<Tweet*, vector<Tweet*>, cmp> recent_tweets;
+            unordered_set<int> followed = users[userId]->getFollowed();
+            followed.insert(userId); //注意还要包括自己！
+            for(auto it=followed.begin(); it!=followed.end(); it++){
+                if(users.count(*it) && users[*it]->getHead()){//一定不要在优先队列插入NULL
+                    recent_tweets.push(users[*it]->getHead());
+                }
+            }
+            int count = 10;
+            while(count--){
+                if(!recent_tweets.empty()){
+                    res.push_back(recent_tweets.top()->getId());
+                    if(recent_tweets.top()->getNext())recent_tweets.push(nxt);//一定不要在优先队列插入NULL
+                    recent_tweets.pop();
+                }else break;
+            }
+        }
+        return res;
+    }
+    
+    /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
+    void follow(int followerId, int followeeId) {
+        if(!users.count(followerId))createUser(followerId); //不存在就创建！
+        if(!users.count(followeeId))createUser(followeeId); //不存在就创建！
+        User* follower = users[followerId];
+        follower->follow(followeeId);
+    }
+    
+    /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
+    void unfollow(int followerId, int followeeId) {
+        if(users.count(followerId)){
+            User* follower = users[followerId];
+            follower->unfollow(followeeId);
+        }
+    }
+};
+```
 
 测试样例：
+
+```cpp
+// Your Twitter object will be instantiated and called as such:
+ Twitter* obj = new Twitter();
+ obj->postTweet(userId,tweetId);
+ vector<int> param_2 = obj->getNewsFeed(userId);
+ obj->follow(followerId,followeeId);
+ obj->unfollow(followerId,followeeId);
+```
 
 
 

@@ -67,6 +67,12 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 //删完后会得到{1，2，3，5}
 ```
 
+翻转数组
+
+```cpp
+reverse(vec.begin(), vec.begin()+k); //翻转前k个元素
+```
+
 ### list
 
 ```cpp

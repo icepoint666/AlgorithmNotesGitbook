@@ -109,27 +109,24 @@ public:
 
 **剑指 Offer 24 反转链表**
 
-有条件尽量在纸上画一下，node, nxt怎么移动，以及next指针怎么更新
+清晰的思路：prev, node, curr怎么更新
 
-**反转链表需要tmp node来协助**
+**反转链表需要curr prev来协助**
 
 ```cpp
-class Solution {
-public:
-    ListNode* reverseList(ListNode* head) {
-        if(head==NULL)return NULL;
-        ListNode * nxt = head->next;
-        ListNode * node = head;
-        node->next = NULL;
-        while(nxt!=NULL){
-            ListNode * tmp = nxt;
-            nxt = nxt->next;
-            tmp->next = node;
-            node = tmp;
-        }
-        return node;
-    }
-};
+ListNode* reverseList(ListNode* head) {
+   if(head == NULL)return head;
+   ListNode* prev = head;
+   ListNode* node = head->next;
+   prev->next = NULL;
+   while(node!=NULL){
+        ListNode* curr = node->next;
+        node->next = prev;
+        prev = node;
+        node = curr;
+   }
+   return prev;
+}
 ```
 
 **面试题 02.04. 分割链表**

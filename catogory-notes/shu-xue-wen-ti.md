@@ -11,16 +11,50 @@ leetcode内置了`math.h`库，所以不需要实现一些数学运算的函数
 * int quotient = n / d;
 * int reminder = n % d;
 
-### 验证素数
+### 验证素数 \(O\(sqrt\(N\)\)
 
 ```cpp
 bool isPrime(int n){
     if(n <= 1)return false;
     bool res = true;
-    for(int i = 2; i <= (int)sqrt(n); ++i){
+    for(int i = 2; i * i <= n ; ++i){
         if(n % i == 0)return false;
     }
     return true;
+}
+```
+
+### 统计素数
+
+**思路：**判断到i\*i&lt;N就可以了O\(sqrt\(N\)\)，不需要单独判断素数的函数
+
+在每次根据标记判断完素数后
+
+* 如果是素数，还要把之后所有它的倍数都标记成非素数
+* 如果不是素数，就不用标记了，因为说明前面已经标记过了
+
+**时间复杂度**：其操作数应该是：
+
+n/2 + n/3 + n/5 + n/7 + ... = n × \(1/2 + 1/3 + 1/5 + 1/7...\)
+
+最终结果是 O\(N \* loglogN\)
+
+**空间复杂度**：O\(N\)
+
+```cpp
+int countPrimes(int n) {
+    boolean[] isPrim = new boolean[n];
+    Arrays.fill(isPrim, true);
+    for (int i = 2; i * i < n; i++) 
+        if (isPrim[i]) 
+            for (int j = i * i; j < n; j += i) 
+                isPrim[j] = false;
+    
+    int count = 0;
+    for (int i = 2; i < n; i++)
+        if (isPrim[i]) count++;
+    
+    return count;
 }
 ```
 

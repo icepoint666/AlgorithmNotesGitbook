@@ -7,6 +7,8 @@
 | 面试题17.10 | 主要元素 | 摩尔投票法：时间O\(N\)空间O\(1\) | 简单 |
 | 1535 | 找出数组游戏的赢家 | 看清题： 当一个整数赢得 k 个回合时 | 简单 |
 | 42 | 接雨水 | 暴力法 -&gt; 备忘录法 -&gt;双指针法 | 三种方法 |
+| 442 | 数组中的重复元素 | \(1\) 原地hash \(2\)标记数组 | 有难度 |
+| 26/80 | 去除有序数组重复元素 | 数组删除原则，swap到一边，最后全删 | 技巧 |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -61,4 +63,35 @@ public:
 * 备忘录法：O\(N\)时间，O\(N\)额外空间
 * 双指针法：O\(N\)时间，无额外空间 
   * 参考：[https://github.com/labuladong/fucking-algorithm/blob/master/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/%E6%8E%A5%E9%9B%A8%E6%B0%B4.md](https://github.com/labuladong/fucking-algorithm/blob/master/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/%E6%8E%A5%E9%9B%A8%E6%B0%B4.md)
+
+**80. 删除排序数组中的重复项 II**
+
+给定一个排序数组，你需要在[**原地**](http://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95)删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
+
+**原则: 对于数组相关的算法问题，有一个通用的技巧：要尽量避免在中间删除元素，那我就先想办法把这个元素换到最后去**。这样的话，最终待删除的元素都拖在数组尾部，一个一个 pop 掉就行了，每次操作的时间复杂度也就降低到 O\(1\) 了。
+
+**技巧：slow指针，fast指针, 用slow fast解决，把不重复的swap到slow左边**
+
+```cpp
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 0 || n == 1)return n;
+        bool count = true;
+        int slow = 0;
+        for(int i = 1; i < n; i++){
+            if(nums[i] != nums[slow]){
+                count = true;
+                slow++;
+                if(nums[i]!=nums[slow])swap(nums[i], nums[slow]);
+            }else if(nums[i] == nums[slow] && count){
+                count = false;
+                slow++;
+                if(nums[i]!=nums[slow])swap(nums[i], nums[slow]);
+            }
+        }
+        return slow+1;
+    }
+```
 

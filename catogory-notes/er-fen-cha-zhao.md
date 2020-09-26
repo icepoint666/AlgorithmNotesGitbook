@@ -18,7 +18,8 @@
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 875 | 爱吃香蕉的珂珂O\( | 普通做法O\(n\) | 简单 |
+| 875 | 爱吃香蕉的珂珂 | 左边界二分查找模板，因为是找最小速度，但target值多个O\(n\*logn\) | 模板题 |
+| 1011 | 在 D 天内送达包裹的能力 | 与上题一样做法，有一个坑：MIN\_BOUND开始不能取最小值 |  |
 
 **剑指 Offer 11. 旋转数组的最小数字**
 
@@ -71,4 +72,43 @@ return count;
 3. 一点总结是， 当碰到求最大或最小值的时候，是否可转化为二分法。属于直觉和经验吧。
 
 代码见leetcode
+
+**1011. 在 D 天内送达包裹的能力**
+
+**题解：**标准的二分查找左边界模板，但是有一个**坑**就是必须要**限制W\_MIN**，不然如果搜索的时候载重过小的话，永远没法装上，就会导致无限循环
+
+```cpp
+class Solution {
+public:
+    int Day(vector<int>weights, int W){
+        int d = 0, i = 0, count = 0;
+        while(i < weights.size()){
+            count += weights[i];
+            if(count > W){
+                d++;
+                count = 0;
+            }else{
+                i++;
+            }
+        }if(count)d++;
+        return d;
+    }
+    int shipWithinDays(vector<int>& weights, int D) {
+        int W_MAX = 500*50000;
+        int W_MIN = 1;
+        for(int i = 0; i < weights.size(); i++) //限制最小范围
+            W_MIN = max(weights[i], W_MIN);
+        while(W_MIN < W_MAX){
+            int mid = (W_MIN + W_MAX) / 2;
+            int w = Day(weights, mid);
+            if(w <= D){
+                W_MAX = mid;
+            }else{
+                W_MIN = mid + 1;
+            }
+        }
+        return W_MIN;
+    }
+};
+```
 

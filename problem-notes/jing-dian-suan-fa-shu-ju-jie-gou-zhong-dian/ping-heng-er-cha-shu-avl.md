@@ -151,20 +151,20 @@ T2：类似于上面T3的情况，这种旋转操作需要一直持续到根节�
     1. 在插入结点时， 沿插入的路径更新结点的高度值
     2. 在删除结点时（delete）,沿删除的路径更新结点的高度值
 * 得到树的平衡因子 log1（直接根据高度就可以计算出来）
-  * x-&gt;left-&gt;height - x-&gt;right-&gt;height
+  * root-&gt;left-&gt;height - root-&gt;right-&gt;height
 * 左旋操作
-  * 三个操作：
-    * right = root-&gt;right
+  * 两个操作：
     * root-&gt;right = right-&gt;left
     * right-&gt;left = root
 * 右旋操作
-  * 三个操作
+  * 两个操作
     * 类似于上面
 * 平衡化操作
   * 如果出现不平衡的现象
-    * 
+    * 四种类型判断
 * Insert node \(递归）
 * delete node \(递归）
+* deleteMin \(删除一个子树中最小的节点\)，用在delete node中
 
 
 
@@ -184,7 +184,7 @@ struct Node {
 //树的高度
 int treeHeight(Node* root) {
     if(root == NULL) {
-        return 0;
+        return -1    ;
     } else {
         return max(treeHeight(root->left),treeHeight(root->right)) + 1;
     }
@@ -243,30 +243,62 @@ Node* treeRebalance(Node* root) {
 }
 
 //插入元素
-void treeInsert(Node, int value)
+void treeInsert(Node* root, int value)
 {
-    nodeptr_t newNode;
-    nodeptr_t root = *rootptr;
-
     if(root == NULL) {
-        newNode = malloc(sizeof(node_t));
+        Node* newNode;
+        newNode = malloc(sizeof(Node));
         assert(newNode);
 
         newNode->data = value;
         newNode->left = newNode->right = NULL;
 
-        *rootptr = newNode;
+        root = newNode;
     } else if(root->data == value) {
         return;
     } else {
         if(root->data < value)
-            treeInsert(&root->right,value);
+            treeInsert(root->right,value);
         else
-            treeInsert(&root->left,value)
+            treeInsert(root->left,value)
     }
 
     treeRebalance(root);
 }
+
+void treeDelete(Node *root, int data)
+{
+    Node *toFree; 
+
+    if(root) {
+        if(root->data == value) {
+            if(root->right) {
+                root->data = treeDeleteMin(root->right);
+            } else {
+                toFree = root;
+                root = toFree->left;
+                free(toFree);
+            }
+        } else {
+            if(root->data < value)
+                treeDelete(root->right,value);
+            else
+                treeDelete(root->left,value)
+        }
+        treeRebalance(root);
+    }
+}
+//删除节点的时候删除最小值
+KEY_TYPE treeDeleteMin(Node* root)
+{
+    Node* temp = root;
+    while(temp->left)
+        temp = temp->root;
+    KEY_TYPE value = temp->data;
+    treeDelete(root, value);
+    return value;
+}
+
 ```
 
 

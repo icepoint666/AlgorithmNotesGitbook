@@ -62,7 +62,13 @@
 ## Problem Notes
 
 * [经典算法数据结构（重点）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/README.md)
-  * [LRU算法（重点）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
+  * [堆\(heap\)](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/dui-heap.md)
+  * [平衡二叉树\(AVL\)](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ping-heng-er-cha-shu-avl.md)
+  * [红黑树\(rbtree\)](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/hong-hei-shu-rbtree.md)
+  * [哈希表](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ha-xi-biao.md)
+  * [LRU算法](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
+  * [B+树](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/b+-shu.md)
+  * [排序算法](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/pai-xu-suan-fa.md)
 * [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
   * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)
 * [智力题](problem-notes/zhi-li-ti.md)

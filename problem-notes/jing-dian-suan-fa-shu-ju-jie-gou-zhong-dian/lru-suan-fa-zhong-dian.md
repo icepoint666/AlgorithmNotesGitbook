@@ -1,4 +1,4 @@
-# LRU算法（重点）
+# LRU算法
 
 **Leetcode146 LRU算法实现**
 

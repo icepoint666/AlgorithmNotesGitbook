@@ -144,26 +144,30 @@ T2：类似于上面T3的情况，这种旋转操作需要一直持续到根节�
 ### 代码
 
 * 节点的定义（存储data，height，\*left，\*right）
-* 得到树的高度属性 logN（存储在节点中，不需要额外计算）
-  * return max\(treeHeight\(x-&gt;left\), treeHeight\(x-&gt;right\) + 1\)
-  * 注意:高度属性不等于深度，是深度的相反
+* 得到树的高度属性 O\(1\)（存储在节点中，不需要额外计算）
+  * 注意:高度属性不等于深度，是深度的相反, 会出现一些高度断层，例如：子节点比父节点height小2，也正常！！
   * 与之对应地，我们在进行如下操作时需要更新受影响的所有节点的高度：
     1. 在插入结点时， 沿插入的路径更新结点的高度值
     2. 在删除结点时（delete）,沿删除的路径更新结点的高度值
-* 得到树的平衡因子 log1（直接根据高度就可以计算出来）
-  * root-&gt;left-&gt;height - root-&gt;right-&gt;height
-* 左旋操作
+    3. 左旋右旋的时候
+* 得到树的平衡因子 O\(1\)（直接根据高度就可以计算出来）
+* 左旋操作 O\(1\)
   * 两个操作：
     * root-&gt;right = right-&gt;left
     * right-&gt;left = root
-* 右旋操作
+  * 需要更新深度，先更新root，再更新right
+* 右旋操作 O\(1\)
   * 两个操作
     * 类似于上面
-* 平衡化操作
+  * 需要更新深度，先更新root，再更新left
+* 平衡化操作 O\(1\)
   * 如果出现不平衡的现象
     * 四种类型判断
-* Insert node \(递归）
-* delete node \(递归）
+* Insert node \(递归 logN）
+  * 关键：什么时候更新height
+* delete node \(递归 logN）
+  * 关键：什么时候更新height
+  * 有一个deleteMin的现象：就是需要删除当前root的节点，需要把右子树的最小节点值更新上来，然后把那个最小节点删除了
 * deleteMin \(删除一个子树中最小的节点\)，用在delete node中
 
 
@@ -171,23 +175,23 @@ T2：类似于上面T3的情况，这种旋转操作需要一直持续到根节�
 ```cpp
 // AVL.cpp
 
-// 节点的定义
-typedef int KEY_TYPE
+#include <iostream>
+#include <stdio.h>
+#include <algorithm>
+using namespace std;
+
+typedef int KEY_TYPE;
 struct Node {
     KEY_TYPE data;
     int      height;
     Node     *left;
     Node     *right;
-    Node(KEY_TYPE x): data(x), height(1), left(NULL), right(NULL) {}
-}
+    Node(KEY_TYPE x): data(x), height(0), left(NULL), right(NULL) {};
+};
 
 //树的高度
-int treeHeight(Node* root) {
-    if(root == NULL) {
-        return -1    ;
-    } else {
-        return max(treeHeight(root->left),treeHeight(root->right)) + 1;
-    }
+int getHeight(Node* root) {
+    return (root==NULL)?-1:root->height;
 }
 
 //计算平衡因子
@@ -195,18 +199,18 @@ int treeGetBalanceFactor(Node* root) {
     if(root == NULL)
         return 0;
     else
-        return x->left->height - x->right->height;
+        return getHeight(root->left) - getHeight(root->right);
 }
 
 //右旋
 Node* treeRotateRight(Node* root) {
     Node* left = root->left;
-    
+
     root->left = left->right; // 将将要被抛弃的节点连接为旋转后的 root 的左孩子
     left->right = root; // 调换父子关系
 
-    left->height = max(treeHeight(left->left), treeHeight(left->right))+1;
-    right->height = max(treeHeight(right->left), treeHeight(right->right))+1;
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1;//注意这里也要先更新root再更新left，因为其实root是left的子节点
+    left->height = max(getHeight(left->left), root->height) + 1;
     
     return left;
 }
@@ -217,9 +221,9 @@ Node* treeRotateLeft(Node* root) {
 
     root->right = right->left;
     right->left = root;
-
-    left->height = max(treeHeight(left->left), treeHeight(left->right))+1;
-    right->height = max(treeHeight(right->left), treeHeight(right->right))+1;
+    
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1;//注意这里同样也要先更新root再更新right
+    right->height = max(getHeight(right->right), root->height) + 1;
 
     return right;
 }
@@ -231,45 +235,50 @@ Node* treeRebalance(Node* root) {
         return treeRotateRight(root);
     else if(factor > 1 && treeGetBalanceFactor(root->left) <= 0) { //LR
         root->left = treeRotateLeft(root->left);
-        return treeRotateRight(temp);
-    } else if(factor < -1 && treeGetBalanceFactor(root->right) <= 0) // RR
+        return treeRotateRight(root);
+    }else if(factor < -1 && treeGetBalanceFactor(root->right) <= 0) // RR
         return treeRotateLeft(root);
-    else if((factor < -1 && treeGetBalanceFactor(root->right) > 0) { // RL
+    else if(factor < -1 && treeGetBalanceFactor(root->right) > 0) { // RL
         root->right = treeRotateRight(root->right);
         return treeRotateLeft(root);
-    } else {
+    }else{
         return root;
     }
 }
 
 //插入元素
-void treeInsert(Node* root, int value)
+Node* treeInsert(Node* root, KEY_TYPE value)
 {
     if(root == NULL) {
-        Node* newNode;
-        newNode = malloc(sizeof(Node));
-        assert(newNode);
+        //Node* newNode = (Node*)malloc(sizeof(Node)); //注意：这里的sizeof(Node)肯定与sizeof(Node*)是不一样的
+        //newNode->data = value;
+        //newNode->left = newNode->right = NULL;
+        root = new Node(value);
+    }else if(root->data < value)
+        root->right = treeInsert(root->right,value);
+    else
+        root->left = treeInsert(root->left,value);
+    root->height = max(getHeight(root->left), getHeight(root->right)) + 1; // 更新高度，专门针对于没有旋转操作的时候更新高度
+    root = treeRebalance(root);
+    return root;
+}
+//声明
+Node* treeDelete(Node *root, KEY_TYPE value);
 
-        newNode->data = value;
-        newNode->left = newNode->right = NULL;
-
-        root = newNode;
-    } else if(root->data == value) {
-        return;
-    } else {
-        if(root->data < value)
-            treeInsert(root->right,value);
-        else
-            treeInsert(root->left,value)
-    }
-
-    treeRebalance(root);
+//删除节点的时候删除最小值
+KEY_TYPE treeDeleteMin(Node* root)
+{
+    Node* temp = root;
+    while(temp->left)
+        temp = temp->left;
+    KEY_TYPE value = temp->data;
+    root = treeDelete(root, value);
+    return value;
 }
 
-void treeDelete(Node *root, int data)
+Node* treeDelete(Node *root, KEY_TYPE value)
 {
     Node *toFree; 
-
     if(root) {
         if(root->data == value) {
             if(root->right) {
@@ -277,29 +286,102 @@ void treeDelete(Node *root, int data)
             } else {
                 toFree = root;
                 root = toFree->left;
-                free(toFree);
+                delete(toFree);
             }
-        } else {
-            if(root->data < value)
-                treeDelete(root->right,value);
-            else
-                treeDelete(root->left,value)
-        }
-        treeRebalance(root);
+        }else if(root->data < value)
+            root->right = treeDelete(root->right, value);
+        else
+            root->left = treeDelete(root->left, value);
+        if(root)root->height = max(getHeight(root->left), getHeight(root->right)) + 1; //这里需要加一个判定因为很可能删除完之后root就等于null了
+        root = treeRebalance(root);
     }
+    return root;
 }
-//删除节点的时候删除最小值
-KEY_TYPE treeDeleteMin(Node* root)
+//前序遍历：输出树的结构
+void inOrder(Node* root)
 {
-    Node* temp = root;
-    while(temp->left)
-        temp = temp->root;
-    KEY_TYPE value = temp->data;
-    treeDelete(root, value);
-    return value;
+	if(root){
+		inOrder(root->left);
+		printf("key: %d height: %d ", root->data, root->height);
+		if(root->left)
+			printf("left child: %d ", root->left->data);
+		if(root->right)
+			printf("right child: %d ", root->right->data);
+		printf("\n");
+		inOrder(root->right);
+	}
 }
-
+//测试代码
+int main(int argc, char* argv[]){
+    Node* root = NULL;
+	int vector[] = {1,2,3,4,5,6,7};
+	const int length = sizeof(vector)/sizeof(int);
+	for(int i = 0; i< length;i++)
+		root = treeInsert(root, vector[i]);
+	
+	printf("\nInOrder: \n");
+	inOrder(root);
+    root = treeInsert(root, 8);
+    printf("\nInOrder: \n");
+	inOrder(root);
+    root = treeDelete(root, 1);
+	printf("\nInOrder: \n");
+    inOrder(root);
+    root = treeDelete(root, 8);
+    printf("\nInOrder: \n");
+    inOrder(root);
+    root = treeDelete(root, 4);
+    printf("\nInOrder: \n");
+    inOrder(root);
+	return 0;
+}
 ```
 
+测试结果：
 
+```cpp
+InOrder:
+key: 1 height: 0
+key: 2 height: 1 left child: 1 right child: 3
+key: 3 height: 0
+key: 4 height: 2 left child: 2 right child: 6
+key: 5 height: 0
+key: 6 height: 1 left child: 5 right child: 7
+key: 7 height: 0
+
+InOrder:
+key: 1 height: 0
+key: 2 height: 1 left child: 1 right child: 3
+key: 3 height: 0
+key: 4 height: 3 left child: 2 right child: 6
+key: 5 height: 0
+key: 6 height: 2 left child: 5 right child: 7
+key: 7 height: 1 right child: 8
+key: 8 height: 0
+
+InOrder:
+key: 2 height: 1 right child: 3
+key: 3 height: 0
+key: 4 height: 3 left child: 2 right child: 6
+key: 5 height: 0
+key: 6 height: 2 left child: 5 right child: 7
+key: 7 height: 1 right child: 8
+key: 8 height: 0
+
+InOrder:
+key: 2 height: 1 right child: 3
+key: 3 height: 0
+key: 4 height: 2 left child: 2 right child: 6
+key: 5 height: 0
+key: 6 height: 1 left child: 5 right child: 7
+key: 7 height: 0
+
+InOrder:
+key: 2 height: 1 right child: 3
+key: 3 height: 0
+key: 5 height: 2 left child: 2 right child: 6
+key: 6 height: 1 right child: 7
+key: 7 height: 0
+
+```
 

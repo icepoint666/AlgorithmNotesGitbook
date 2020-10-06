@@ -198,6 +198,75 @@ int treeGetBalanceFactor(Node* root) {
         return x->left->height - x->right->height;
 }
 
+//右旋
+Node* treeRotateRight(Node* root) {
+    Node* left = root->left;
+    
+    root->left = left->right; // 将将要被抛弃的节点连接为旋转后的 root 的左孩子
+    left->right = root; // 调换父子关系
+
+    left->height = max(treeHeight(left->left), treeHeight(left->right))+1;
+    right->height = max(treeHeight(right->left), treeHeight(right->right))+1;
+    
+    return left;
+}
+
+//左旋
+Node* treeRotateLeft(Node* root) {
+    Node* right = root->right;
+
+    root->right = right->left;
+    right->left = root;
+
+    left->height = max(treeHeight(left->left), treeHeight(left->right))+1;
+    right->height = max(treeHeight(right->left), treeHeight(right->right))+1;
+
+    return right;
+}
+
+//调整平衡，针对于4种情况
+Node* treeRebalance(Node* root) {
+    int factor = treeGetBalanceFactor(root);
+    if(factor > 1 && treeGetBalanceFactor(root->left) > 0) // LL
+        return treeRotateRight(root);
+    else if(factor > 1 && treeGetBalanceFactor(root->left) <= 0) { //LR
+        root->left = treeRotateLeft(root->left);
+        return treeRotateRight(temp);
+    } else if(factor < -1 && treeGetBalanceFactor(root->right) <= 0) // RR
+        return treeRotateLeft(root);
+    else if((factor < -1 && treeGetBalanceFactor(root->right) > 0) { // RL
+        root->right = treeRotateRight(root->right);
+        return treeRotateLeft(root);
+    } else {
+        return root;
+    }
+}
+
+//插入元素
+void treeInsert(Node, int value)
+{
+    nodeptr_t newNode;
+    nodeptr_t root = *rootptr;
+
+    if(root == NULL) {
+        newNode = malloc(sizeof(node_t));
+        assert(newNode);
+
+        newNode->data = value;
+        newNode->left = newNode->right = NULL;
+
+        *rootptr = newNode;
+    } else if(root->data == value) {
+        return;
+    } else {
+        if(root->data < value)
+            treeInsert(&root->right,value);
+        else
+            treeInsert(&root->left,value)
+    }
+
+    treeRebalance(root);
+}
 ```
 
 

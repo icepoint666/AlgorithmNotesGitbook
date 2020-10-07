@@ -56,6 +56,7 @@
 * [字符串](catogory-notes/zi-fu-chuan/README.md)
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
+* [并查集](catogory-notes/bing-cha-ji.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa.md)
 * [数据结构](catogory-notes/shu-ju-jie-gou.md)
 * [概率题](catogory-notes/gai-lv-ti.md)

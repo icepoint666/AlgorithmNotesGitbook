@@ -119,5 +119,5 @@ public:
 }
 ```
 
-（）
+（如果要求不能使用额外空间，那就将原来BST的node delete一个，然后再在AVL树上insert一个，利用AVL树的treeInsert方法一个一个插入）
 

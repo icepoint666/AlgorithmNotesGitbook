@@ -49,10 +49,10 @@ int left_bound(int[] nums, int target) {
     
     while (left < right) { // 注意
         int mid = (left + right) / 2;
-        if (nums[mid] >= target) {
-            right = mid; //注意
+        if (nums[mid] < target) {
+            left = mid + 1; 
         } else {
-            left = mid + 1;
+            right = mid; //注意
         }
     }
     //终止条件是left == right，所以其实返回left与返回right都是一样的

@@ -4,7 +4,7 @@
 
 ### 应用场景
 
-* C++STL中的std::map, std::set\(又叫树状数组，有序集合\)\(std::unordered\_map与std::unordered\_set都是哈希表\)
+* C++STL中的std::map, std::set\(又叫树状数组，有序集合/映射\)\(std::unordered\_map与std::unordered\_set都是哈希表\)
 * nginx用来管理timer
 * epoll中用红黑树管理事件块（文件描述符）
 * Linux进程调度Completely Fair Scheduler用红黑树管理进程控制块

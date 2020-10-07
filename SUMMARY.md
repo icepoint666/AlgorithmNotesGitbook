@@ -11,6 +11,7 @@
 * [Base](coding-tricks/coding-tricks-base.md)
 * [STL容器](coding-tricks/rong-qi.md)
 * [哈希表中使用pair或者tuple作为key](coding-tricks/ha-xi-biao-zhong-shi-yong-pair-huo-zhe-tuple-zuo-wei-key.md)
+* [有序集合/映射，自定义排序方式](coding-tricks/you-xu-ji-he-ying-she-zi-ding-yi-pai-xu-fang-shi.md)
 * [字符串操作](coding-tricks/zi-fu-chuan-cao-zuo/README.md)
   * [std::string基本操作](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-ji-ben-cao-zuo.md)
   * [std::string转int,float,double,long](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)
@@ -56,6 +57,7 @@
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa.md)
+* [数据结构](catogory-notes/shu-ju-jie-gou.md)
 * [概率题](catogory-notes/gai-lv-ti.md)
 * [其他题](catogory-notes/qi-ta-ti.md)
 

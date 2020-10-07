@@ -220,6 +220,8 @@ mp.erase(key); //需要先前判断key存在
 
 ### set, unordered\_set
 
+有序集合，最前面的是最小的，实现：红黑树
+
 链表中被逼无奈没有好的办法，采用unordered\_set把ListNode\*存放在set中可以记录是否访问
 
 构造

@@ -297,7 +297,7 @@ Node* treeDelete(Node *root, KEY_TYPE value)
     }
     return root;
 }
-//前序遍历：输出树的结构
+//中序遍历：输出树的结构
 void inOrder(Node* root)
 {
 	if(root){

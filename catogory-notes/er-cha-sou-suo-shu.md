@@ -12,7 +12,7 @@
 | 剑指Offer 36 | 二叉搜索树与双向链表 | 递归+分治+保存头尾指针 | 时间久做出来，注意最后连接头尾 |
 | 剑指Offer 68-II | 二叉搜索树的最近公共祖先 | 想到处理关键点 | 不太容易立刻想出 |
 | 面试题 04.05 | 合法二叉搜索树 | 向下遍历参数要加入min节点与max节点 | 易错 |
-|  |  |  |  |
+| 1382 | 将二叉搜索树变平衡 | 不要误会成将搜索树转换成AVL树 | 易错 |
 
 **剑指 Offer 36. 二叉搜索树与双向链表**
 
@@ -86,4 +86,38 @@ bool isValidBST(TreeNode* root) {
     return isValidBST(root, NULL, NULL);
 }
 ```
+
+**1382. 将二叉搜索树变平衡**
+
+**这道题不要误以为是去手撕AVL，注意前面的AVL树的插入或者删除代码是在AVL树上修改的，如果想把BST变成AVL单纯依靠左旋右旋是不行的**
+
+**解法: 先将数据中序遍历下来，都存储到vector里面，然后构造一个平衡二叉树**
+
+```cpp
+class Solution {
+public:
+    vector<int>values;
+    void inOrder(TreeNode* root){ //中序遍历
+        if(root==NULL)return;
+        inOrder(root->left);
+        values.push_back(root->val);
+        inOrder(root->right);
+    }
+    TreeNode* buildTree(int l, int r){ //利用二分法建立平衡二叉树
+        while(l > r)return NULL;
+        int mid = (l + r) / 2;
+        TreeNode* root = new TreeNode(values[mid]);
+        root->left = buildTree(l, mid-1);
+        root->right = buildTree(mid+1, r);
+        return root;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        values.clear();
+        inOrder(root);
+        return buildTree(0, values.size()-1);
+    }
+}
+```
+
+（）
 

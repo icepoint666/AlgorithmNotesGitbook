@@ -9,6 +9,7 @@
 | 459 | 重复的子字符串 | 双倍字符串+find函数的使用 | 巧解 |
 | 1328 | 破坏回文串 | 有坑的题 | 小心 |
 | 1249 | 移除无效的括号 | 字符串删除技巧 | 简单 |
+| 自定义 | 高效判定字符串子序列 | 利用二分查找优化 | 记忆 |
 
 **剑指 Offer20. 表示数值的字符串**
 
@@ -87,4 +88,88 @@ bool repeatedSubstringPattern(string s) {
 **字符串一边遍历一边删除的技巧：用空格来替换被删除的字符**
 
 **代码加leetcode**
+
+\*\*\*\*
+
+**自定义：高效判定字符串子序列（用字典来存字符是常用的trick\)**
+
+**问题背景：**
+
+如何判定字符串 `s` 是否是字符串 `t` 的子序列（可以假定 `s` 长度比较小，且 `t` 的长度非常大）。举两个例子：
+
+s = "abc", t = "**a**h**b**gd**c**", return true.
+
+s = "axc", t = "ahbgdc", return false.
+
+这里`t` 的长度非常大，而且 给你一系列字符串 `s1,s2,...` 和字符串 `t`，你需要判定每个串 `s` 是否是 `t` 的子序列
+
+**传统解法**：处理每个 `s` 时间复杂度是 **O\(N\)**， N 为 `t` 的长度，如果`t` 的长度非常大，效率会非常低
+
+**优化解法：**利用下面建立`t`字符串字符的索引，处理每个`s` 时间复杂度降低，大约是 **O\(MlogN\)**。由于 N 相对 M 大很多，所以后者效率会更高。但是需要额外开销O\(N\)的空间，保存字符索引位置，**空间换时间**
+
+（适用于需要判定很多个`s`字符串）
+
+**解决办法：**
+
+对 `t` 进行预处理，用一个字典 `index` 将每个字符出现的索引位置按顺序存储下来：
+
+```cpp
+int m = s.size(), n = t.size();
+vector<vector<int>>index;
+index.resize(256);
+// 先记下 t 中每个字符出现的位置
+for (int i = 0; i < n; i++) {
+    char c = t[i];
+    index[c].push_back(i);
+}
+```
+
+![](../../.gitbook/assets/2.jpg)
+
+这时候：s = "abc" 来匹配字符串`t`
+
+* 查找a的index = 1
+* 然后二分查找b中比1大的index的左边界（左边界二分查找模板），找到3
+* 然后继续二分查找c中比3大的index的左边界，找到6
+
+所以总共花费MlogN的复杂度，就可以找到字符串子序列
+
+**代码实现**
+
+```cpp
+int left_bound(vector<int> &nums, int val){
+    int l = 0, r = nums.size();
+    while (l < r) {
+        int mid = (l + r) / 2;
+        if (val > nums[mid]) {
+            l = mid + 1;
+        } else {
+            r = mid;
+        } 
+    }
+    return l;
+}
+bool isSubsequence(string s, string t) {
+    int m = s.size(), n = t.size();
+    vector<vector<int>>index;
+    index.resize(256);
+    // 先记下 t 中每个字符出现的位置
+    for (int i = 0; i < n; i++) {
+        char c = t[i];
+        index[c].push_back(i);
+    }
+    int j = 0; // 串 t 上的指针
+    // 借助 index 查找 s[i]
+    for (int i = 0; i < m; i++) {
+        char c = s[i];
+        if (index[c].empty()) return false;
+        int pos = left_bound(index[c], j);// 二分搜索区间中没有找到字符 c
+        if (pos == index[c].size()) return false;
+        j = index[c][pos] + 1; // 向前移动指针 j
+    }
+    return true;
+}
+```
+
+
 

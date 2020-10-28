@@ -43,7 +43,8 @@
       <td style="text-align:left">&#x4E8C;&#x53C9;&#x6811;&#x7684;&#x6700;&#x8FD1;&#x516C;&#x5171;&#x7956;&#x5148;</td>
       <td
       style="text-align:left">
-        <p>&#x66B4;&#x529B;&#x6CD5;O(nlogn)&#xFF0C;&#x4F18;&#x5316;O(n)</p>
+        <p>&#x66B4;&#x529B;&#x9012;&#x5F52;&#x6CD5;O(nlogn)&#xFF0C;
+          <br />&#x4F18;&#x5316;&#x9012;&#x5F52;O(n)&#xFF0C;&#x8FED;&#x4EE3;&#x505A;&#x6CD5;</p>
         <p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x5206;&#x6790;&#x601D;&#x8DEF;&#xFF01;</p>
         </td>
         <td style="text-align:left">&#x4E2D;&#x7B49;</td>

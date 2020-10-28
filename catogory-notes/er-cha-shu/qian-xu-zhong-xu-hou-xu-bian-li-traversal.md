@@ -16,7 +16,7 @@ while(cur != null || !stack.isEmpty()){
         cur = cur.left;
     }
     TreeNode node = stack.pop();
-    /
+    //执行操作
     cur = node.right;
 }
 ```

@@ -4,5 +4,20 @@
 
 ### 掌握递归\(recursive\)方法 以及 使用stack的迭代\(iterative\)方法
 
+#### 中序遍历 迭代模板
 
+```cpp
+Stack<TreeNode> stack = new Stack<TreeNode>();
+
+TreeNode cur = root;
+while(cur != null || !stack.isEmpty()){
+    while(cur != null){
+        stack.push(cur);
+        cur = cur.left;
+    }
+    TreeNode node = stack.pop();
+    
+    cur = node.right;
+}
+```
 

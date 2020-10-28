@@ -16,7 +16,7 @@
 * 迭代\(iterative\)
 * 对时间复杂度分析
 
-**解题核心：后序返回的时候**，父节点根据左右子树的返回值，判断自己是不是满足题意的最小祖先
+**解题核心：对于找公共祖先问题都是后序遍历**，父节点根据左右子树的返回值，判断自己是不是满足题意的最小祖先
 
 ### 题目
 
@@ -36,7 +36,10 @@
       <td
       style="text-align:left">&#x9012;&#x5F52;&#xFF0C;&#x5C3E;&#x9012;&#x5F52;&#xFF0C;&#x590D;&#x6742;&#x5EA6;&#x5206;&#x6790;</td>
         <td
-        style="text-align:left">&#x7B80;&#x5355;</td>
+        style="text-align:left">
+          <p>&#x6A21;&#x677F;</p>
+          <p>&#x7B80;&#x5355;</p>
+          </td>
     </tr>
     <tr>
       <td style="text-align:left">236/&#x5251;&#x6307;offer 68-II</td>
@@ -44,17 +47,22 @@
       <td
       style="text-align:left">
         <p>&#x66B4;&#x529B;&#x9012;&#x5F52;&#x6CD5;O(nlogn)&#xFF0C;
-          <br />&#x4F18;&#x5316;&#x9012;&#x5F52;O(n)&#xFF0C;&#x8FED;&#x4EE3;&#x505A;&#x6CD5;</p>
+          <br /><b>&#x540E;&#x5E8F;&#x904D;&#x5386;</b>&#x4F18;&#x5316;&#x9012;&#x5F52;O(n)
+          <br
+          />&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#x9884;&#x5904;&#x7406;&#x7684;&#x8FED;&#x4EE3;&#x505A;&#x6CD5;</p>
         <p>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x5206;&#x6790;&#x601D;&#x8DEF;&#xFF01;</p>
         </td>
-        <td style="text-align:left">&#x4E2D;&#x7B49;</td>
+        <td style="text-align:left">
+          <p>&#x6A21;&#x677F;</p>
+          <p>&#x4E2D;&#x7B49;</p>
+        </td>
     </tr>
     <tr>
       <td style="text-align:left">865/1123</td>
       <td style="text-align:left">&#x5177;&#x6709;&#x6240;&#x6709;&#x6700;&#x6DF1;&#x8282;&#x70B9;&#x7684;&#x6700;&#x5C0F;&#x5B50;&#x6811;</td>
       <td
-      style="text-align:left"></td>
-        <td style="text-align:left"></td>
+      style="text-align:left">level order traversal&#x7684;&#x505A;&#x6CD5;</td>
+        <td style="text-align:left">&#x8BB0;&#x5FC6;</td>
     </tr>
   </tbody>
 </table>
@@ -63,7 +71,7 @@
 
 LCA 问题在 BST 里就是看给定节点val相对 node.val 的大小就可以。
 
-**递归**
+**1）递归**
 
 ```cpp
 public class Solution {
@@ -81,7 +89,7 @@ public class Solution {
 }
 ```
 
-**因为是尾递归！！**
+**2）因为是尾递归！！**
 
 **用 while循环省去递归占用的系统栈空间（每次调用函数都要加一个函数栈）；**
 
@@ -105,7 +113,7 @@ public class Solution {
 
 **236. 二叉树的最近公共祖先**
 
-**暴力解法**：判断子树中 contains 的时间复杂度太高了，而且重复调用很多，完全没优化。
+**1）暴力解法**：判断子树中 contains 的时间复杂度太高了，而且重复调用很多，完全没优化。
 
 **暴力解法的时间复杂度是 O\(n log n\)，因为对于一个 node 来讲，它被 check 的次数等于它和 root 的距离 \(也就是 height\)。**
 
@@ -139,7 +147,7 @@ public class Solution {
 
 加 containsNode\(\) 函数比较多此一举，其实可以直接用这个函数在 binary tree 上的递归性质去调用自身解决。
 
-**优化核心**：
+**2）优化核心**：
 
 函数返回的是 "**对于给定 Node 为 root 的 tree 中是否包含 p 或者 q，只要包含一个，就不返回 null 了**，而我们相对于当前节点为 root 的结果，就看两边递归的 return value 决定."
 
@@ -165,7 +173,7 @@ public class Solution {
 }
 ```
 
-**迭代**
+**3）迭代**
 
 一种可能的迭代的写法是借鉴了教授 Martin Farach-Colton 的那篇 [The LCA Problem Revisited](http://www.ics.uci.edu/~eppstein/261/BenFar-LCA-00.pdf) 的 idea，就是先对 Tree 做 pre-processing 然后用 array 保存过渡结果方便快速 query.
 
@@ -223,4 +231,47 @@ public class Solution {
         return root;
     }
 ```
+
+**865. 具有所有最深节点的最小子树**
+
+**题意：** 返回能满足 **以该节点为根的子树中包含所有最深的节点** 这一条件的具有最大深度的节点
+
+**1）递归：（对于找公共祖先问题，都是后序遍历）**
+
+**关键思路：参数①包含一个当前node层的深度，参数②表示向下遍历后返回的当前node的高度**
+
+**根据左右子树的高度**
+
+* 如果左右等高，就返回当前node
+* 如果左高，就返回左树刚刚返回的node
+* 如果右高，就返回右树刚刚返回的node
+
+```cpp
+TreeNode* subtree(TreeNode* root, int depth, int& num){
+        if(root==NULL)return NULL;
+        if(!root->left && !root->right){
+            num = depth;
+            return root;
+        }
+        int num_l = depth, num_r = depth;
+        TreeNode* _left, * _right;
+        if(root->left) _left = subtree(root->left, depth+1, num_l);
+        if(root->right) _right = subtree(root->right, depth+1, num_r);
+        num = max(num_l, num_r);
+        if(num_l == num_r)return root;
+        else if(num_l > num_r)return _left;
+        else return _right;
+    }
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        int tmp;
+        return subtree(root, 0, tmp);
+    }
+```
+
+**2）递归/迭代 都可以通过level order traversal的思路**
+
+#### 关键点：意识到只需要求最底层 level 最左面和最右面节点的 LCA 就可以了 <a id="&#x8FD9;&#x9898;&#x7684;&#x5173;&#x952E;&#x70B9;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#xFF1A;&#x610F;&#x8BC6;&#x5230;&#x53EA;&#x9700;&#x8981;&#x6C42;&#x6700;&#x5E95;&#x5C42;-level-&#x6700;&#x5DE6;&#x9762;&#x548C;&#x6700;&#x53F3;&#x9762;&#x8282;&#x70B9;&#x7684;-lca-&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;"></a>
+
+* **如何递归求 level order 和 LCA**
+* **如何迭代求 level order 和 LCA**
 

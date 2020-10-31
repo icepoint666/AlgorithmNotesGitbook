@@ -4,6 +4,25 @@
 
 **掌握递归\(recursive\)方法 以及 使用stack的迭代\(iterative\)方法**
 
+**前序preorder：**
+
+* 递归：self-&gt;left-&gt;right
+* 迭代：**直接用stack**
+
+**中序inorder:**
+
+* 递归：left-&gt;self-&gt;right
+* 迭代：**用stack + cur**
+
+**后序postorder:**
+
+* 递归：left-&gt;right-&gt;self
+* 迭代：**用stack + cur + prev**
+
+**重点在于迭代的模板，需要掌握迭代的写法**
+
+#### **前序**遍历 迭代模板
+
 ### 题目
 
 <table>
@@ -27,10 +46,18 @@
           <p>&#x7B80;&#x5355;</p>
           </td>
     </tr>
+    <tr>
+      <td style="text-align:left">144</td>
+      <td style="text-align:left">&#x4E8C;&#x53C9;&#x6811;&#x7684;&#x524D;&#x5E8F;&#x904D;&#x5386;</td>
+      <td
+      style="text-align:left">&#x524D;&#x5E8F;&#x904D;&#x5386;&#x7684;&#x8FED;&#x4EE3;&#x6A21;&#x677F;</td>
+        <td
+        style="text-align:left">&#x6A21;&#x677F;</td>
+    </tr>
   </tbody>
 </table>
 
-#### 
+前序遍历
 
 #### 中序遍历 迭代模板
 

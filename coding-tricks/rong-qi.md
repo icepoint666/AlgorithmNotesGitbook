@@ -73,6 +73,14 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 reverse(vec.begin(), vec.begin()+k); //翻转前k个元素
 ```
 
+合并两个vector
+
+```cpp
+vector<int>a;
+vector<int>b;
+a.insert(a.end(), b.begin(), b.end());
+```
+
 ### list
 
 ```cpp

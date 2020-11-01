@@ -14,12 +14,12 @@
 
 * 递归：left-&gt;self-&gt;right
 * 迭代：**用stack + cur**
-* \*\*\*\*
+* **parent指针：**比较有技巧型
 
 **后序postorder:**
 
 * 递归：left-&gt;right-&gt;self
-* 迭代：**用stack + cur + prev**
+* 迭代：**用stack + cur + prev（leetcode hard\)**
 
 **重点在于迭代的模板，需要掌握迭代的写法**
 
@@ -70,33 +70,96 @@ vector<int> preorderTraversal(TreeNode* root) {
 * 处理当前node
 * if 如果有left，node = node-&gt;left
 * else if 如果有right, node = node-&gt;right
-* else 向上回溯（可能是由左树回溯，也可能是右树回溯）
-  * 对于左树回溯但是无右树，或者，本身就是从右树回溯的，这种需要向上继续回溯到parent
+* else 都没有，就向上回溯（可能是自己是左树回溯，也可能自己是右树回溯）
+  * 如果是左树回溯但是无右树，或者，自己本身就是右树回溯的，这种需要向上继续回溯到parent
   * 找到有效的右树，处理右树
 
 ```cpp
-void preorder(TreeNode* root) {
- 
-        TreeNode* cur = root;
-        while(cur != NULL){
-            System.out.println(cur.val);
-
-            if(cur.left != null){
-                cur = cur.left;
-            } else if(cur.right != null){
-                cur = cur.right;
-            } else {
-                while(cur.parent != null && (cur.parent.right == null || cur == cur.parent.right)){
-                    cur = cur.parent;
-                }
-                if(cur.parent == null) break;
-                cur = cur.parent.right;
+vector<int> preorder(TreeNode* root) {
+    vector<int>res;
+    TreeNode* cur = root;
+    while(cur != NULL){
+        res.push_back(cur->val);
+        if(cur->left != NULL){
+            cur = cur->left;
+        } else if(cur->right != NULL){
+            cur = cur->right;
+        } else {
+            while(cur->parent != NULL && (cur->parent->right == NULL || cur == cur->parent->right)){
+                cur = cur->parent;
             }
+            if(cur->parent == NULL) break;
+            cur = cur->parent->right;
         }
     }
+    return res;
+}
 ```
 
 ### 中序遍历
+
+**递归模板：**
+
+**（选择分成两个函数实现，前序，后序也可以这样实现）**
+
+```cpp
+vector<int>res;
+void inorder(TreeNode* root){
+    if(root==NULL)return;
+    inorder(root->left);
+    res.push_back(root->val);
+    inorder(root->right);
+}
+vector<int> inorderTraversal(TreeNode* root) {
+    inorder(root);
+    return res;
+}
+```
+
+**迭代模板:**
+
+**两个while循环，都是cur!=NULL**
+
+**内嵌的while就是要一直挖，找到最左边节点**
+
+```cpp
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int>res;
+    stack<TreeNode*>s;
+    TreeNode* cur = root;
+    while(cur!=NULL || !s.empty()){
+        while(cur!=NULL){
+            s.push(cur);
+            cur = cur->left;
+        }
+        cur = s.top();
+        s.pop();
+        res.push_back(cur->val);
+        cur = cur->right;
+    }
+    return res;
+}
+```
+
+**parent指针**
+
+cur指针，比较有技巧性（思路是这样的）
+
+* ①
+* ②
+* ③
+
+```cpp
+vector<int> inorderTraversal(TreeNode* root){
+    vector<int>res;
+    TreeNode* cur = root;
+    //Current is at leftmost pos
+    while(cur!=NULL)cur = cur->left;
+    while(cur!=NULL){
+        //only
+    }
+}
+```
 
 ### 后序遍历
 
@@ -104,9 +167,10 @@ void preorder(TreeNode* root) {
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 144 | 二叉树的前序遍历 | 递归，迭代，parent指针迭代，复杂度分析 | 模板 |
+| 144 | 二叉树的前序遍历 | 递归，迭代，parent指针迭代 | 模板 |
+| 94 | 二叉树的中序遍历 | 递归，迭代，parent指针迭代 | 模板 |
 
-### 前序遍历
+### 
 
 
 

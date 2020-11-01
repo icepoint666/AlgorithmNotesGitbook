@@ -194,7 +194,7 @@ unordered_map<char,int> mp; //哈希表容器：
 遍历容器、遍历map：
 
 ```cpp
-for(auto it=mp.begin();it!=c.end();it++){
+for(auto it=mp.begin();it!=.end();it++){
     it->first it->second
 }
 ```
@@ -214,7 +214,7 @@ mp[key] = val;
 **map本身就是有序的，可以对map自定义排序方式，在建立的时候**
 
 ```cpp
-map<int, int, less<int>>mp;  //越小的在越前面
+map<int, int, less<int>>mp;  //越小的在越前面，如果是greater<int>越大的在越前面
 mp[3] = 3;mp[4] = 4;mp[5] = 5;
 for(auto it=mp.begin(); it!=mp.end(); it++){
     cout << it->first << " ";

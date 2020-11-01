@@ -6,9 +6,9 @@
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 105 | 前序 + 中序 构造二叉树 |  |  |
-| 106 | 中序 + 后序 构造二叉树 |  |  |
-| 889 | 前序 + 后序 构造二叉树 |  |  |
+| 105 | 前序 + 中序 构造二叉树 | 见下方题解 | 中等 |
+| 106 | 中序 + 后序 构造二叉树 | 利用后序前序的关联性，近似于105 | 中等 |
+| 889 | 前序 + 后序 构造二叉树 | 见下方题解 | 中等 |
 | 1008 | 前序遍历构造二叉搜索树 | 记录当前子树对应序列的st,ed | 中等 |
 
  ****
@@ -73,4 +73,51 @@ public:
     }
 };
 ```
+
+**106. 从中序与后序遍历序列构造二叉树**
+
+**利用：后序遍历与前序遍历互相转换的性质**
+
+**性质：**
+
+* **对于给定序列 S，定义 S' 为反序序列，**
+* **定义 R 为根节点 序列，有 R = R'，定义 C 为子节点序列，正确顺序为“左-右”**
+* **那么 post order 的序列顺序为 CR**
+
+**所以如果在做pre order时生成 RC' 序列，而不是RC，那么反序之后可以得到 \(RC'\)' = CR' = CR = post order 序列**
+
+**889. 根据前序和后序遍历构造二叉树**
+
+**关键：**前序遍历的pre\[0\]就是后序遍历的post\[N-1\]最后一个元素
+
+* 利用这个性质，pre\[1\]就是左子树的root
+* 然后找这个元素在post中的位置，就可以得到post中左子树与右子树的各自区间
+* 然后根据post左子树的位置到post\[0\]开头的这个区间就是左子树，从而也可以知道pre左子树的区间
+
+**trick:**因为 `pre` 和 `post` 遍历中的值是不同的正整数。我们可以存一个value-&gt;index的map，减少复杂度
+
+```cpp
+class Solution {
+public:
+    unordered_map<int,int>mp;
+    TreeNode* buildTree(vector<int>&pre, vector<int>&post, int pre_st, int pre_ed, int post_st, int post_ed){
+        if(pre_st > pre_ed)return NULL;
+        TreeNode* root = new TreeNode(pre[pre_st]);
+        if(pre_st + 1 > pre_ed)return root;
+        int index = mp[pre[pre_st+1]];
+        int len = index - post_st;
+        root->left =  buildTree(pre, post, pre_st+1, pre_st+1+len, post_st, index);
+        root->right = buildTree(pre, post, pre_st+len+2, pre_ed, index+1, post_ed);
+        return root;
+    }
+    TreeNode* constructFromPrePost(vector<int>& pre, vector<int>& post) {
+        for(int i = 0; i < post.size(); i++){
+            mp[post[i]] = i;
+        }
+        return buildTree(pre, post, 0, pre.size()-1, 0, post.size()-1);
+    }
+};
+```
+
+
 

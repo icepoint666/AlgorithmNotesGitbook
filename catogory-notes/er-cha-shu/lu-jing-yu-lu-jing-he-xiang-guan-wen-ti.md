@@ -5,7 +5,9 @@
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 112 | 路径之和-I |  | 简单 |
-| 11**3** | 路径之和-II |  | 中等 |
+| 113 | 路径之和-II |  | 中等 |
+| 124 | 二叉树的最大路径和 | 思路清晰 | 困难/一遍A |
+|  |  |  |  |
 
 **112. 路径总和**
 
@@ -51,5 +53,59 @@ public:
 };
 ```
 
+**124. 二叉树中的最大路径和**
 
+**最核心点：后序遍历**
+
+**后续遍历归结的时候，需要考虑两个问题：**
+
+**①返回值返回什么：**返回**包含当前root的路径**的最大向上路径和 m（不包含折返）
+
+ 因为路径至少一个节点，所以m只可能是**root-&gt;val**和**子树的返回值+root-&gt;val**的最大值
+
+**②包含当前root的路径**去**更新最大路径和**可能的几种情况
+
+* **包含当前root的路径**的最大向上路径和 m
+  * 其中其实蕴含了①中三种情况\(取最大值）
+    * root-&gt;val
+    * root-&gt;val + root-&gt;left返回值
+    * root-&gt;val + root-&gt;right返回值
+* **经过当前root的折返路径和**
+  * 这个折返路径和最大值必然等于 root-&gt;left返回值 + root-&gt;val + root-&gt;right返回值
+
+根据**有无子树模板**的**四种情况讨论**来解决
+
+```cpp
+class Solution {
+public:
+    int maxsum;
+    int findMax(TreeNode* root){
+        if(!root->left && !root->right){
+            maxsum = max(maxsum, root->val);
+            return root->val;
+        }
+        if(!root->left){
+            int m = max(root->val, findMax(root->right)+root->val);
+            maxsum = max(maxsum, m);
+            return m;
+        }
+        if(!root->right){
+            int m = max(root->val, findMax(root->left)+root->val);
+            maxsum = max(maxsum, m);
+            return m;
+        }
+        int l = findMax(root->left);
+        int r = findMax(root->right);
+        int m = max(max(l+root->val, r+root->val),root->val);
+        maxsum = max(maxsum, m);
+        maxsum = max(maxsum, l+r+root->val);
+        return m;
+    }
+    int maxPathSum(TreeNode* root) {
+        maxsum = -0x3f3f3f3f;
+        int _ = findMax(root);
+        return maxsum;
+    }
+};
+```
 

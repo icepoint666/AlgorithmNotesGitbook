@@ -6,6 +6,10 @@
 * 从上往下遍历BST，当前访问到的left/right子节点，一定是当前访问到的所有点中离它root值最近的两个点
 * 一般二叉搜索树都是**不包含重复元素**的！
 
+小性质：
+
+* 前序遍历可以决定二叉搜索树
+
 **题目：**
 
 | 序号/难度 | 名字 | 备注 |  |
@@ -15,6 +19,7 @@
 | 剑指Offer 68-II | 二叉搜索树的最近公共祖先 | 想到处理关键点 | 不太容易立刻想出 |
 | 面试题 04.05 | 合法二叉搜索树 | 向下遍历参数要加入min节点与max节点 | 易错 |
 | 1382 | 将二叉搜索树变平衡 | 不要误会成将搜索树转换成AVL树 | 易错 |
+| 1008 | 前序遍历构造二叉搜索树 | O\(logN\)的算法，遍历前序列找左数右树分隔点 | 中等 |
 
 **剑指 Offer 36. 二叉搜索树与双向链表**
 
@@ -121,23 +126,30 @@ public:
 }
 ```
 
-（如果要求不能使用额外空间，那就将原来BST的node delete一个，然后再在AVL树上insert一个，利用AVL树的treeInsert方法一个一个插入）
+（如果要求不能使用额外空间，那就将原来BST的node delete一个，然后再在AVL树上insert一个，利用AVL树的treeInsert方法一个一个插入**）**
 
-**855. 考场就座**
+**1008. 前序遍历构造二叉搜索树**
 
-假设有一个考场，考场有一排共 `N` 个座位，索引分别是 `[0..N-1]`，考生会**陆续**进入考场考试，并且可能在**任何时候**离开考场。
-
-你作为考官，要安排考生们的座位，满足：**每当一个学生进入时，你需要最大化他和最近其他人的距离；如果有多个这样的座位，安排到他到索引最小的那个座位**
-
-每两个相邻的考生看做线段的两端点，新安排考生就是找最长的线段，然后让该考生在中间把这个线段「二分」，中点就是给他分配的座位。`leave(p)` 其实就是去除端点 `p`，使得相邻两个线段合并为一个。
-
-**解决：主要是数据结构的考察**
-
-使用平衡二叉树：可以取最值，也可以修改、删除任意一个值，而且时间复杂度都是 O\(logN\)。
-
-常见的就是红黑树（一种平衡二叉搜索树），特性是自动维护其中元素的顺序，操作效率是 O\(logN\)。这种一般称为「有序集合/映射」。
-
-使用一个「虚拟线段」让算法正确启动
-
-\*\*\*\*
+```cpp
+TreeNode* buildTree(vector<int>& preorder, int st, int ed){
+    if(st > ed)return NULL;
+    TreeNode* root = new TreeNode(preorder[st]);
+    //寻找左数右树分隔点
+    int mid = ed + 1; //这个初始化设置很重要
+    for(int i = st + 1; i <= ed; i++){
+        if(preorder[i] > root->val){
+            mid = i;
+            break;
+        }
+    }
+    root->left = buildTree(preorder, st+1, mid-1);
+    root->right = buildTree(preorder, mid, ed);
+    return root;
+}
+    
+TreeNode* bstFromPreorder(vector<int>& preorder) {
+    if(preorder.empty())return NULL;
+    return buildTree(preorder, 0, preorder.size()-1);
+}
+```
 

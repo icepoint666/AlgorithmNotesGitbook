@@ -155,7 +155,40 @@ TreeNode* buildTree(vector<int>&input){
 
 **解法：**利用层序遍历，然后根据X轴坐标，来把当前节点append到X轴对应list的最后，因为层序遍历可以保证从上到下的顺序，所以这样处理完自然是结果了
 
+\(但是这道题**有一个坑:** 就是要求如果节点坐标相等输出值更小的那个，加上这个限制的话会更复杂一点，**暂时没有考虑这一点**，所以下面的代码也不会通过Leetcode 987）
+
 **层序遍历：使用队列**
 
-\*\*\*\*
+```cpp
+class Solution {
+public:
+    struct Tuple{
+        TreeNode* node;
+        int X;
+        Tuple(TreeNode* node, int x):node(node),X(x){}
+    };
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        queue<Tuple>q;
+        map<int, vector<int>>mp; 
+        //默认有序map就是less<int>,从小到大map<int,vector<int>,less<int>>mp
+        vector<vector<int>>res;
+        if(root!=NULL)q.push(Tuple(root,0));
+        while(!q.empty()){
+            Tuple cur = q.front();
+            if(!mp.count(cur.X)){
+                mp[cur.X] = vector<int>();
+                mp[cur.X].push_back(cur.node->val);
+            }
+            else mp[cur.X].push_back(cur.node->val);
+            q.pop();
+            if(cur.node->left)q.push(Tuple(cur.node->left, cur.X-1));
+            if(cur.node->right)q.push(Tuple(cur.node->right, cur.X+1));
+        }
+        for(auto it=mp.begin(); it!=mp.end(); it++){
+             res.push_back(it->second);
+        }
+        return res;
+    }
+};
+```
 

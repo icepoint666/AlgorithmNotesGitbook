@@ -8,13 +8,13 @@
 
 * 递归：self-&gt;left-&gt;right
 * 迭代：**直接用stack（开栈的迭代都不是好的迭代）**
-* **parent指针**：数据结构加一个oarent指针的开销，不用开栈的**迭代方法**
+* **parent指针**：数据结构加一个parent指针的开销，不用开栈的**迭代方法**
 
 **中序inorder:**
 
 * 递归：left-&gt;self-&gt;right
 * 迭代：**用stack + cur**
-* **parent指针：**比较有技巧型
+* **parent指针：**比较有技巧型**（基本等价于inorderSuccessor\)**
 
 **后序postorder:**
 
@@ -73,6 +73,8 @@ vector<int> preorderTraversal(TreeNode* root) {
 * else 都没有，就向上回溯（可能是自己是左树回溯，也可能自己是右树回溯）
   * 如果是左树回溯但是无右树，或者，自己本身就是右树回溯的，这种需要向上继续回溯到parent
   * 找到有效的右树，处理右树
+
+（判定cur-&gt;parent!=NULL，防止到达根节点）
 
 ```cpp
 vector<int> preorder(TreeNode* root) {
@@ -141,23 +143,46 @@ vector<int> inorderTraversal(TreeNode* root) {
 }
 ```
 
-**parent指针**
+**parent指针（类似于 找到二叉搜索数的中序后继 ）**
 
 cur指针，比较有技巧性（思路是这样的）
 
-* ①
-* ②
-* ③
+* ①（初始）首先找到leftmost节点作为current，然后访问添加到vector中
+  * 可以确定的是，current必然不会有左子树了
+* 接下来进入大的while循环，寻找**inorderSuccessor**\(**寻找中序后继节点**）
+* ②如果current有右子树，接下来找current的右子树的leftmost，继续这样操作
+* ③如果current没有右子树
+  * 如果current就是它父亲的右子树，那么要一直网上找，直到找到此树作为左子树的那个parent
+  * 然后cur=cur-&gt;parent（每次执行这个操作都需要判定一下保证cur不是root\)
+
+（判断cur-&gt;parent!=NULL，防止到达根节点）
 
 ```cpp
+TreeNode* inorderSuccessor(TreeNode* cur){
+    if(cur->right!=NULL){
+        //find leftmost node in rightsubtree
+        cur = cur->right;
+        while(cur!=NULL)cur = cur->left;
+    } else{
+        //if cur is rightsubtree, continue to parent's parent
+        while(cur->parent!=NULL && cur == cur->parent->right)cur = cur->parent;
+        if(cur->parent==NULL)return NULL; //if cur is not root
+        cur = cur->parent;
+    }
+    return cur;
+}
 vector<int> inorderTraversal(TreeNode* root){
     vector<int>res;
     TreeNode* cur = root;
     //Current is at leftmost pos
     while(cur!=NULL)cur = cur->left;
+    
     while(cur!=NULL){
-        //only
+        //left most is push_back
+        res.push_back(cur->val);
+        cur = inorderSuccessor(cur);
     }
+    return res;
 }
 ```
 
@@ -168,26 +193,24 @@ vector<int> inorderTraversal(TreeNode* root){
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 144 | 二叉树的前序遍历 | 递归，迭代，parent指针迭代 | 模板 |
-| 94 | 二叉树的中序遍历 | 递归，迭代，parent指针迭代 | 模板 |
+| 94 | 二叉树的中序遍历 | 递归，迭代，parent指针迭代（难） | 模板 |
+| 面试题04.06 | 二叉搜索树的中序后继 | BST上不依赖parent pointer完成中继后续 | 中等 |
 
 ### 
 
 
 
-#### 中序遍历 迭代模板
+**面试题 04.06. 后继者**
+
+找出二叉搜索树中指定节点的“下一个”节点（也即中序后继）
+
+之前介绍中序遍历的parent指针写法的时候，是依赖parent指针实现的中序后继，但是本题没有parent指针
+
+但是这题是BST
+
+**BST的好处是：任意位置，任意楼层，都可以通过 value 的比较确定相对位置，这是 BST 一个最好用的性质。**
 
 ```cpp
-Stack<TreeNode> stack = new Stack<TreeNode>();
 
-TreeNode cur = root;
-while(cur != null || !stack.isEmpty()){
-    while(cur != null){
-        stack.push(cur);
-        cur = cur.left;
-    }
-    TreeNode node = stack.pop();
-    //执行操作
-    cur = node.right;
-}
 ```
 

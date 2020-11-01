@@ -52,6 +52,7 @@
   * [层序遍历\(Level Order Traversal\)](catogory-notes/er-cha-shu/ceng-xu-bian-li-level-order-traversal.md)
   * [LCA问题 \(lowest common ancester，最小公共祖先\)](catogory-notes/er-cha-shu/lca-wen-ti-lowest-common-ancester-zui-xiao-gong-gong-zu-xian.md)
   * [二叉搜索树\(BST\)](catogory-notes/er-cha-shu/er-cha-sou-suo-shu.md)
+  * [根据遍历构造树的问题](catogory-notes/er-cha-shu/gen-ju-bian-li-gou-zao-shu-de-wen-ti.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈](catogory-notes/dan-tiao-zhan.md)

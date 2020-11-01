@@ -48,6 +48,7 @@
   * [二叉树定义题](catogory-notes/er-cha-shu/er-cha-shu-ding-yi-ti.md)
   * [前序，中序，后续遍历（Traversal）](catogory-notes/er-cha-shu/qian-xu-zhong-xu-hou-xu-bian-li-traversal.md)
   * [后序遍历\(Postorder Traversal\)的应用](catogory-notes/er-cha-shu/hou-xu-bian-li-postorder-traversal-de-ying-yong.md)
+  * [层序遍历\(Level Order Traversal\)](catogory-notes/er-cha-shu/ceng-xu-bian-li-level-order-traversal.md)
   * [LCA问题 \(lowest common ancester，最小公共祖先\)](catogory-notes/er-cha-shu/lca-wen-ti-lowest-common-ancester-zui-xiao-gong-gong-zu-xian.md)
 * [二叉搜索树](catogory-notes/er-cha-sou-suo-shu.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)

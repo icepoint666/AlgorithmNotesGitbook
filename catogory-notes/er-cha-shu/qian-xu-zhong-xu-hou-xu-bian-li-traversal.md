@@ -192,13 +192,51 @@ vector<int> inorderTraversal(TreeNode* root){
 
 类似于前面，用两个函数实现或者一个函数都可以，比较简单
 
+
+
 **迭代模板**（在leetcode是hard）
 
 **stack + cur + prev**
 
 注意点：
 
-* 
+* ①每一步用 stack 顶元素作为新的 cur，在 while 循环中只需要以 !stack.isEmpty\(\) 为条件去判断
+  * 用一个 stack 存着所有的 candidate node，栈顶为当前 candidate，并且以栈是否为空做唯一判断标准
+* ②post-order 是【左，右，中】，压栈的时候还是先压右再压左
+* **③最重要的是 prev 与 cur 的相对关系，相当于存了上一步的动作，用作下一步的方向**
+  * prev表示上一次访问的节点，三种可能情况需要讨论
+    * cur在prev的下面
+      * 如果有左子树，开始看左边
+      * 如果没有左子树，那么直接看右边
+      * 如果没有左右子树，表明是叶节点（易错）不用操作！！给下一轮去操作
+    * prev是cur的左子树，接下来要看右边
+    * prev是cur的右子树/prev就是自己（前一步的遗留），这时候需要把cur写回result
+
+```cpp
+vector<int> postorderTraversal(TreeNode* root) {
+    vector<int>res;
+    stack<TreeNode*>s;
+    TreeNode* prev = NULL;
+    if(root!=NULL)s.push(root);
+    while(!s.empty()){
+        TreeNode* cur = s.top();
+        if(prev==NULL || prev->left == cur || prev->right == cur){ //1
+            if(cur->left)s.push(cur->left);
+            else if(cur->right)s.push(cur->right); 
+        }else if(cur->left == prev){//2
+            if(cur->right)s.push(cur->right);
+        }else{//3
+            res.push_back(cur->val);
+            s.pop();
+        }
+        prev = cur; //update
+    }
+    return res;
+}
+```
+
+
+
 **利用preorder序列与postorder序列的关系**（比较巧）
 
 **性质：**
@@ -210,7 +248,21 @@ vector<int> inorderTraversal(TreeNode* root){
 **所以如果在做pre order时生成 RC' 序列，而不是RC，那么反序之后可以得到 \(RC'\)' = CR' = CR = post order 序列**
 
 ```cpp
-
+vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>res;
+        stack<TreeNode*>s;
+        if(root!=NULL)s.push(root);
+        while(!s.empty()){
+            TreeNode* node = s.top();
+            res.push_back(node->val);
+            s.pop();
+            //先压左，再压右，因为这次是要先看右边
+            if(node->left)s.push(node->left);
+            if(node->right)s.push(node->right);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
 ```
 
 ### 题目
@@ -224,5 +276,7 @@ vector<int> inorderTraversal(TreeNode* root){
 | 106 | 中序 + 后序 构造二叉树 |  |  |
 | 889 | 前序 + 后序 构造二叉树 |  |  |
 
-### 
+### 前序，中序，后序任意两个构造二叉树
+
+只记忆思路
 

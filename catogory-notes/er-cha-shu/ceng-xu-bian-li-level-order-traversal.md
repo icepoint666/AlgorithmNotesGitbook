@@ -1,17 +1,53 @@
 # 层序遍历\(Level Order Traversal\)
 
+### **层序遍历**
+
+**只有层序遍历可以独自决定二叉树**
+
 Leetcode二叉树的输入就是按照层序遍历的方式输入
 
 也就是说
 
 * 通过已知**层序遍历** 可以确定**二叉树**
+
+```cpp
+TreeNode* leveloOrderToTree(vector<int>&input){
+    if(input.empty())return NULL;
+    queue<TreeNode*>q;
+    int i = 0;
+    TreeNode* root = new TreeNode(input[i]);
+    q.push(root);
+    while(++i != input.size()){
+        TreeNode* node = q.front();
+        q.pop();
+        if(input[i]!=NULL){
+            TreeNode* left = new TreeNode(input[i]);
+            node->left = left;
+            q.push(left);
+        }
+        if(++i == input.size())break;
+        if(input[i]!=NULL){
+            TreeNode* right = new TreeNode(input[i]);
+            node->right = right;
+            q.push(right);
+        }
+    }
+    return root;
+}
+```
+
 * 反过来已知**二叉树**也可以得到**层序遍历**
+
+```cpp
+
+```
 
 ### 题目
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 102 | 二叉树的层序遍历 |  | 模板 |
+| 102 | 二叉树的层序遍历 | 队列层序遍历 | 模板 |
+| 987 | 二叉树的垂序遍历 | bfs\(队列层序遍历\) + hashmap | 中等 |
 
 **Leetcode二叉树测试程序（有一个漏洞，因为int中存储NULL\('\0'\)与0本质上都是一样的，所以节点值不能为0）**
 
@@ -112,4 +148,14 @@ TreeNode* buildTree(vector<int>&input){
     return root;
 }
 ```
+
+**987. 二叉树的垂序遍历**
+
+**题意：把二叉树类比成一个左边空间，然后根据X轴，从左往右，从上往下输出节点**
+
+**解法：**利用层序遍历，然后根据X轴坐标，来把当前节点append到X轴对应list的最后，因为层序遍历可以保证从上到下的顺序，所以这样处理完自然是结果了
+
+**层序遍历：使用队列**
+
+\*\*\*\*
 

@@ -38,8 +38,24 @@ TreeNode* leveloOrderToTree(vector<int>&input){
 
 * 反过来已知**二叉树**也可以得到**层序遍历**
 
-```cpp
+这里没有用leetcode的那种带null的写法，而是根据level用二位数组输出（leetcode102\)
 
+```cpp
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>>res;
+    queue<pair<TreeNode*,int>>q;
+    if(root)q.push(make_pair(root,0));
+    while(!q.empty()){
+        TreeNode* cur = q.front().first;
+        int level = q.front().second;
+        q.pop();
+        if(res.size() <= level)res.push_back(vector<int>());
+        res[level].push_back(cur->val);
+        if(cur->left)q.push(make_pair(cur->left, level+1));
+        if(cur->right)q.push(make_pair(cur->right, level+1));
+    }
+    return res;
+}
 ```
 
 ### 题目

@@ -5,9 +5,10 @@
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 112 | 路径之和-I |  | 简单 |
-| 113 | 路径之和-II |  | 中等 |
+| 113 | 路径之和-II | dfs+backtracing | 中等 |
 | 124 | 二叉树的最大路径和 | 思路清晰 | 困难/一遍A |
-|  |  |  |  |
+| 129 | 求根到叶子节点数字之和 | dfs+backtracing | 简单 |
+| 298 | 二叉树最长连续序列 | dfs | 中等 |
 
 **112. 路径总和**
 
@@ -107,5 +108,69 @@ public:
         return maxsum;
     }
 };
+```
+
+**129. 求根到叶子节点数字之和**
+
+**dfs+backtracing**
+
+```cpp
+class Solution {
+public:
+    int dfs(TreeNode* root, int num){
+        if(root == NULL) return 0; // Prevent root is NULL
+
+        if(!root->left && !root->right){ //leaf node
+            return num + root->val;
+        }
+
+        int left = dfs(root->left, (num + root->val) * 10);
+        int right = dfs(root->right, (num + root->val) * 10);
+
+        return left + right;
+    }
+    int sumNumbers(TreeNode* root) {
+        return dfs(root, 0);
+    }
+};
+```
+
+**298.二叉树最长连续序列**
+
+意思：就是找到连续上升或者下降的序列，必须是父节点到子节点方向（不能折返）
+
+For example,
+
+```text
+   1
+    \
+     3
+    / \
+   2   4
+        \
+         5
+```
+
+Longest consecutive sequence path is `3-4-5`, so return `3`.
+
+java代码
+
+```java
+public class Solution {
+    private int max = 0;//global var
+    public int longestConsecutive(TreeNode root) {
+        if(root==null)return 0;
+        helper(root,0,root.val);//node,len,last value
+        return max;
+    }
+    public void helper(TreeNode root,int len,int val){
+        if(root==null)return;
+        if(root.val == val+1)len++;
+        else len = 1;
+        max = Math.max(max,len);
+        helper(root.left,len,root.val);
+        helper(root.right,len,root.val);
+    }
+}
 ```
 

@@ -56,6 +56,7 @@
   * [根据遍历构造树的问题](catogory-notes/er-cha-shu/gen-ju-bian-li-gou-zao-shu-de-wen-ti.md)
   * [depth相关问题\(min/max/balanced depth\)](catogory-notes/er-cha-shu/depth-xiang-guan-wen-ti-minmaxbalanced-depth.md)
   * [路径与路径和相关问题](catogory-notes/er-cha-shu/lu-jing-yu-lu-jing-he-xiang-guan-wen-ti.md)
+  * [inplace修改树结构](catogory-notes/er-cha-shu/inplace-xiu-gai-shu-jie-gou.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈](catogory-notes/dan-tiao-zhan.md)

@@ -6,8 +6,8 @@
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 897 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代 + 前继 |  |
-| 114 | 二叉树展开为链表\(前序遍历重排\) | 递归/迭代 + 前继 |  |
+| 897 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代 + 前驱 | 多种做法 |
+| 114 | 二叉树展开为链表\(前序遍历重排\) | 递归/迭代 + 前驱 | 多种做法 |
 
 **897. 递增顺序查找树**
 
@@ -39,7 +39,7 @@ public:
         if(root==NULL)return;
         inorder(root->left);
         //inplace
-        root->left = NULL;
+        root->left = NULL; //注意：一定不要遗漏set为NULL这步
         cur->right = root;
         cur = root;
         //not change for right TreeNode
@@ -57,4 +57,32 @@ public:
 **114. 二叉树展开为链表**
 
  给定一个二叉树，**按照前序遍历的方式，**[原地](https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95/8010757)将它展开为一个单链表。
+
+**解法1：递归/迭代（利用栈空间）**
+
+```cpp
+class Solution {
+public:
+    TreeNode* cur;
+    void preorder(TreeNode* root){
+        if(!root)return;
+        TreeNode* left = root->left;
+        TreeNode* right = root->right;
+        //inplace
+        cur->right = root;
+        cur->left = NULL; //一定要注意清除为NULL
+        cur = root;
+        //preorder
+        preorder(left);
+        preorder(right);
+    }
+    void flatten(TreeNode* root) {
+        TreeNode* dummyhead = new TreeNode(0);
+        cur = dummyhead;
+        preorder(root);
+    }
+};
+```
+
+解法2：前驱节点（空间复杂度是 O\(1\)O\(1\) 的做法）
 

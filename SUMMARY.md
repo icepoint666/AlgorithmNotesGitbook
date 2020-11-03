@@ -60,6 +60,7 @@
   * [子树结构subtree](catogory-notes/er-cha-shu/zi-shu-jie-gou-subtree.md)
   * [二叉树概率题](catogory-notes/er-cha-shu/er-cha-shu-gai-lv-ti.md)
   * [如何泛化的将一个问题的递归解法转为迭代解法](catogory-notes/er-cha-shu/ru-he-fan-hua-de-jiang-yi-ge-wen-ti-de-di-gui-jie-fa-zhuan-wei-die-dai-jie-fa.md)
+  * [多叉树NestedInteger问题](catogory-notes/er-cha-shu/duo-cha-shu-nestedinteger-wen-ti.md)
 * [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
 * [栈，队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈](catogory-notes/dan-tiao-zhan.md)

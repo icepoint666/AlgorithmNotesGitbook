@@ -186,6 +186,6 @@ public class Solution {
  / \   \
 1   7   8
 
-路径：5-1
+路径：5
 ```
 

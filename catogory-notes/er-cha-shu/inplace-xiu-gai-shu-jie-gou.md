@@ -1,6 +1,6 @@
 # inplace修改树结构
 
-**对于一个二叉树结构，直接在原本树上进行修改，不用开一个空间额外存TreeNode指针**
+中等**对于一个二叉树结构，直接在原本树上进行修改，不用开一个空间额外存TreeNode指针**
 
 **通常解法有2个：**
 
@@ -13,6 +13,8 @@
 | :--- | :--- | :--- | :--- |
 | 897 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代  | 多种做法 |
 | 114 | 二叉树展开为链表\(前序遍历重排\) | 递归/迭代 + 前驱 | 多种做法 |
+| 814 | 二叉树剪枝 | 后序遍历剪枝法 | 巧法 |
+| 1110 | 删点成林 | 注意一个细节 | 中灯光 |
 
 **897. 递增顺序查找树**
 
@@ -153,5 +155,23 @@ public:
         }
     }
 };
+```
+
+**814. 二叉树剪枝**
+
+给定二叉树根结点 `root` ，此外树的每个结点的值要么是 0，要么是 1。
+
+inplace的移除所有不包含 1 的子树。
+
+**做法：后序遍历，比较巧**
+
+```cpp
+TreeNode* pruneTree(TreeNode* root) {
+    if(root == NULL)return root;
+    if(root->left)root->left = pruneTree(root->left);
+    if(root->right)root->right = pruneTree(root->right);
+    if(!root->left && !root->right && root->val == 0)return NULL;
+    return root;
+}
 ```
 

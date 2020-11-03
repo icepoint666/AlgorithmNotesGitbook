@@ -45,7 +45,41 @@ a字典序比aba小，但是之后再经过两个父节点'b','z'后，abz比aba
 
 如果二叉树中两个 叶 节点之间的 最短路径长度 小于或者等于 distance ，那它们就可以构成一组 好叶子节点对 。返回树中 好叶子节点对的数量 。
 
-采用后续遍历的思想**dfs返回**
+**解法：**采用**后续遍历**的思想**dfs**
 
-处理左，处理右，把左树右树归并一下，略去高度已经超过的节点，再继续往上
+搜索函数**返回**所有到当前节点\(深度小于distance\)的叶子节点
+
+当前节点，处理左子树右子树的返回vector，把**左树右树归并一下**，自己返回时，略去高度已经超过distance的节点，再继续往上
+
+```cpp
+class Solution {
+public:
+    int ans;
+    vector<int> dfs(TreeNode* root, int distance){
+        if(root==NULL)return {};
+        if(!root->left && !root->right)return {0};
+        
+        vector<int> res;
+        auto left = dfs(root->left, distance);
+        for(auto& e: left){
+            if(++e > distance)continue;
+            res.push_back(e);
+        }
+        auto right = dfs(root->right, distance);
+        for(auto& e: right){
+            if(++e > distance)continue;
+            res.push_back(e);
+        }
+        for(auto& l: left)
+            for(auto& r: right){
+                ans += (l + r <= distance);}
+        return res; 
+    }
+    int countPairs(TreeNode* root, int distance) {
+        ans = 0;
+        auto _ = dfs(root, distance);
+        return ans;
+    }
+};
+```
 

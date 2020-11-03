@@ -10,7 +10,7 @@
 | 101 | 对称二叉树 | 对于相同的树，只需要换一个方向就好了，注意迭代做法 | 简单 |
 | 250 | 统计同值子树 | 后序遍历，类似于路径之和中的124题 | 中等 |
 | 222 | 完全二叉树的节点个数 | 考点：肯定不能裸的直接遍历，O\(logN\*logN\) | 中等 |
-| Google一道面试题 | 寻找最大相等子树 |  | 困难 |
+| Google一道面试题 | 寻找最大相等子树 | 利用id唯一性 + hashmap（很妙的思路） | 困难 |
 | 96 | 不同的二叉搜索树 | 动态规划的思想减少复杂度 |  |
 
 **100. 相同的树**
@@ -173,8 +173,80 @@ int countNodes(TreeNode* root) {
 
 **（注意这种题写出来了之后，要自己来写测试样例，写测试样例本质上也是考察的一个部分）**
 
-```cpp
+**解法：通过hashmap对key的比对就可以确定是否有相同的子树出现过**
 
+* 后序遍历
+* key = root\_val + "\_"+ left\_id +"\_"+ right\_id
+  * 如果查询hashmap中key出现过，说明这个树有相同的树，更新maxsize = size
+  * 如果查询没有出现过，那么自增获取当前node的id，把前面的key加入到hashmap中，向上返回id
+* id对于每个节点都通过自增得来
+
+```cpp
+private static class TreeTuple{
+    String key;
+    int id;
+    int size;
+    public TreeTuple(String key, int id, int size){
+        this.key = key;
+        this.id = id;
+        this.size = size;
+    }
+}
+
+// keyMap : Key - String - (val, leftId, rightId)
+//          Val - Integer - groupId
+// groupMap : Key - Integer - groupId
+//            Val - Integer - number of occurrances
+private static TreeTuple postOrder(TreeNode root, HashMap<String, Integer> keyMap,
+                                   HashMap<Integer, List<TreeTuple>> groupMap, int[] id){
+
+    if(root == null) return new TreeTuple("0,0,0", 0, 0);
+
+    TreeTuple left = postOrder(root.left, keyMap, groupMap, id);
+    TreeTuple right = postOrder(root.right, keyMap, groupMap, id);
+
+    int curId;
+    TreeTuple curTuple;
+
+    String key = "" + root.val + "," + left.id + "," + right.id;
+    if(!keyMap.containsKey(key)){
+        curId = id[0]++;
+        keyMap.put(key, curId);
+        groupMap.put(curId, new ArrayList<>());
+        curTuple = new TreeTuple(key, curId, left.size + right.size + 1);
+        groupMap.get(curId).add(curTuple);
+    } else {
+        curId = keyMap.get(key);
+        curTuple = new TreeTuple(key, curId, left.size + right.size + 1);
+        groupMap.get(curId).add(curTuple);
+    }
+
+    return curTuple;
+}
+
+
+public static int largestSubtree(TreeNode root){
+    HashMap<String, Integer> keyMap = new HashMap<>();
+    HashMap<Integer, List<TreeTuple>> groupMap = new HashMap<>();
+    int[] id = new int[1];
+    id[0] = 1; //id自增
+
+    postOrder(root, keyMap, groupMap, id);
+
+    Iterator<Integer> iter = groupMap.keySet().iterator();
+
+    int maxSize = 0;
+
+    while(iter.hasNext()){
+        int groupId = iter.next();
+        List<TreeTuple> list = groupMap.get(groupId);
+        if(list.size() > 1) maxSize = Math.max(maxSize, list.get(0).size);
+
+    }
+
+    return maxSize;
+}
+//测试：largestSubtree(root);
 ```
 
 **96. 不同的二叉搜索树**

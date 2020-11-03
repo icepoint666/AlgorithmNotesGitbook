@@ -203,7 +203,8 @@ public:
         if(to_del.count(root->val) > 0){
             if(root->left)res.push_back(root->left);
             if(root->right)res.push_back(root->right);
-            //delete(root);会报错，如果要删，需要考虑从函数出来再删除
+            //delete(root);会报错，如果要删，需要考虑从函数中出来再删除
+            //开一个vector存储这些要删除的TreeNode*，最后结束的时候再删
             return NULL;
         }
         return root;

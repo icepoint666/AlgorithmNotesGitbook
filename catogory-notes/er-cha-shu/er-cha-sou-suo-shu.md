@@ -10,6 +10,19 @@
 
 * 前序遍历可以决定二叉搜索树
 
+BST查找模板：
+
+```cpp
+void BST(TreeNode* root, int target) {
+    if (root->val == target)
+        // 找到目标，做点什么
+    if (root->val < target) 
+        BST(root->right, target);
+    if (root->val > target)
+        BST(root->left, target);
+}
+```
+
 **题目：**
 
 | 序号/难度 | 名字 | 备注 |  |

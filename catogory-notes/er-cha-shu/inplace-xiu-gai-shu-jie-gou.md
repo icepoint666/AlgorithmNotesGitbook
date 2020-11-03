@@ -1,6 +1,6 @@
 # inplace修改树结构
 
-中等**对于一个二叉树结构，直接在原本树上进行修改，不用开一个空间额外存TreeNode指针**
+**对于一个二叉树结构，直接在原本树上进行修改，不用开一个空间额外存TreeNode指针**
 
 **通常解法有2个：**
 
@@ -14,7 +14,7 @@
 | 897 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代  | 多种做法 |
 | 114 | 二叉树展开为链表\(前序遍历重排\) | 递归/迭代 + 前驱 | 多种做法 |
 | 814 | 二叉树剪枝 | 后序遍历剪枝法 | 巧法 |
-| 1110 | 删点成林 | 注意一个细节 | 中灯光 |
+| 1110 | 删点成林 | 后序遍历，要注意一个细节 | 中等 |
 
 **897. 递增顺序查找树**
 
@@ -173,5 +173,49 @@ TreeNode* pruneTree(TreeNode* root) {
     if(!root->left && !root->right && root->val == 0)return NULL;
     return root;
 }
+```
+
+**1110. 删点成林**
+
+给出二叉树的根节点 `root`，树上每个节点都有一个不同的值。
+
+如果节点值在 `to_delete` 中出现，我们就把该节点从树上删去，最后得到一个森林
+
+```cpp
+输入：root = [1,2,3,4,5,6,7], to_delete = [3,5]
+输出：[[1,2,null,4],[6],[7]]
+```
+
+**解法：后序遍历**
+
+**但是需要注意：如果想要delete掉这个TreeNode\* root**
+
+如果函数参数是root一定要出来再delete，不能直接就在函数内部delete，那样会报错：heap-use-after-delete，这里的解法没有去delete对象
+
+```cpp
+class Solution {
+public:
+    unordered_set<int>to_del;
+    vector<TreeNode*>res;
+    TreeNode* del(TreeNode* root){
+        if(root->left)root->left = del(root->left);
+        if(root->right)root->right = del(root->right);
+        if(to_del.count(root->val) > 0){
+            if(root->left)res.push_back(root->left);
+            if(root->right)res.push_back(root->right);
+            //delete(root);会报错，如果要删，需要考虑从函数出来再删除
+            return NULL;
+        }
+        return root;
+    }
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        if(root==NULL)return res;
+        for(auto&e: to_delete)
+            to_del.insert(e);
+        root = del(root);
+        if(root)res.push_back(root);
+        return res;
+    }
+};
 ```
 

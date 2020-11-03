@@ -55,6 +55,7 @@ TreeNode* leveloOrderToTree(vector<int>&input){
     }
     return root;
 }
-输入：vector<int>input = {1,2,3,NULL,NULL,4,5} 存在一个漏洞，就是NULL在int中等于0
+输入：vector<int>input = {1,2,3,NULL,NULL,4,5} 
+存在一个漏洞，就是NULL在int中等于0，所以真正应该用字符串表示序列化
 ```
 

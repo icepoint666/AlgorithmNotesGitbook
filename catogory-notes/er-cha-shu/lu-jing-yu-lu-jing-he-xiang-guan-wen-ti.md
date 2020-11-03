@@ -7,6 +7,7 @@
 | 112 | 路径之和-I |  | 简单 |
 | 113 | 路径之和-II | dfs+backtracing | 中等 |
 | 437 | 路径总和Ⅲ | 双重递归 | 简单 |
+| 1367 | 二叉树中的列表 | 双重递归 | 中等 |
 | 124 | 二叉树的最大路径和 | 思路清晰 | 困难/一遍A |
 | 129 | 求根到叶子节点数字之和 | dfs+backtracing | 简单 |
 | 298 | 二叉树最长连续序列 | dfs | 中等 |
@@ -71,6 +72,30 @@ public:
     int pathSum(TreeNode* root, int sum) {
         if(root == NULL)return 0;
         return count(root, sum) + pathSum(root->left, sum) + pathSum(root->right, sum);
+    }
+};
+```
+
+**1367. 二叉树中的列表**
+
+**题意：二叉树中找一个路径和链表路径一样的，如果有一条就true**
+
+**解法：双重递归，一个递归开头，另一个递归路径是否一致**
+
+```cpp
+class Solution {
+public:
+    bool compare(ListNode* head, TreeNode * root){
+        if(head == NULL)return true; //匹配成功
+        if(root == NULL)return false; //树结束，失败
+        if(head->val == root->val) 
+            return compare(head->next,root->left) || compare(head->next, root->right);
+        return false;
+    }
+    bool isSubPath(ListNode* head, TreeNode* root) {
+        if(root == NULL)return false; //树结束判定
+        if(compare(head, root))return true;//当前树作为根节点开始与链表匹配
+        return isSubPath(head, root->left) || isSubPath(head, root->right);
     }
 };
 ```

@@ -10,7 +10,7 @@
 
 * 前序遍历可以决定二叉搜索树
 
-BST查找模板：
+**BST查找模板**：
 
 ```cpp
 void BST(TreeNode* root, int target) {
@@ -23,6 +23,60 @@ void BST(TreeNode* root, int target) {
 }
 ```
 
+**BST插入模板：**
+
+原则：一直查找，直到找不到为止，然后把这个NULL的节点换成新插入的节点
+
+```cpp
+TreeNode* insertIntoBST(TreeNode* root, int val) {
+    if(root == NULL){
+        root = new TreeNode(val);
+        return root;
+    }
+    if(root->val < val)root->right = insertIntoBST(root->right, val);//返回给修改的子树
+    else if(root->val > val)root->left = insertIntoBST(root->left, val);
+    return root;
+}
+```
+
+**BST删除模板：**
+
+**删除节点的三种情况：**
+
+* **①如果没有子节点：它可以当场去世**
+* **②如果只有子节点：直接移上去**
+* **③如果有两个子节点：可以通过找到左子树最大节点（或者右子树最小节点删掉\)，再把值换上去**
+
+```cpp
+class Solution {
+public:
+    TreeNode* findNode(TreeNode* root, int& maxval){ //找到左子树的最右节点移除，并替换值
+        if(root->right == NULL){//找到rightmost
+            maxval = root->val;
+            return root->left; //注意：用左节点替代到移除的位置，相当于移除了
+        }
+        root->right = findNode(root->right, maxval);
+        return root;
+    }
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(!root)return root;
+        if(root->val == key){ //删除该节点的三种情况,也是讨论子树存在的四种情况
+            if(!root->left && !root->right)return NULL; //1
+            if(!root->left)return root->right;          //2
+            if(!root->right)return root->left;         //2
+            int maxval;
+            root->left = findNode(root->left, maxval); // 修改返回给左子树
+            root->val = maxval;                         //3
+        }
+        else if(root->val < key)root->right = deleteNode(root->right, key);
+        else root->left = deleteNode(root->left, key);
+        return root;
+    }
+};
+```
+
+
+
 **题目：**
 
 | 序号/难度 | 名字 | 备注 |  |
@@ -33,6 +87,8 @@ void BST(TreeNode* root, int target) {
 | 面试题 04.05 | 合法二叉搜索树 | 向下遍历参数要加入min节点与max节点 | 易错 |
 | 1382 | 将二叉搜索树变平衡 | 不要误会成将搜索树转换成AVL树 | 易错 |
 | 1008 | 前序遍历构造二叉搜索树 | O\(logN\)的算法，遍历前序列找左数右树分隔点 | 中等 |
+| 701 | 二叉搜索树的插入 | 模板 | 记忆 |
+| 450 | 二叉搜索树的删除 | 模板\(替换leftsubtree的rightmost\) | 记忆 |
 
 **剑指 Offer 36. 二叉搜索树与双向链表**
 

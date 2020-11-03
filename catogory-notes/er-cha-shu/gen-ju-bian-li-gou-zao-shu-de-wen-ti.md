@@ -1,4 +1,4 @@
-# 根据遍历构造树/序列化的问题
+# 根据遍历构造树
 
 构造树的问题本质上都可以通过**递归分治**的思路来解决
 
@@ -6,7 +6,7 @@
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 105 | 前序 + 中序 构造二叉树 | 见下方题解 | 中等 |
+| 105 | 前序 + 中序 构造二叉树 | 见下方题解，用迭代器实现更加优雅 | 中等 |
 | 106 | 中序 + 后序 构造二叉树 | 利用后序前序的关联性，近似于105 | 中等 |
 | 889 | 前序 + 后序 构造二叉树 | 见下方题解 | 中等 |
 | 1008 | 前序遍历构造二叉搜索树 | 记录当前子树对应序列的st,ed | 中等 |
@@ -68,6 +68,28 @@ public:
             index[inorder[i]] = i;
         }
         return BuildTree(preorder, inorder, 0, len-1, 0, len-1);
+    }
+};
+```
+
+**另一种写法：用迭代器实现会比较优雅**
+
+```cpp
+class Solution {
+public:
+    int i = 0;
+    TreeNode* build_tree(vector<int>&preorder, vector<int>::iterator beg, vector<int>::iterator ed){
+        if(i == preorder.size())return NULL;
+        auto it = find(beg, ed, preorder[i]); //返回找到的迭代器位置
+        if(it == ed)return NULL;
+        TreeNode* root = new TreeNode(preorder[i]);
+        i++;
+        root->left = build_tree(preorder, beg, it); //找到迭代器处，左边就是左树
+        root->right = build_tree(preorder, ++it, ed); //右边就是右树
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return build_tree(preorder, inorder.begin(), inorder.end());
     }
 };
 ```

@@ -12,7 +12,7 @@
 
 romane、romanus、romulus、rubens、ruber、rubicon、rubicundus
 
-![](../../.gitbook/assets/wu-biao-ti-.png)
+![](../../.gitbook/assets/wu-biao-ti-%20%281%29.png)
 
 **插入的时候可能需要分裂节点，删除的时候可能需要合并节点**
 

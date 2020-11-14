@@ -51,9 +51,20 @@ struct radix_tree_root {
 };
 ```
 
-以下图为例
+以下图为例，一个insert示例
 
-![&#x5F53;&#x524D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;node&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;root](../../.gitbook/assets/20190926221056449_299958990.png)
+```cpp
+static struct radix_tree_root _root;
+static struct node node0 = { .name = "Sourcelink", .id = 32 };
+INIT_RADIX_TREE(&_root, GFP_ATOMIC);
+radix_tree_insert(&_root, node0.id, &node0);
+
+//函数定义：
+int radix_tree_insert(struct radix_tree_root *root, unsigned long index, 
+                        unsigned order, void *entry)
+```
+
+![&#x63D2;&#x5165;id = 32](../../.gitbook/assets/20190926221056449_299958990%20%281%29.png)
 
 *  `RADIX_TREE_MAP_SHIFT`等于6, `RADIX_TREE_MAP_SIZE`则等于2^6 = 64，每个节点的slots可以插入64个节点或item;
 * unsigned char shift;

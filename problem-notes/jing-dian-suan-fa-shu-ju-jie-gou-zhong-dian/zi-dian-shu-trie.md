@@ -33,7 +33,7 @@ void Insert(char s[])
     {
         int id=s[i]-'a';
         if(tree[root][id]==-1) tree[root][id]=++cnt; //新建节点
-        sum[tree[root][id]];//用于统计次数
+        sum[tree[root][id]];//用于统计前缀出现次数
         root=tree[root][id];
     }
 }
@@ -46,7 +46,20 @@ void Insert(char s[])
 * 可以查找整个单词
 * 可以统计一个前缀在单词表中出现的次数。
 
+**从左往右扫描前缀单词中的每一个字母，然后从字典树的第一层开始找，能找到第一个字母就顺着字典树往下走，否则结束查找，即没有此前缀；若前缀单词扫完了到-1了，表示有这个前缀。**
 
+```cpp
+int Search(char s[])
+{
+    int root=0;
+    for(int i=0;s[i];i++)
+    {
+        int id=s[i]-'a';
+        if(tree[root][id]==-1) return -1;
+        root=tree[root][id];
+    }
+}
+```
 
 **删除**
 
@@ -57,10 +70,9 @@ void Delete(char s[]) //假定必然存在+删除成功
     for(int i=0;s[i];i++) //s[i] = '\0'结束
     {
         int id=s[i]-'a';
-        sum[tree[root][id]]s
-        if(tree[root][id]==-1) tree[root][id]=++cnt; //新建节点
-        sum[tree[root][id]];//用于统计次数
+        sum[tree[root][id]]--;
         root=tree[root][id];
+        if(sum[tree[root][id]]==0)tree[root][id]=-1;//这种实现会造成节点空洞
     }
 }
 ```

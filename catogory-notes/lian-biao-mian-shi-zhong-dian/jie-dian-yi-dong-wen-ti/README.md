@@ -83,15 +83,19 @@
 
 ```cpp
 ListNode* pv. prev, node; //提前定义自变指针
-
-/*相关操作*/
-ListNode *prev = right->next;  //取出
-right->next = right->next->next; //缝合
-tmp->next = left->next; //接尾部
-left->next = tmp; //接头部
 ```
 
-**step4: 自变指针的递归策略**
+**处理操作代码（3行）**：简单写的话并不需要nt指针
+
+```cpp
+/*操作:简单写的话并不需要nt指针*/
+node  //取出
+prev->next = node->next; //缝合
+node->next = pv->next; //接尾部
+pv->next = node; //接头部
+```
+
+### **step4: 自变指针的递归策略**
 
 根据题意：
 
@@ -102,61 +106,52 @@ left->next = tmp; //接头部
 
 这个奇偶链表问题，我们要分两种情况讨论：
 
-* 如果需要移动节点，cnt为奇数
+* ①如果需要移动节点，cnt为奇数
   * pv: 在插入节点后更新：pv = pv-&gt;next
   * prev：不变
   * node：在循环结束时：node = prev-&gt;next**（node是主导节点，主导遍历的节点）**
 
-    ![](file://C:/Users/HY/Desktop/%E6%97%A0%E6%A0%87%E9%A2%985.png?lastModify=1606320312)
-* 如果不需要移动节点，cnt为偶数
+![](../../../.gitbook/assets/wu-biao-ti-5.png)
+
+* ②如果不需要移动节点，cnt为偶数
   * pv:不变
   * prev: 在循环结束时：prev = node；\(再循环结束时一般都是先更新prev再更新node\)
   * node: 在循环结束时：node = node-&gt;next
 
 实现的时候，记录**cnt为循环序号**，第一次循环cnt=0，以此类推，根据cnt奇数偶数来决定哪种情况
 
-**step5: 初始设定+终止条件\(视具体情况而定\)**
+### **step5: 初始设定+终止条件\(视具体情况而定\)**
 
-最终代码
+### **最终代码**
 
-```text
+```cpp
 ListNode* oddEvenList(ListNode* head) {
-    if(!head)return NULL;
+    if(!head)return NULL; //特判
     ListNode* pv, *prev, *node;//3.声明指针
 ​
     pv = head; //5.初始化
     prev = head;
-    if(!head->next)return head;
+    if(!head->next)return head; //特判
     node = head->next;
     int cnt = 0;
 ​
     while(node!=NULL){ //5.终止条件
         if(cnt % 2){
-            prev->next = node->next; //3.operate
-            ListNode* nt = pv->next;
-            pv->next = node;
-            node->next = nt;
-​
-            node = prev->next;//4.iterate
+            /*3.operate*/
+            prev->next = node->next; //缝合
+            node->next = pv->next;   //接尾部
+            pv->next = node;         //头部
+            
+            ​/*4.iterate*/
+            node = prev->next;
             pv = pv->next;
         }else{
-            prev = node;//4.iterate
+            prev = node;
             node = node->next;
         }
         cnt++;
     }
     return head;
 }
-```
-
-**移动链表节点到指定位置的后面：\(remove + add）取出+缝合+接头部+接尾部\(4步法\)**
-
-e.g.把`right->next节点`移动到`left位置`的后面，再把right缺口处缝合
-
-```cpp
-ListNode * tmp = right->next;  //取出
-right->next = right->next->next; //缝合
-tmp->next = left->next; //接尾部
-left->next = tmp; //接头部
 ```
 

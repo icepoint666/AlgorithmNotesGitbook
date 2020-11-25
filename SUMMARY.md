@@ -25,7 +25,6 @@
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
 * [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)
 * [递归](catogory-tricks/di-gui.md)
-* [二叉树](catogory-tricks/er-cha-shu.md)
 * [排序算法](catogory-tricks/pai-xu-suan-fa.md)
 * [动态规划](catogory-tricks/dong-tai-gui-hua.md)
 
@@ -53,6 +52,7 @@
   * [Morris遍历\(Morris Traversal\)](catogory-notes/er-cha-shu/morris-bian-li-morris-traversal.md)
   * [LCA问题 \(lowest common ancester，最小公共祖先\)](catogory-notes/er-cha-shu/lca-wen-ti-lowest-common-ancester-zui-xiao-gong-gong-zu-xian.md)
   * [二叉搜索树\(BST\)](catogory-notes/er-cha-shu/er-cha-sou-suo-shu.md)
+  * [完全二叉树](catogory-notes/er-cha-shu/wan-quan-er-cha-shu-1.md)
   * [根据遍历构造树](catogory-notes/er-cha-shu/gen-ju-bian-li-gou-zao-shu-de-wen-ti.md)
   * [序列化二叉树](catogory-notes/er-cha-shu/xu-lie-hua-er-cha-shu.md)
   * [depth相关问题\(min/max/balanced depth\)](catogory-notes/er-cha-shu/depth-xiang-guan-wen-ti-minmaxbalanced-depth.md)

@@ -1,17 +1,29 @@
 # 二叉树
 
-**代码模板：二叉树的查找**
+**二叉树定义与声明（模板）：**
 
 ```cpp
-void BST(TreeNode* root, int target) {
-    if (root->val == target)
-        // 找到目标，做点什么
-    if (root->val < target) 
-        BST(root->right, target);
-    if (root->val > target)
-        BST(root->left, target);
-}
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+ 
+int val = 10;
+TreeNode* root = new TreeNode(val);
 ```
+
+**最优二叉树：哈夫曼树**
+
+ _哈夫曼树_是带权路径长度最短的树，权值较大的结点离根较近。
+
+权值较大的结点离根较近。
+
+**构建haffman树的方法：**
+
+* **①选取当前两棵权值最小的二叉树作为左右子树构造出来一颗新的二叉树，然后将根节点写为左右子树根节点的权值之和**
+* **②从F中删除这两棵树，同时将新得到的树加入到F中，就这样循环这个过程**
 
 **题目：**
 

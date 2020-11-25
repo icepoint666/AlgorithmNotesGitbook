@@ -10,7 +10,7 @@
 
 * 前序遍历可以决定二叉搜索树
 
-**BST查找模板**：
+**二叉搜索树查找模板**
 
 ```cpp
 void BST(TreeNode* root, int target) {

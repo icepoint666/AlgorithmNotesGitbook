@@ -134,7 +134,7 @@ prev = node;
 node = node->next;
 ```
 
-### **最终代码（不考虑自插入版本，也就是循环时不会发生自插入现象）**
+### **最终代码（不推荐！不考虑自插入版本，也就是循环时不会发生自插入现象）**
 
 ```cpp
 ListNode* oddEvenList(ListNode* head) {
@@ -167,7 +167,7 @@ ListNode* oddEvenList(ListNode* head) {
 }
 ```
 
-### **最终代码（考虑自插入）**
+### **最终代码（推荐！考虑自插入）**
 
 ```cpp
 ListNode* oddEvenList(ListNode* head) {

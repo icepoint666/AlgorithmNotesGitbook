@@ -22,6 +22,7 @@ while(fast && fast->next) {
 | 237 | 删除链表中的节点 | 理解题意，很奇怪也很巧的题 | 技巧 |
 | 445.  | 两数相加 II | 方法1：反转链表（2次） | 基础 |
 |  |  | 方法2：先算出长度,prev表仅为,node表当前位 |  |
+| 138 | 复制带随机指针的链表 | map | 技巧 |
 
 ### **剑指 Offer 52. 两个链表的第一个公共节点**
 
@@ -131,5 +132,44 @@ bool isPalindrome(ListNode* head) {
 
 刚看这个代码有点奇怪，不是要删除链表中一个节点吗，按理应该要传入两个参数，一个链表，一个节点，怎么只传入了一个参数，要删除的节点？
 
-**其实就是单纯把这个节点的值用后面的值覆盖，然后把**
+**其实就是单纯把这个节点的值用后面的值覆盖，然后把最后一个节点删除**
+
+### **138. 复制带随机指针的链表**
+
+给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。
+
+ 要求返回这个链表的 [**深拷贝**](https://baike.baidu.com/item/%E6%B7%B1%E6%8B%B7%E8%B4%9D/22785317?fr=aladdin)。
+
+**题解：其实就是从头到尾遍历，然后重新新开一个地方建立一个链表**
+
+**难点：**
+
+* **创建过程中，当前节点存在指针，指向未来还没创建的节点**
+* **不知道随机指针的节点位置在哪**
+
+解法，很简单
+
+* ①先遍历一遍创建出来一个链表
+* ②然后创建一个从**原始链表每个节点**到**新链表每个节点** **地址的map**
+* **③根据这个map就知道，当前节点random 指针指向的节点对应哪个新链表的节点**
+
+```cpp
+class Solution {
+public:
+    unordered_map <Node*, Node*> visited;
+    Node* copyRandomList(Node* head) {
+        if(head == NULL){
+            return NULL;
+        }
+        if(visited.find(head)!=visited.end()){
+            return visited[head];
+        }
+        Node *newnode = new Node(head->val);
+        visited[head] = newnode;
+        newnode->next = copyRandomList(head->next);
+        newnode->random = copyRandomList(head->random);
+        return newnode;
+    }
+};
+```
 

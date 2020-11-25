@@ -1,11 +1,24 @@
 # 特殊技巧题目
 
+**快慢指针模板**
+
+```cpp
+ListNode* fast = head; //快指针
+ListNode* slow = head;
+while(fast && fast->next) { 
+    ...
+    fast = fast->next->next; //2倍慢指针的速度
+    slow = slow->next;
+}
+```
+
 **题目：**
 
 | 序号 | 名字 | 备注 | 难度 |
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 52 | 两个链表的第一个公共节点 | 技巧，双指针 | 简单 |
-| 142 | 环形链表-II | 双指针+性质 | 中等 |
+| 142 | 环形链表-II | **快慢**指针+性质 | 中等 |
+| 234 | 回文链表 | 要求空间O\(1\): 反转链表+快慢指针 | 技巧 |
 
 **剑指 Offer 52. 两个链表的第一个公共节点**
 
@@ -76,4 +89,40 @@ public:
 说明快指针比慢指针多走了一圈，**一圈也就是3步**
 
 **这时候把fast指针放置到起点，然后fast,slow第一次相遇的位置就是，环的位置**
+
+**234.回文链表**
+
+**判断一个链表是否是回文链表**
+
+```text
+输入: 1->2->2->1
+输出: true
+```
+
+**题解：快慢指针 + 反转链表**
+
+**\(注意到中间，奇偶处理分情况不同）**
+
+```cpp
+bool isPalindrome(ListNode* head) {
+    ListNode* fast = head; //快指针
+    ListNode* slow = head, * prev = NULL; //反转链表的模板
+    while(fast && fast->next) { 
+        fast = fast->next->next; //2倍慢指针的速度
+        ListNode* nxt = slow->next; //反转链表的模板
+        slow->next = prev;
+        prev = slow;
+        slow = nxt;
+    }
+    if(fast) slow = slow->next; //奇数链表处理
+    while(prev) { //开始对比
+        if(prev->val != slow->val) return false;
+        prev = prev->next;
+        slow = slow->next;
+    }
+    return true;
+}  
+```
+
+\*\*\*\*
 

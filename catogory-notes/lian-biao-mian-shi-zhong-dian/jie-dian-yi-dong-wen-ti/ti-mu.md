@@ -120,15 +120,15 @@ ListNode* swapPairs(ListNode* head) {
 
 ```cpp
 ListNode* deleteDuplicates(ListNode* head) {
-    if(!head || !head->next)return head; 
-    ListNode* dummyhead = new ListNode(0);
+    if(!head || !head->next)return head; //1.特判
+    ListNode* dummyhead = new ListNode(0); //2
     dummyhead->next = head;
-    ListNode* prev, *node;
+    ListNode* prev, *node; //3
     prev = dummyhead;
     node = head;
     bool flag = false;
     while(node){
-        if(!node->next ||(node->next->val!=node->val)){ 
+        if(!node->next ||(node->next->val!=node->val)){ //4
             if(!flag){
                 prev = node;
             }else{

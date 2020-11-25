@@ -126,7 +126,7 @@ pv->next = node; //接头部
 
 ```cpp
 ListNode* oddEvenList(ListNode* head) {
-    if(!head)return NULL; //特判
+    if(!head)return NULL; //特
     ListNode* pv, *prev, *node;//3.声明指针
 ​
     pv = head; //5.初始化

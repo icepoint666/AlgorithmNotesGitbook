@@ -108,19 +108,19 @@ ListNode* swapPairs(ListNode* head) {
 
 **题解：**
 
-* **head为NULL或者单节点，保持不变：直接返回**
-* **头节点会被删：dummyhead**
-* 确定指针：
+* **①head为NULL或者单节点，保持不变：直接返回**
+* **②头节点会被删：dummyhead**
+* ③确定指针：
   * prev：前面处理的末尾（上一个数字）
   * node: 正在处理的节点
-* 处理时，**通过node-&gt;next试探**
+* ④处理时，**通过node-&gt;next试探**
   * 如果与node一样，prev不变，node继续
   * 如果与node不一样或者node-&gt;next为NULL
     * 根据重复flag，决定prev移动到哪
 
 ```cpp
 ListNode* deleteDuplicates(ListNode* head) {
-    if(!head || !head->next)return head;
+    if(!head || !head->next)return head; 
     ListNode* dummyhead = new ListNode(0);
     dummyhead->next = head;
     ListNode* prev, *node;

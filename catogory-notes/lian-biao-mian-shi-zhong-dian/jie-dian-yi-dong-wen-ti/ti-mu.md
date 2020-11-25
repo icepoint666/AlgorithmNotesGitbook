@@ -26,9 +26,9 @@
 
 ```cpp
 ListNode* partition(ListNode* head, int x) {
-    if(!head || !head->next)return head;
-    ListNode* pv, *prev, *node;
-    ListNode* dummyhead = new ListNode(0)
+    if(!head || !head->next)return head; //特判
+    ListNode* pv, *prev, *node; //1.声明指针
+    ListNode* dummyhead = new ListNode(0) //2.dummyhead
     dummyhead->next = head;
     //自动先讨论了一个节点
     pv = dummyhead;
@@ -36,7 +36,7 @@ ListNode* partition(ListNode* head, int x) {
     prev = head;
     node = head->next;
     while(node!=NULL){
-        if(node->val < x && prev != pv){
+        if(node->val < x && prev != pv){ //3.防止自插入
             prev->next = node->next;
             node->next = pv->next;
             pv->next = node;
@@ -44,7 +44,7 @@ ListNode* partition(ListNode* head, int x) {
             node = prev->next;
             pv = pv->next;
         }else{
-            if(node->val < x)pv = pv->next;
+            if(node->val < x)pv = pv->next;//3.自插入讨论
             prev = node;
             node = node->next;
         }

@@ -10,6 +10,7 @@
 * ③确定指针（代码中需要声明的指针，自变or他变）+ 执行操作
 * ④确定自变指针的递归策略
 * ⑤初始设定 + 终止条件（step4,step5可以互换位置）
+* 注意一个坑：需要防止自己抽离出来插入自己
 
 **以328.奇偶链表问题为例**
 
@@ -21,7 +22,7 @@
 
 因为是**将链表中的一个节点移动到另一个位置**
 
-![](../../../.gitbook/assets/wu-biao-ti-%20%284%29.png)
+![](../../../.gitbook/assets/wu-biao-ti-%20%285%29.png)
 
 ### **step2: 确定行为：节点移动问题包含 两个行为**
 
@@ -126,7 +127,7 @@ pv->next = node; //接头部
 
 ```cpp
 ListNode* oddEvenList(ListNode* head) {
-    if(!head)return NULL; //特
+    if(!head)return NULL; //特判
     ListNode* pv, *prev, *node;//3.声明指针
 ​
     pv = head; //5.初始化
@@ -136,7 +137,7 @@ ListNode* oddEvenList(ListNode* head) {
     int cnt = 0;
 ​
     while(node!=NULL){ //5.终止条件
-        if(cnt % 2){
+        if(cnt % 2 && pre){
             /*3.operate*/
             prev->next = node->next; //缝合
             node->next = pv->next;   //接尾部

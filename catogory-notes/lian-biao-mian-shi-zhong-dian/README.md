@@ -23,42 +23,6 @@
 
 ### 链表题一定要学会画图！！
 
-
-
-**链表题一定要捋清思路，注意特判**
-
-* 需要几个指针：node, left? right?
-* 指针之间怎么更新和移动
-* 怎么判定边界和终止条件**（一定要切记开头判断一下head是否为空）**
-
-一般处理链表时，如果可能**涉及到删除头的操作**，可以事先添加一个dummyhead，详情参考**82. 删除排序链表中的重复元素 II**
-
-### **移动链表节点模板**
-
-**移动链表节点到指定位置的后面：\(remove + add）取出+缝合+接头部+接尾部\(4步法\)**
-
-e.g.把`right->next节点`移动到`left位置`的后面，再把right缺口处缝合
-
-```cpp
-ListNode * tmp = right->next;  //取出
-right->next = right->next->next; //缝合
-tmp->next = left->next; //接尾部
-left->next = tmp; //接头部
-```
-
-**注意：处理后并没有移动right,left的位置**
-
-### **反转链表模板**
-
-**需要维护一个下一个节点的temp, 上一个节点prev, 以及node表示当前节点**
-
-```cpp
-ListNode* temp = node->next; //反转链表的模板
-node->next = prev;
-prev = node;
-node = temp;
-```
-
 ### **题目**
 
 | 序号/难度 | 名字 | 备注 |  |

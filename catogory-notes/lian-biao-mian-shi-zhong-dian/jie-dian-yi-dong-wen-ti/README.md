@@ -123,7 +123,18 @@ pv->next = node; //接头部
 
 ### **step5: 初始设定+终止条件\(视具体情况而定\)**
 
-### **最终代码**
+### 坑：防止自己抽离出来插入自己
+
+```cpp
+//插入的时候如果触发插入节点操作，需要保证下面这种情况
+if(prev!=pv)
+//不符合的话，也就是prev == pv，表示会触发自插入，需要重新制定更新策略:
+pv = pv->next;
+prev = node;
+node = node->next;
+```
+
+### **最终代码（不考虑自插入版本，也就是循环时不会发生自插入现象）**
 
 ```cpp
 ListNode* oddEvenList(ListNode* head) {
@@ -137,7 +148,7 @@ ListNode* oddEvenList(ListNode* head) {
     int cnt = 0;
 ​
     while(node!=NULL){ //5.终止条件
-        if(cnt % 2 && pre){
+        if(cnt % 2){
             /*3.operate*/
             prev->next = node->next; //缝合
             node->next = pv->next;   //接尾部
@@ -147,6 +158,40 @@ ListNode* oddEvenList(ListNode* head) {
             node = prev->next;
             pv = pv->next;
         }else{
+            prev = node;
+            node = node->next;
+        }
+        cnt++;
+    }
+    return head;
+}
+```
+
+### **最终代码（考虑自插入）**
+
+```cpp
+ListNode* oddEvenList(ListNode* head) {
+    if(!head)return NULL; //特判
+    ListNode* pv, *prev, *node;//3.声明指针
+​
+    pv = head; //5.初始化
+    prev = head;
+    if(!head->next)return head; //特判
+    node = head->next;
+    int cnt = 0;
+​
+    while(node!=NULL){ //5.终止条件
+        if(cnt % 2 && prev != pv){//考虑进自插入的修改
+            /*3.operate*/
+            prev->next = node->next; //缝合
+            node->next = pv->next;   //接尾部
+            pv->next = node;         //头部
+            
+            ​/*4.iterate*/
+            node = prev->next;
+            pv = pv->next;
+        }else{
+            if(cnt % 2)pv = pv->next;//考虑进自插入的修改
             prev = node;
             node = node->next;
         }

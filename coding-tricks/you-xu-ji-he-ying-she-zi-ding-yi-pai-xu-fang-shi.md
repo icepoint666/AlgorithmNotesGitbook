@@ -1,4 +1,4 @@
-# STL map/set排序，自定义排序方式
+# STL map/set排序，按key/value/自定义排序方式
 
 ### **STL中Map的按Key排序**
 
@@ -57,11 +57,12 @@ pair类重载了&lt;符，但是它并不是按照value进行比较的
 
 ```cpp
 typedef pair<string, int> map_pair
-//方法1
+//！！下面是错误的方法：如果pair类本身没有重载<符，那么重载<符，是可以实现对pair的按value比较的
+//但是pair本身有实现这个重载，所以现在这样做不行了，可能会导致有些编译器报错
 bool operator< (const map_pair& lhs, const map_pair& rhs) {
     return lhs.second < rhs.second;
 }
-//方法2
+//这种方式可以
 struct CmpByValue {
   bool operator()(const map_pair& lhs, const map_pair& rhs) {
     return lhs.second < rhs.second;
@@ -71,8 +72,7 @@ map<string, int> mp;
 //把map中元素转存到vector中 
 vector<map_pair>vec(mp.begin(), mp.end());
 //排序
-sort(vec.begin(), vec.end())                  //方法1
-sort(vec.begin(), vec.end(), CmpByValue());   //方法2
+sort(vec.begin(), vec.end(), CmpByValue());
 ```
 
 

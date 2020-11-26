@@ -43,6 +43,16 @@ return dummyhead->next;
 
 ### 3.特判
 
-最开始要注意**head=null**或者**head-&gt;next=null**的情况，用不用特判  
+最开始要注意**head=null**或者**head-&gt;next=null**的情况，用不用特判
 
+### 4. 删除节点时：如果不会在被用，要delete一下防止内存泄漏
+
+#### \(平时可能不delete也不会报错，但在实际应用中必须delete\)
+
+#### **delete技巧：**先创建一个临时的node再删
+
+```cpp
+ListNode* del = node;
+delete(del);
+```
 

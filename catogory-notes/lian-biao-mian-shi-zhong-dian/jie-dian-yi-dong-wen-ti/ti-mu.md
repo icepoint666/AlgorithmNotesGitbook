@@ -1,6 +1,13 @@
 # 题目
 
-**题目：**
+### **删除节点问题**
+
+是一种特殊的节点移动问题：相当于只有**抽离**
+
+* 只需要prev，node即可
+* 注意需要delete被删除节点，防止内存泄漏
+
+### **题目：**
 
 | 序号 | 名字 | 备注 | 难度 |
 | :--- | :--- | :--- | :--- |
@@ -9,6 +16,9 @@
 | 24. | 两两交换链表中的节点 | 转换为这类问题 | 中等 |
 | 82 | 删除排序链表中的重复元素 II | 转换为这类问题 | 中等 |
 | 147 | 对链表进行插入排序 | 模板变体：pv指针是每次循环比较出来的 | 中等 |
+| 面试题02-01 | 移除重复节点 | 三种解法（合理选择） | 技巧 |
+|  |  |  |  |
+|  |  |  |  |
 
 **86.分割链表**
 
@@ -182,4 +192,50 @@ ListNode* insertionSortList(ListNode* head) {
     return dummyhead->next;
 }
 ```
+
+**面试题 02.01. 移除重复节点**
+
+编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
+
+**示例:**
+
+```text
+ 输入：[1, 2, 3, 3, 2, 1]
+ 输出：[1, 2, 3]
+```
+
+**需要注意的是它的范围：**
+
+链表元素在\[0, 20000\]范围内。
+
+**三种解法：（删除节点时需要delete\)**
+
+* ①使用空间：哈希表存值，O\(NlogN）
+* ②不用空间：双指针，两次循环O\(N^2\)
+* **③利用取值范围**\[0, 20000\]：如果数较多可以使用，O\(N\)
+
+```cpp
+ListNode* removeDuplicateNodes(ListNode* head) {
+    if(!head || !head->next)return head;
+    vector<bool>bits;
+    bits.resize(20001);
+    ListNode* prev = head;
+    ListNode* node = head->next;
+    bits[head->val] = true;
+    while(node){
+        if(bits[node->val]){
+            prev->next = node->next;
+            ListNode* del = node;
+            delete(del);
+        }else{
+            bits[node->val] = true;
+            prev = node;
+        }
+        node = prev->next;
+    }
+    return head;
+}
+```
+
+
 

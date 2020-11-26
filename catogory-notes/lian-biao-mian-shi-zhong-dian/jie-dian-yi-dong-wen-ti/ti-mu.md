@@ -8,6 +8,7 @@
 | 86 | 分隔链表 | 同上模板 | 中等 |
 | 24. | 两两交换链表中的节点 | 转换为这类问题 | 中等 |
 | 82 | 删除排序链表中的重复元素 II | 转换为这类问题 | 中等 |
+| 147 | 对链表进行插入排序 | 模板变体：pv指针是每次循环比较出来的 | 中等 |
 
 **86.分割链表**
 
@@ -142,5 +143,43 @@ ListNode* deleteDuplicates(ListNode* head) {
 }
 ```
 
+**147. 对链表进行插入排序**
 
+**详见题目：**
+
+* **这题也完完全全属于节点移动问题：pv, prev, node**
+* 同样根据问题特性：判重 + dummyhead
+* 需要判断自插入pv == prev的情况
+
+关键在于**pv节点怎么获得**：**（使用插入排序的比较方式即可）**
+
+`while(pv->next!=node&& pv->next->val < node->val )pv = pv->next;`
+
+```cpp
+ListNode* insertionSortList(ListNode* head) {
+    if(!head || !head->next)return head;
+    ListNode* dummyhead = new ListNode(-INT_MAX);
+    dummyhead->next = head;
+    ListNode *prev, *node;
+    prev = head;
+    node = head->next;
+    while(node){
+        ListNode* pv = dummyhead;
+        while(pv->next!=node&& pv->next->val < node->val ){//node一定在pv前面,pv一定存在
+            pv = pv->next;
+        }
+        if(pv == prev){
+            prev = node;
+            node = node->next;
+        }else{
+            prev->next = node->next;
+            node->next = pv->next;
+            pv->next = node;
+
+            node = prev->next;
+        }
+    }
+    return dummyhead->next;
+}
+```
 

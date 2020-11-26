@@ -30,6 +30,8 @@ pv->next = prev;
 nt->next = node;
 ```
 
+（**其实对于反转链表-ii的问题，可以一边反转链表，一边找节点，只用一次循环完成**）
+
 ### **穿针引线问题代表示例**
 
 **61.旋转链表**
@@ -65,16 +67,37 @@ int move = (len - k%len)%len; //表示中断的节点位置，从head向后移�
 
 ![](../../../.gitbook/assets/wu-biao-ti-%20%284%29.png)
 
-**反转链表模板**
+**反转链表模板（四行模板）**
 
 * **自变指针：prev, node**
 * **他变指针：nxt**
 
 ```cpp
+/*operate*/
 ListNode* nxt = node->next; 
 node->next = prev;
-
+/*iterate*/
 prev = node;
 node = nxt;
+```
+
+**记忆：（四要素）**
+
+```cpp
+ListNode* reverseList(ListNode* head) {
+    if(!head || !head->next)return head;//特判
+    /*初始化*/
+    ListNode* prev = head;
+    ListNode* node = head->next;
+    prev->next = NULL;
+    while(node){//终止条件
+        /*四行模板*/
+         ListNode* nxt = node->next;
+         node->next = prev;
+         prev = node;
+         node = nxt;
+    }
+    return prev;
+}
 ```
 

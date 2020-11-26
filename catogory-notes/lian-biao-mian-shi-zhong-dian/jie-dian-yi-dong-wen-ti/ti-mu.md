@@ -17,7 +17,7 @@
 | 82 | 删除排序链表中的重复元素 II | 转换为这类问题 | 中等 |
 | 147 | 对链表进行插入排序 | 模板变体：pv指针是每次循环比较出来的 | 中等 |
 | 面试题02-01 | 移除重复节点 | 三种解法（合理选择） | 技巧 |
-|  |  |  |  |
+| 143 | 重排链表 | 快慢指针 + 节点移动模板 + 反转链表 | 中等 |
 |  |  |  |  |
 
 **86.分割链表**
@@ -237,5 +237,54 @@ ListNode* removeDuplicateNodes(ListNode* head) {
 }
 ```
 
+**143.重排链表**
 
+ 将其重新排列后变为： _L_0→_Ln_→_L_1→_Ln_-1→_L_2→_Ln_-2→…
+
+**题解：**
+
+* part1: 快慢指针，找中点
+  * 注意：slow-&gt;next = NULL; //很关键，要把前半部分尾端删了
+* part2: 反转链表：反转后半部分链表
+* part3: 节点移动问题：将后半部分节点插入前半部分
+
+```cpp
+void reorderList(ListNode* head) {
+    if(!head || !head->next || !head->next->next)return;
+    /*part1：快慢指针，找中点*/
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    //发现好像不需要对链表长度奇偶判断，slow都要后移一位
+    ListNode* prev = slow->next;//前面的slow往后移动一位，代表后半部分链表头
+    slow->next = NULL; //很关键，要把尾端删了
+
+    /*part2：反转后半部分链表*/
+    ListNode* node = prev->next;
+    prev->next = NULL;
+    while(node){
+        ListNode* nxt = node->next;
+        node->next = prev;
+        prev = node;
+        node = nxt;
+    }
+    /*part3：将后半部分节点插入前半部分*/
+    ListNode* pv = head;
+    ListNode* nt = head->next;
+    while(prev){//这里抽离的是叫做“prev"的节点，其实跟我们模型中的node一个东西
+        /*临时保存下一个节点，其实代表已经抽离了*/
+        node = prev->next;
+        /*插入*/
+        prev->next = nt;
+        pv->next = prev;
+        /*更新迭代*/
+        pv = nt;
+        nt = nt->next; //如果正确的话nt是会和prev一起为NULL的
+        prev = node;
+    }
+}
+```
 

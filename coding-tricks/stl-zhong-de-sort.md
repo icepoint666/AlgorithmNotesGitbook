@@ -1,4 +1,4 @@
-# STL中的sort\(\)
+# STL中的sort\(\), pair,tuple,string的默认比较规则
 
 ### 模板
 

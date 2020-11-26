@@ -1,6 +1,8 @@
-# 哈希表中使用pair或者tuple作为hashable key
+# 哈希表中使用pair,tuple,string作为hashable key
 
-如果想让自己的pair是hashable从而作为**unordered\_map**或者**unordered\_set**的key
+### pair的hashable
+
+如果**想让自己的pair是hashable**从而作为**unordered\_map**或者**unordered\_set**的key
 
 这样实现:\(这里一定要operator\(\) const\)
 
@@ -21,7 +23,11 @@ struct PairHash{
 //使用：这里哈希表实现允许加入一个hash<key>的参数
 unordered_map<std::pair<int, int>, int, PairHash<int,int> > mp;
 unordered_set<std::pair<int, int>, PairHash<int,int> >s;
-//=============================或===================================
+```
+
+或
+
+```cpp
 struct pair_hash{
     template<class T1, class T2>
     size_t operator() (const pair<T1, T2>& p) const{
@@ -46,6 +52,16 @@ template < class Key,                                    // unordered_map::key_t
            class Pred = equal_to<Key>,                   // unordered_map::key_equal
            class Alloc = allocator< pair<const Key,T> >  // unordered_map::allocator_type
            > class unordered_map;
+```
+
+### string的hashable
+
+```cpp
+struct pair_hash{
+    size_t operator() (const string& p) const{
+        return hash<string>{}(p);
+    }
+};
 ```
 
 题目：

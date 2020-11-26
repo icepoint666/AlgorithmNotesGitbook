@@ -4,7 +4,6 @@
 * [相关链接](xiang-guan-lian-jie.md)
 * [系统学习指南](xi-tong-xue-xi-zhi-nan.md)
 * [刷题指南](shua-ti-zhi-nan.md)
-* [必记高频题](bi-ji-gao-pin-ti.md)
 
 ## Coding Tricks
 
@@ -20,13 +19,7 @@
 
 ## Catogory Tricks
 
-* [单调栈](catogory-tricks/untitled.md)
-* [堆实现](catogory-tricks/dui-he-you-xian-dui-lie.md)
-* [双指针滑窗模板](catogory-tricks/shuang-zhi-zhen-hua-chuang-mo-ban.md)
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
-* [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)
-* [递归](catogory-tricks/di-gui.md)
-* [动态规划](catogory-tricks/dong-tai-gui-hua.md)
 
 ## Catogory Notes
 
@@ -35,13 +28,15 @@
 * [动态规划](catogory-notes/dong-tai-gui-hua/README.md)
   * [高楼扔鸡蛋：动态规划/递归](catogory-notes/dong-tai-gui-hua/gao-lou-reng-ji-dan-dong-tai-gui-hua-di-gui.md)
   * [打家劫舍问题](catogory-notes/dong-tai-gui-hua/da-jia-jie-she-wen-ti.md)
-* [堆](catogory-notes/dui/README.md)
-  * [Leetcode 480 滑动窗口中位数](catogory-notes/dui/leetcode-480-hua-dong-chuang-kou-zhong-wei-shu.md)
-* [滑动窗口（Sliding Window）](catogory-notes/untitled.md)
-* [快慢双指针](catogory-notes/kuai-man-shuang-zhi-zhen.md)
-* [左右双指针](catogory-notes/zuo-you-shuang-zhi-zhen.md)
+* [堆](catogory-notes/dui-1/README.md)
+  * [堆实现](catogory-notes/dui-1/dui-he-you-xian-dui-lie.md)
+  * [题目](catogory-notes/dui-1/dui.md)
+  * [Leetcode 480 滑动窗口中位数](catogory-notes/dui-1/leetcode-480-hua-dong-chuang-kou-zhong-wei-shu.md)
+* [双指针滑窗](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/README.md)
+  * [滑动窗口（Sliding Window）](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/untitled.md)
+  * [快慢双指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/kuai-man-shuang-zhi-zhen.md)
+  * [左右双指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/zuo-you-shuang-zhi-zhen.md)
 * [回溯算法](catogory-notes/hui-su-suan-fa.md)
-* [前缀和](catogory-notes/qian-zhui-he.md)
 * [链表](catogory-notes/lian-biao-mian-shi-zhong-dian/README.md)
   * [链表问题统一解决技巧](catogory-notes/lian-biao-mian-shi-zhong-dian/lian-biao-wen-ti-tong-yi-jie-jue-ji-qiao.md)
   * [节点移动问题](catogory-notes/lian-biao-mian-shi-zhong-dian/jie-dian-yi-dong-wen-ti/README.md)
@@ -84,14 +79,16 @@
   * [strcpy等str函数实现代码](catogory-notes/zi-fu-chuan/strcpy-deng-str-han-shu-shi-xian-dai-ma.md)
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
-* [二分查找（容易晕）](catogory-notes/er-fen-cha-zhao.md)
-* [栈，队列](catogory-notes/zhan-dui-lie.md)
-* [单调栈](catogory-notes/dan-tiao-zhan.md)
-* [单调队列](catogory-notes/dan-tiao-dui-lie.md)
+* [二分查找](catogory-notes/er-fen-cha-zhao.md)
+* [栈与队列](catogory-notes/zhan-dui-lie.md)
+* [单调栈/队列](catogory-notes/untitled-2/README.md)
+  * [单调栈](catogory-notes/untitled-2/dan-tiao-zhan.md)
+  * [单调队列](catogory-notes/untitled-2/dan-tiao-dui-lie.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [位运算，数位](catogory-notes/wei-yun-suan-shu-wei.md)
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 * [并查集](catogory-notes/bing-cha-ji.md)
+* [前缀和](catogory-notes/qian-zhui-he.md)
 * [概率题](catogory-notes/gai-lv-ti.md)
 * [其他题](catogory-notes/qi-ta-ti.md)
 

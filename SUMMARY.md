@@ -17,8 +17,6 @@
   * [std::string转int,float,double,long](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)
   * [int, float等类型转std::string](coding-tricks/zi-fu-chuan-cao-zuo/int-float-deng-lei-xing-zhuan-stdstring.md)
 
-## Catogory Tricks
-
 ## Catogory Notes
 
 * [数组相关](catogory-notes/shu-zu-xiang-guan.md)

@@ -19,8 +19,6 @@
 
 ## Catogory Tricks
 
-* [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
-
 ## Catogory Notes
 
 * [数组相关](catogory-notes/shu-zu-xiang-guan.md)
@@ -79,7 +77,9 @@
   * [strcpy等str函数实现代码](catogory-notes/zi-fu-chuan/strcpy-deng-str-han-shu-shi-xian-dai-ma.md)
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
-* [二分查找](catogory-notes/er-fen-cha-zhao.md)
+* [二分查找](catogory-notes/er-fen-cha-zhao-mo-ban/README.md)
+  * [三种模板](catogory-notes/er-fen-cha-zhao-mo-ban/san-zhong-mo-ban.md)
+  * [题目](catogory-notes/er-fen-cha-zhao-mo-ban/er-fen-cha-zhao.md)
 * [栈与队列](catogory-notes/zhan-dui-lie.md)
 * [单调栈/队列](catogory-notes/untitled-2/README.md)
   * [单调栈](catogory-notes/untitled-2/dan-tiao-zhan.md)

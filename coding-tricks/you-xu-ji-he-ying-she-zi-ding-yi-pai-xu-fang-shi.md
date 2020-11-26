@@ -38,7 +38,7 @@ public:
 set<pair<int,int>, PairComp> s;
 ```
 
-###  **STL中Map的按Value排序**
+### **STL中Map的按Value排序**
 
 STL中的sort算法只能对**序列容器进行排序**（如vector，list，deque）
 
@@ -46,7 +46,34 @@ map也是一个**集合容器**，它里面存储的元素是pair，通过红黑
 
 **做法：把map中的元素放到序列容器（如vector）中，然后再对这些元素进行排序**
 
-**map是以pair存储的，**我们需要知道pair重载的&lt;运算符是怎么样的：
+**map是以pair存储的，**我们需要知道**pair重载的&lt;运算符是怎么样的：**
 
-pair类重载了&lt;符，但是它并不是按照value进行比较的，而是先对key进行比较，key相等时候才对value进行比较。显然不能满足我们按value进行排序的要求
+pair类重载了&lt;符，但是它并不是按照value进行比较的
+
+* 而是先对key进行比较
+* key相等时候才对value进行比较。
+
+显然不能满足我们按value进行排序的要求，所以需要**自定义排序方式**
+
+```cpp
+typedef pair<string, int> map_pair
+//方法1
+bool operator< (const map_pair& lhs, const map_pair& rhs) {
+    return lhs.second < rhs.second;
+}
+//方法2
+struct CmpByValue {
+  bool operator()(const map_pair& lhs, const map_pair& rhs) {
+    return lhs.second < rhs.second;
+  }
+};
+map<string, int> mp;
+//把map中元素转存到vector中 
+vector<map_pair>vec(mp.begin(), mp.end());
+//排序
+sort(vec.begin(), vec.end())                  //方法1
+sort(vec.begin(), vec.end(), CmpByValue());   //方法2
+```
+
+
 

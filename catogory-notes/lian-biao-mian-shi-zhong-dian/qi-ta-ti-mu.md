@@ -222,7 +222,7 @@ ListNode* sortList(ListNode* head) {
     }
     res->next = left!=NULL ? left : right;
     return dummyhead->next;
-}
+} 
 ```
 
 

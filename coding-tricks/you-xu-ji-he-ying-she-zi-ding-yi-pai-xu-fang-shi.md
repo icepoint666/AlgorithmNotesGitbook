@@ -1,4 +1,13 @@
-# 有序集合/映射，自定义排序方式
+# STL map/set排序，自定义排序方式
+
+### **STL中Map的按Key排序**
+
+```cpp
+map<string, int, greater<string> > name_score_map; //从z到A从大到小
+
+```
+
+### **STL中Map自定义key的排序**
 
 ```cpp
 class PairComp{
@@ -14,4 +23,6 @@ public:
 
 set<pair<int,int>, PairComp> s;
 ```
+
+
 

@@ -1,4 +1,4 @@
-# 哈希表中使用pair或者tuple作为key
+# 哈希表中使用pair或者tuple作为hashable key
 
 如果想让自己的pair是hashable从而作为**unordered\_map**或者**unordered\_set**的key
 

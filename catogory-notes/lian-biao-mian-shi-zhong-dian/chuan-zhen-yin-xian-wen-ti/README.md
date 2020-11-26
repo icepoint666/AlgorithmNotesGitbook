@@ -24,7 +24,7 @@
 ```cpp
 nt = pv->next;
 node = prev->next;
-...(对内部进行操作)
+...(对内部进行操作,例如完成反转链表)
 pv->next = prev;
 nt->next = node;
 ```

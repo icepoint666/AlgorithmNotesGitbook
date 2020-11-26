@@ -17,7 +17,7 @@ std::map<int,int> mp;
 vector<int> vec;
 vector<int> vec(1，2，3);
 vector<int> vec = {1,2,3};
-vector<int> vec, vec.reserve(100); 
+vector<int> vec, vec.reserve(100); //预留空间，比较常用，性能比较高
 ```
 
 vector初始化一个长度为n的空数组, 之后可以直接下标访问

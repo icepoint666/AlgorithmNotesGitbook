@@ -1,9 +1,17 @@
 # 特殊技巧题目
 
-### **快慢指针模板**
+### **快慢指针模板** \(快指针初始化有两个版本\)
 
 ```cpp
-ListNode* fast = head; //快指针
+ListNode* fast = head; //快指针第一种初始化情况
+ListNode* slow = head;
+while(fast && fast->next) { 
+    ...
+    fast = fast->next->next; //2倍慢指针的速度
+    slow = slow->next;
+}
+
+ListNode* fast = head->next //快指针第二种初始化情况
 ListNode* slow = head;
 while(fast && fast->next) { 
     ...
@@ -11,6 +19,8 @@ while(fast && fast->next) {
     slow = slow->next;
 }
 ```
+
+**（这两种初始化方式，视情况而定）**
 
 ### **题目：**
 
@@ -174,11 +184,46 @@ public:
 };
 ```
 
-**148. 排序链表**
+### **148. 排序链表**
 
 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
 
 进阶：在 O\(n log n\) 时间复杂度和常数级空间复杂度下，对链表进行排序
+
+**题解：**
+
+* 快慢指针找中点（注意这里fast的初始时fast = head-&gt;next\)
+* 分治，递归
+
+```cpp
+ListNode* sortList(ListNode* head) {
+    if(!head || !head->next)return head;
+    ListNode* dummyhead = new ListNode(0);
+    ListNode* res = dummyhead;
+    ListNode* slow = head, *fast = head->next; //fast初始设定 fast = head->next这个细节非常重要
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    ListNode* mid = slow->next;
+    slow->next = NULL; //cut
+    ListNode* left = sortList(head);
+    ListNode* right = sortList(mid);
+    
+    while(left && right){
+        if(left->val < right->val){
+            res->next = left;
+            left = left->next;
+        }else{
+            res->next = right;
+            right = right->next;
+        }
+        res = res->next;
+    }
+    res->next = left!=NULL ? left : right;
+    return dummyhead->next;
+}
+```
 
 
 

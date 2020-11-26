@@ -25,7 +25,6 @@
 * [二分查找模板](catogory-tricks/er-fen-cha-zhao-mo-ban.md)
 * [回溯算法模板](catogory-tricks/hui-su-suan-fa-mo-ban.md)
 * [递归](catogory-tricks/di-gui.md)
-* [排序算法](catogory-tricks/pai-xu-suan-fa.md)
 * [动态规划](catogory-tricks/dong-tai-gui-hua.md)
 
 ## Catogory Notes

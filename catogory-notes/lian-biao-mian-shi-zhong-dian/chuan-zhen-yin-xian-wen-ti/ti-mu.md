@@ -5,7 +5,9 @@
 | 序号 | 名字 | 备注 | 难度 |
 | :--- | :--- | :--- | :--- |
 | 61 | 旋转链表 | 穿针引线 | 中等 |
-| 92 | 反转链表 II | 变体 | 中等 |
+| 24 | 反转链表 | 反转链表 | 模板 |
+| 92 | 反转链表 II | 穿针引线 + 反转链表 | 中等 |
+| 25 | K 个一组翻转链表 | 穿针引线 + 反转链表（类似反转链表-ii做法，只不过进行了多次） | 复杂 |
 
 **92. 反转链表 II**
 
@@ -51,7 +53,7 @@ ListNode* reverseBetween(ListNode* head, int m, int n) {
     ListNode* prev_ = nt;
     ListNode* node_ = nt->next;
     prev_->next = node; //穿针引线1
-    while(node_!=node){
+    while(node_!=node){ /需要注意很多情况下node是
         ListNode* nxt = node_->next;
         node_->next = prev_;
         prev_ = node_;
@@ -63,4 +65,64 @@ ListNode* reverseBetween(ListNode* head, int m, int n) {
 ```
 
 **（可以再优化一下，就是改成只用一次循环，这里没有写出来）**
+
+**25. K 个一组翻转链表**
+
+给你一个链表，每 _k_ 个节点一组进行翻转，请你返回翻转后的链表。
+
+**示例：**
+
+给你这个链表：`1->2->3->4->5`
+
+当 _k_ = 2 时，应当返回: `2->1->4->3->5`
+
+当 _k_ = 3 时，应当返回: `3->2->1->4->5`
+
+**解法：**
+
+* 特判
+* dummyhead
+* 需要提前窥探k个看看有没有到尽头
+  * 如果没有，执行一轮**穿针引线+反转链表**
+    * 确定pv,nt,prev,node
+    * 执行反转链表，需要`prev_`, `node_`
+  * 重置初始化：每执行一轮要更新pv,nt,prev,node
+
+**需要注意的点**：这种pv,nt,prev,node模型是允许node为NULL的，prev不能为NULL，所以判断条件需要改两个地方：①while\(prev\) ②if\(!node\)break;
+
+```cpp
+ListNode* reverseKGroup(ListNode* head, int k) {
+    if(!head || !head->next || k == 1)return head;
+    ListNode* dummyhead = new ListNode(0);
+    dummyhead->next = head;
+    ListNode* pv, *nt, *prev, *node;
+    pv = dummyhead, nt = head, prev = pv, node = nt;
+    int cnt = 0;
+    /*窥探k个点*/
+    while(prev){//①注意：这种模型允许node为NULL，prev不能为NULL
+        if(cnt == k){
+            /*反转链表+穿针引线，这部分可以考虑画个图来更快速的写出关系*/
+            ListNode* prev_ = nt;
+            ListNode* node_ = nt->next;
+            ListNode* new_pv = prev_;
+            prev_->next = node;
+            while(node_!=node){
+                ListNode* nxt = node_->next;
+                node_->next = prev_;
+                prev_ = node_;
+                node_ = nxt;
+            }
+            pv->next = prev;
+            /*重置，相当于是下一次反转的初始化*/
+            pv = new_pv, nt = node, prev = pv;
+            cnt = 0;
+        }
+        prev = node;
+        if(!node)break; //②
+        node = node->next;
+        cnt++;
+    }
+    return dummyhead->next;
+}
+```
 

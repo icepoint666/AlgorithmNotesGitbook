@@ -158,7 +158,7 @@ ListNode* deleteDuplicates(ListNode* head) {
 ```cpp
 ListNode* insertionSortList(ListNode* head) {
     if(!head || !head->next)return head;
-    ListNode* dummyhead = new ListNode(-INT_MAX);
+    ListNode* dummyhead = new ListNode(-INT_MAX); //dummyhead设为最小
     dummyhead->next = head;
     ListNode *prev, *node;
     prev = head;

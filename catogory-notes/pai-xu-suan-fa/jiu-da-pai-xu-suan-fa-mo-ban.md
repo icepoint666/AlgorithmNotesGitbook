@@ -56,14 +56,16 @@ int partition(vector<int>&nums, int i, int j){
 int insertionSort(vector<int>&nums, int i, int j);
 
 void sort(vector<int>&nums, int left, int right){
-    if(left >= right)return;
+    if(left >= right)return; // 如果insertionSort有判边界，就可以省去这一句
     if(left + 10 >= right){ //长度如果小于等于10，就直接插入排序
         insertionSort(nums, left, right);
         return;
     }
-    int i = partition(nums, left, right);
-    sort(nums, left, i-1);
-    sort(nums, i+1, right);
+    while(left < right){  //尾递归优化
+        int pivot = partition(nums, left, right);
+        sort(nums, left, pivot-1);
+        left = pivot + 1;
+    }
 }
 vector<int> sortArray(vector<int>& nums) {
     sort(nums, 0, nums.size()-1);

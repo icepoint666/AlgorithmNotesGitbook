@@ -60,7 +60,7 @@
   * [如何泛化的将一个问题的递归解法转为迭代解法](catogory-notes/er-cha-shu/ru-he-fan-hua-de-jiang-yi-ge-wen-ti-de-di-gui-jie-fa-zhuan-wei-die-dai-jie-fa.md)
   * [多叉树NestedInteger问题](catogory-notes/er-cha-shu/duo-cha-shu-nestedinteger-wen-ti.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa/README.md)
-  * [九大排序算法模板](catogory-notes/pai-xu-suan-fa/jiu-da-pai-xu-suan-fa-mo-ban.md)
+  * [六大排序算法模板](catogory-notes/pai-xu-suan-fa/jiu-da-pai-xu-suan-fa-mo-ban.md)
   * [快速排序](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu.md)
   * [快速排序题目](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu-ti-mu.md)
   * [归并排序](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu.md)

@@ -27,13 +27,17 @@ vector<int> sortArray(vector<int>& nums) {
 }
 ```
 
-**STL的快速排序实现：Median-of-3 / 元素个数 &lt; threshold insertion sort**
+**更优的快速排序实现：**
+
+* **①Median-of-3** 
+* **②当 元素个数 &lt; threshold 使用insertion sort**
+* **③尾递归优化**
 
 **（关键在于median-of-3的实现）**
 
 ```cpp
 int partition(vector<int>&nums, int i, int j){
-    /*median-of-three*/
+    /*难点：median-of-three*/
     int mid = (i + j) /2;
     if(nums[i] > nums[mid])swap(nums[mid], nums[i]);
     if(nums[i] > nums[j])swap(nums[i], nums[j]);
@@ -42,9 +46,9 @@ int partition(vector<int>&nums, int i, int j){
     int val = nums[i];
 
     while(i != j){
-        while(i < j && val <= nums[j])j--; //即使i提前等于j了，交换两者也没有任何关系
+        while(i < j && val <= nums[j])j--;
         swap(nums[i], nums[j]);
-        while(i < j && val >= nums[i])i++; //相等这种情况就不需要交换了
+        while(i < j && val >= nums[i])i++; 
         swap(nums[i], nums[j]);
     }
     return i;
@@ -66,4 +70,6 @@ vector<int> sortArray(vector<int>& nums) {
     return nums; 
 }
 ```
+
+### 归并排序
 

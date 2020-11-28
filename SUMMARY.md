@@ -65,8 +65,6 @@
   * [快速排序题目](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu-ti-mu.md)
   * [归并排序](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu.md)
   * [归并排序题目](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu-ti-mu.md)
-  * [插入排序，冒泡排序题目](catogory-notes/pai-xu-suan-fa/cha-ru-pai-xu-mao-pao-pai-xu.md)
-  * [堆排序，桶排序题目](catogory-notes/pai-xu-suan-fa/dui-pai-xu-tong-pai-xu.md)
   * [其他题目](catogory-notes/pai-xu-suan-fa/qi-ta-ti-mu.md)
 * [STL数据结构运用](catogory-notes/shu-ju-jie-gou/README.md)
   * [红黑树std::map/std::set](catogory-notes/shu-ju-jie-gou/hong-hei-shu-stdmapstdset.md)

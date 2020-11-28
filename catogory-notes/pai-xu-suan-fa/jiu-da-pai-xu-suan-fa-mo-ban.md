@@ -1,6 +1,6 @@
 # 六大排序算法模板
 
-### 快速排序 
+### 快速排序 \(普通版 + 优化版）
 
 **基本模板：4个关键点（注释上）**
 
@@ -73,7 +73,85 @@ vector<int> sortArray(vector<int>& nums) {
 }
 ```
 
-### 归并排序
+### 归并排序（普通版 + inplace版）
+
+**普通版**
+
+```cpp
+void mergeSort(vector<int>& nums, int left, int right){
+    if(left >= right)return;
+    vector<int>temp; //尽量用int[] 
+    temp.reserve(right-left+1);
+    int mid = (left + right) / 2;
+    mergeSort(nums, left, mid);
+    mergeSort(nums, mid+1, right);
+    int i = left, j = mid + 1;
+    while(i <= mid && j <= right){
+        if(nums[i] < nums[j])temp.push_back(nums[i++]);
+        else temp.push_back(nums[j++]);
+    }
+    while(i <= mid)temp.push_back(nums[i++]);
+    while(j <= right)temp.push_back(nums[j++]);
+    for(int i = left; i <= right; i++){
+        nums[i] = temp[i-left];
+    }
+}
+vector<int> sortArray(vector<int>& nums) {
+    mergeSort(nums, 0, nums.size()-1);
+    return nums;
+}
+```
+
+#### inplace版**（时间开销很大）**：
+
+#### 在归并排序上改进，以时间复杂度换空间复杂度，利用元素反转完成排序
+
+ 在原地归并排序中最主要用到了**内存反转**，即交换相邻的两块内存
+
+**内存反转**是给定序列a1,a2,...,an,b1,b2,...,bn,反转成 b1,b2,...,bn,a1,a2,...,an
+
+**merge的原理**
+
+![](../../.gitbook/assets/wu-biao-ti-%20%286%29.png)
+
+![](../../.gitbook/assets/wu-biao-ti-%20%287%29.png)
+
+（**核心：主要是reverse要反转三次**）
+
+```cpp
+void reverse(vector<int>&nums, int left, int right){
+    int i = left, j = right;
+    while(i < j){
+        swap(nums[i++], nums[j--]);
+    }
+}
+void convert(vector<int>&nums, int left, int mid, int right){//内存反转
+    reverse(nums, left, mid);
+    reverse(nums, mid+1, right);
+    reverse(nums, left, right);
+}
+void merge(vector<int>& nums, int left, int mid, int right){
+    int i = left, j = mid + 1;
+    while (i < j && j <= right){
+       while (i < j && nums[i] <= nums[j])i++;
+       int index = j;
+       while (j <= right && nums[j] < nums[i])j++;
+       convert(nums, i, index - 1, j - 1);
+       i += j - index;
+    }
+}
+void mergeSort(vector<int>& nums, int left, int right){
+    if(left >= right)return;
+    int mid = (left + right) / 2;
+    mergeSort(nums, left, mid);
+    mergeSort(nums, mid+1, right);
+    merge(nums, left, mid, right);
+}
+vector<int> sortArray(vector<int>& nums) {
+    mergeSort(nums, 0, nums.size()-1);
+    return nums;
+}
+```
 
 ### 插入排序
 
@@ -104,6 +182,7 @@ vector<int> bubbleSort(vector<int>& nums){
              if(nums[j] > nums[j+1])swap(nums[j], nums[j+1]);
         }
     }
+    return nums;
 }
 ```
 

@@ -75,3 +75,35 @@ vector<int> sortArray(vector<int>& nums) {
 
 ### 归并排序
 
+### 插入排序
+
+认定元素i左边已经是从小到大排好序的部分  
+从**nums\[i\]**往左边找\(j--\)，找到刚好比nums\[j\]大的插入到nums\[j+1\]的位置
+
+```cpp
+ vector<int> insertionSort()(vector<int>& nums) {
+    for(int i = 1; i < nums.size(); i++){
+        int key = nums[i];
+        int j = i - 1;
+        while(j >= 0 && nums[j] > key){
+            nums[j+1] = nums[j];
+            j--;
+        }
+        nums[j+1] = key;
+    }
+    return nums;
+}
+```
+
+### 冒泡排序
+
+```cpp
+vector<int> bubbleSort(vector<int>& nums){
+    for(int i = 0; i < nums.size() - 1; i++){ //注意边界[0,n-1)
+        for(int j = 0; j < nums.size() - 1 - i; j++){ //注意边界[0,n-1-i)
+             if(nums[j] > nums[j+1])swap(nums[j], nums[j+1]);
+        }
+    }
+}
+```
+

@@ -180,7 +180,33 @@ vector<int> sortArray(vector<int>& nums) {
 ![](../../.gitbook/assets/1024555-20161217194207620-1455153342.png)
 
 ```cpp
-void
+void maxHeap(vector<int>& nums, int parent, int len){ 
+/*从上往下，与两个child比较，如果比child小，就要交换位置，因为是大顶堆*/
+    int child = 2 * parent + 1; 
+    while(child < len){
+        if(child + 1 < len && nums[child] < nums[child + 1])child++; //
+        if(nums[child] > nums[parent]){
+            swap(nums[child], nums[parent]);
+            parent = child;
+            child = 2 * parent + 1;
+        }else break;
+    }
+}
+void heapSort(vector<int>& nums){
+    int len = nums.size();
+    for(int i = (len - 1) / 2; i >= 0; i--){ //调整非叶子节点
+        maxHeap(nums, i, len);
+    }/*构成大顶堆*/
+    
+    for(int j = len; j > 0; j--){
+        maxHeap(nums, 0, j); //每次相当于移除一个最大元素到堆尾
+        swap(nums[0], nums[j-1]);
+    }
+}
+vector<int> sortArray(vector<int>& nums) {
+    heapSort(nums);
+    return nums;
+}
 ```
 
 ### 桶排序

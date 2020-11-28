@@ -254,6 +254,118 @@ O(N)+O(M*(N/M)*log(N/M))=O(N*(log(N/M)+1))
 
 ### 基数排序
 
+**按照数位：从低位开始向高位排序**
+
+示例：比如这样一个数列排序: 342 58 576 356, 以下描述演示了具体的排序过程
+
+```cpp
+第一次排序(个位):
+3 4    2
+5 7    6
+3 5    6
+0 5    8
+第二次排序(十位):
+3  4   2
+3  5   6
+0  5   8
+5  7   6
+第三次排序(百位):
+0   5 8
+3   4 2
+3   5 6
+5   7 6
+结果: 58 342 356 576
+```
+
+**正整数的radixSort实现：**
+
+```cpp
+/********************************************************
+ *函数名称：getLoopTimes
+ *参数说明：num 一个整形数据
+ *说明：   返回num的位数
+ *********************************************************/
+int getLoopTimes(unsigned int num) {
+    int count = 1;
+    unsigned int temp = num / 10;
+    while (temp != 0) {
+        count ++;
+        temp = temp / 10;
+    }
+    return count;
+}
+/********************************************************
+ *函数名称：getMaxNum
+ *参数说明：array 代排序的数
+ *        length 数组长度
+ *说明：   返回最大值
+ *********************************************************/
+unsigned int getMaxNum(unsigned int array[], int length) {
+    unsigned int max = 0;
+    for (int i = 0; i < length; i++) {
+        if (max < array[i]) {
+            max = array[i];
+        }
+    }
+    return max;
+}
+
+/********************************************************
+ *函数名称：getNumInPos
+ *参数说明：num 一个整形数据
+ *          pos 表示要获得的整形的第pos位数据
+ *说明：    找到num的从低到高的第pos位的数据
+ *********************************************************/
+int getNumInPos(int num, int pos) {
+    // 求桶的 index 的除数，如：798
+    // 个位桶 index = (798 / 1) % 10 = 8
+    // 十位桶 index = (798 / 10) % 10 = 9
+    // 百位桶 index = (798 / 100) % 10 = 7
+    int temp = 1;
+    for (int i = 0; i < pos - 1; i++) {
+        temp *= 10;
+    }
+    return (num / temp) % 10;
+}
+
+/********************************************************
+ *函数名称：radixSort
+ *参数说明：array 无序数组
+ *        length 数组长度
+ *说明：   基数排序
+ *********************************************************/
+void radixSort(unsigned int array[], int length) {
+    // 分别为 0~9 的序列空间
+    unsigned int *radixArrays[RADIX_10];
+    for (int i = 0; i < RADIX_10; i ++) {
+        radixArrays[i] = (unsigned int *)malloc(sizeof(unsigned int) * (length + 1));
+        radixArrays[i][0] = 0; // 下标为0处元素记录这组数据的个数
+    }
+    // 获取数组中的最大数
+    unsigned int maxNum = getMaxNum(array, length);
+    // 获取最大数的位数，也是再分配的次数
+    int loopTimes = getLoopTimes(maxNum);
+    // 对每一位进行分配
+    for (int pos = 1; pos <= loopTimes; pos ++) {
+        // 分配过程
+        for (int i = 0; i < length; i ++) {
+            int num = getNumInPos(array[i], pos);
+            int index = ++ radixArrays[num][0];
+            radixArrays[num][index] = array[i];
+        }
+        // 收集过程
+        for (int i = 0, j = 0; i < RADIX_10; i ++) {
+            for (int k = 1; k <= radixArrays[i][0]; k ++) {
+                array[j++] = radixArrays[i][k];
+            }
+            radixArrays[i][0] = 0; // 复位
+        }
+        // 输出数组内容
+        //print(array, length);
+    }
+}
+```
+
 ### 插入排序
 
 认定元素i左边已经是从小到大排好序的部分  

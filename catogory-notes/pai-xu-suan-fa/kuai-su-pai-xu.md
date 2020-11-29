@@ -132,6 +132,8 @@ void QSort(T arr[],int low,int high){
   
 **\(4\).聚集元素（处理数组中有很多重复元素时，有比较大的提升）**
 
+**也就是下一章提到的快速排序的3-way-partition变体**
+
 **详细：**[**https://blog.csdn.net/qq\_38289815/article/details/82718428\#%E4%BC%98%E5%8C%963%EF%BC%9A%E8%81%9A%E9%9B%86%E5%85%83%E7%B4%A0**](https://blog.csdn.net/qq_38289815/article/details/82718428#%E4%BC%98%E5%8C%963%EF%BC%9A%E8%81%9A%E9%9B%86%E5%85%83%E7%B4%A0)\*\*\*\*
 
 聚集元素的思想：在一次分割结束后，将与本次基准相等的元素聚集在一起，再分割时，不再对聚集过的元素进行分割。把聚集元素都聚集在左边

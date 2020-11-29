@@ -64,6 +64,7 @@
   * [快速排序](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu.md)
   * [快速排序题目](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu-ti-mu.md)
   * [归并排序题目](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu-ti-mu.md)
+  * [3-way-partition问题](catogory-notes/pai-xu-suan-fa/3waypartition-wen-ti.md)
   * [其他题目](catogory-notes/pai-xu-suan-fa/qi-ta-ti-mu.md)
 * [STL数据结构运用](catogory-notes/shu-ju-jie-gou/README.md)
   * [红黑树std::map/std::set](catogory-notes/shu-ju-jie-gou/hong-hei-shu-stdmapstdset.md)

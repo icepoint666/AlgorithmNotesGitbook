@@ -16,6 +16,7 @@
 | 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
 | 15 | 三数之和 | 排序+双指针（返回的三数不重复，所以用不了哈希表） |  |
 | 剑指 Offer 21 | 奇数位于偶数前 | 关键要想到不占空间的解法：双指针 |  |
+| 75 | 颜色分类 | 对只存在0,1,2值的数组排序，双指针 | 理清关系 |
 
 #### 题目笔记
 
@@ -234,5 +235,38 @@ public:
 
 **左边指针扫，扫到偶数停止，右边指针扫到奇数停，然后让两者交换位置，再继续移动即可**
 
+\*\*\*\*
 
+**75. 颜色分类**
+
+**对一个只有0,1,2三种值的数组进行排序，要求只扫一遍**
+
+**解法：双指针（处理左右指针时，很容易乱，理清思路）**
+
+* left指针代表其左边都是0（初始left = 0，表示左边没有0）
+* right指针代表其右边都是2（初始right = len - 1, 表示右边没有1）
+* i表示当前处理节点，从0开始处理到right
+  * 如果是2的话，右边其实0,1,2都有可能，将nums\[i\]与nums\[right\]交换，将right--
+    * 如果nums\[right\]是2，其实不用交换，只用right--
+    * 如果nums\[right\]是1，不用处理
+    * 如果nums\[right\]是0，还要再给它交换到left，left++
+  * 如果是0的话，交换到left，left++
+  * 如果是1的话，不用处理
+
+```cpp
+void sortColors(vector<int>& nums) {
+    int len = nums.size();
+    if(len == 0)return;
+    int left = 0, right = len - 1;
+    for(int i = 0; i < len && i <= right; i++){
+        if(nums[i] == 2){
+            while(nums[right] == 2 && i < right)right--;
+            swap(nums[i], nums[right--]);
+        }
+        if(nums[i] == 0)swap(nums[i], nums[left++]);
+    }
+}
+```
+
+\*\*\*\*
 

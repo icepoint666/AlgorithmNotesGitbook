@@ -7,9 +7,8 @@
 | 面试题17.10 | 主要元素 | 摩尔投票法：时间O\(N\)空间O\(1\) | 简单 |
 | 1535 | 找出数组游戏的赢家 | 看清题： 当一个整数赢得 k 个回合时 | 简单 |
 | 42 | 接雨水 | 暴力法 -&gt; 备忘录法 -&gt;双指针法 | 三种方法 |
-| 442 | 数组中的重复元素 | \(1\) 原地hash \(2\)标记数组 | 有难度 |
+| 442 | 数组中的重复元素 | \(1\) 原地hash标记数组 \(2\)归位排序 | 有难度 |
 | 26/80 | 去除有序数组重复元素 | 数组删除原则，swap到一边，最后全删 | 技巧 |
-| 面试题01.07 | 旋转矩阵 | 90°旋转时 i,j坐标的位置关系 | 思路清晰 |
 |  |  |  |  |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
@@ -66,6 +65,49 @@ public:
 * 双指针法：O\(N\)时间，无额外空间 
   * 参考：[https://github.com/labuladong/fucking-algorithm/blob/master/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/%E6%8E%A5%E9%9B%A8%E6%B0%B4.md](https://github.com/labuladong/fucking-algorithm/blob/master/%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97/%E6%8E%A5%E9%9B%A8%E6%B0%B4.md)
 
+**442.数组中的重复元素**
+
+**解法1：原地hash标记数组:**
+
+```cpp
+vector<int> findDuplicates(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n; i++){
+        nums[(nums[i]-1)%n] += n; // 要整除n，这个很关键
+    }
+    vector<int>res;
+    for(int i = 0; i < n; i++){
+        if(nums[i] > 2 * n)
+            res.push_back(i+1);
+    }
+    return res;
+}
+```
+
+**解法2：归位排序**
+
+将nums\[i\]置换**swap**到其对应的位置nums\[nums\[i\]-1\]上去
+
+比如对于没有缺失项的正确的顺序应该是\[1, 2, 3, 4, 5, 6, 7, 8\]
+
+最后**在对应位置检验，如果nums\[i\]和i+1不等，那么我们将nums\[i\]存入结果res中即可**
+
+```cpp
+vector<int> findDuplicates(vector<int>& nums) {
+    int n = nums.size();
+    for(int i = 0; i < n; i++){
+        while(nums[i] != nums[nums[i]-1])
+            swap(nums[i], nums[nums[i]-1]);
+    }
+    vector<int>res;
+    for(int i = 0; i < n; i++){
+        if(nums[i] != i + 1)
+            res.push_back(nums[i]);
+    }
+    return res;
+}
+```
+
 **80. 删除排序数组中的重复项 II**
 
 给定一个排序数组，你需要在[**原地**](http://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95)删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
@@ -96,4 +138,6 @@ public:
         return slow+1;
     }
 ```
+
+
 

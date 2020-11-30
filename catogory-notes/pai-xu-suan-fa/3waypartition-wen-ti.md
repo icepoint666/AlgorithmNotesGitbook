@@ -51,8 +51,46 @@ void quickSort(vector<int>& nums, int left, int right){
 
 ### 快速变体：kth模板
 
-```cpp
+注意是**TopK**，还是**Kth**
 
+```cpp
+//基本partition模板
+int partition(vector<int>&nums, int i, int j){
+    int pivot_val = nums[i];
+    while(i != j){
+        while(i < j && pivot_val <= nums[j])j--; //即使i提前等于j了，交换两者也没有任何关系
+        swap(nums[i], nums[j]);            //std::swap
+        while(i < j && pivot_val >= nums[i])i++; //val = nums[i]相等这种情况就不需要交换了
+        swap(nums[i], nums[j]);
+    }
+    return i;
+}
+//提前要进行k的合法性判断
+//TopK: 1 <= k <= nums.size()       0, .. k-1
+//Kth:  0 <= k <= nums.size() - 1   1，2，3，...，kth
+int Kth(vector<int>&nums, int k){
+    //所有k都转换成k-1
+    int left = 0, right = nums.size() -1;
+    do {
+        int pivot = partition(nums, left, right);
+        if(pivot == k-1)break;
+        else if(pivot > k-1)right = pivot - 1;
+        else left = pivot + 1;
+    }while(true);        
+    return nums[k-1];
+}
+vector<int> TopK(vector<int>&nums, int k){
+    int left = 0, right = nums.size() -1;
+    do {
+        int pivot = partition(nums, left, right);
+        if(pivot == k-1)break;
+        else if(pivot > k-1)right = pivot - 1;
+        else left = pivot + 1;
+    }while(true);       
+    //TopK: 
+    vector<int> result(nums.begin(), nums.begin() + k);
+    return result;
+}
 ```
 
 ### 聚集元素 + kth结合版
@@ -89,13 +127,57 @@ int threeWayPartition_Kth(vector<int>nums, int k){
 
 ### **题目**
 
-| 序号/难度 | 名字 | 备注 |  |
-| :--- | :--- | :--- | :--- |
-| 75 | 颜色分类（荷兰国旗） | 快排变体：**聚集元素** | 模板 |
-| 剑指Offer 40 / 215 | 最小的k个数（TopK, kth） | 快排变体：**kth** | 解题技巧 |
-| 324 | 摆动排序-II | 快排变体：**聚集元素** + **kth\(这里kth就是中位数\)** + **虚拟映射** | 解题技巧 |
-|  |  |  |  |
-|  |  |  |  |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">&#x5E8F;&#x53F7;/&#x96BE;&#x5EA6;</th>
+      <th style="text-align:left">&#x540D;&#x5B57;</th>
+      <th style="text-align:left">&#x5907;&#x6CE8;</th>
+      <th style="text-align:left"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">75</td>
+      <td style="text-align:left">&#x989C;&#x8272;&#x5206;&#x7C7B;&#xFF08;&#x8377;&#x5170;&#x56FD;&#x65D7;&#xFF09;</td>
+      <td
+      style="text-align:left">&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>&#x805A;&#x96C6;&#x5143;&#x7D20;</b>
+        </td>
+        <td style="text-align:left">&#x6A21;&#x677F;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">&#x5251;&#x6307;Offer 40 / 215</td>
+      <td style="text-align:left">&#x6700;&#x5C0F;&#x7684;k&#x4E2A;&#x6570;&#xFF08;TopK, kth&#xFF09;</td>
+      <td
+      style="text-align:left">&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>kth</b>
+        </td>
+        <td style="text-align:left">&#x6A21;&#x677F;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">324</td>
+      <td style="text-align:left">&#x6446;&#x52A8;&#x6392;&#x5E8F;-II</td>
+      <td style="text-align:left">
+        <p>&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>&#x805A;&#x96C6;&#x5143;&#x7D20;</b> + <b>kth(&#x8FD9;&#x91CC;kth&#x5C31;&#x662F;&#x4E2D;&#x4F4D;&#x6570;)</b> + <b>&#x865A;&#x62DF;&#x6620;&#x5C04;</b>
+        </p>
+        <p><b>&#xFF08;&#x524D;&#x8005;&#x4FDD;&#x8BC1;O(N)&#x7684;&#x65F6;&#x95F4; + &#x540E;&#x8005;&#x4FDD;&#x8BC1;O(1)&#x7684;&#x7A7A;&#x95F4;&#xFF09;</b>
+        </p>
+      </td>
+      <td style="text-align:left">&#x89E3;&#x9898;&#x6280;&#x5DE7;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+    <tr>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
 
 **75. 颜色分类**
 
@@ -124,61 +206,15 @@ void sortColors(vector<int>& nums) {
 }
 ```
 
-**剑指Offer 40 / 215  TopK**
+**剑指Offer 40  TopK / 215.Kth**
 
-**快速排序变体（O\(N\)）**
+**快速排序变体 O\(N\)**
 
 经过**快速排序算法中的一次普通划分后**，基点左边的所有数小于基点，右边的所有数大于基点，基点位置pivot有三种情况：
 
 * pivot = k 说明基点就是第k+1个小的元素，其左边的子数组就是最小的k个数。此时的子数组\[0, k\) 就是答案 
 * pivot &gt; k 说明基点"偏大"了，对其左子数组继续进行划分 
 * pivot &lt; k 说明基点"偏小"了，对其右子数组继续进行划分
-
-```cpp
-class Solution {
-   public:
-    int partition(vector<int>& arr, int left, int right) {
-        int pivot = left;
-        int lt = left + 1;
-        int gt = right;
-        while (true) {
-            while (lt <= right && arr[lt] < arr[pivot]) lt++;
-            while (gt >= left && arr[gt] > arr[pivot]) gt--;
-            if (lt > gt) break;
-            swap(arr[lt], arr[gt]);
-            lt++;
-            gt--;
-        }
-        swap(arr[pivot], arr[gt]);
-        return gt;
-    }
-
-    vector<int> smallestK(vector<int>& arr, int k) {
-        // 边界情况特殊处理
-        if(k >= arr.size()) {
-            return arr;
-        } else if (k <= 0) {
-            return {};
-        } else { 
-            int left = 0, right = arr.size() -1;
-            do {
-                int pivot = partition(arr, left, right);
-                if(pivot == k){
-                    break;
-                }else if(pivot > k){
-                    right = pivot - 1;
-                }else {
-                    left = pivot + 1;
-                }
-            }while(true);        
-
-            vector<int> result(arr.begin(), arr.begin() + k);
-            return result;
-        }
-        
-    }
-};
-```
 
 **另外做法：最大堆，最小堆（堆排序）O\(NlogK）**
 
@@ -188,9 +224,9 @@ class Solution {
 
  给定一个无序的数组 `nums`，将它重新排列成 `nums[0] < nums[1] > nums[2] < nums[3]...` 的顺序。
 
-**题解：快排变体kth + 插空的时候虚拟映射**
+**题解：**
 
-**快排变体kth**
+**①聚集元素 + kth结合版**
 
 经过**快速排序算法中的一次划分后**，基点左边的所有数小于基点，右边的所有数大于基
 
@@ -209,6 +245,8 @@ class Solution {
 **当中位数的个数超过半数时，不存在可行解**
 
 \*\*\*\*
+
+**②虚拟映射：inplace插空，O\(1\)空间**
 
 **将数组的两段插空，一般需要额外的空间，但通过巧妙的下标映射可以实现自动插空**
 

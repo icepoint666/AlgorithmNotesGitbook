@@ -96,7 +96,7 @@ vector<int> TopK(vector<int>&nums, int k){
 ### 聚集元素 + kth结合版
 
 ```cpp
-int threeWayPartition_Kth(vector<int>nums, int k){
+void threeWayPartition_Kth(vector<int>&nums, int k){
     //确认K在[0,len)范围之内
     int len = nums.size();
     int left = 0, right = len - 1;
@@ -106,18 +106,19 @@ int threeWayPartition_Kth(vector<int>nums, int k){
         //nums[p, q) = nums[pivot]
         //nums[q, right] > nums[pivot]
         //threeWayPartition
-        int pivot = nums[right], p = left, q = p;
+        int pivot_val = nums[right], p = left, q = p;
         for(int i = left; i < right; i++){
-            if(nums[i] <= nums[pivot]){//仔细看一些发现，类似于threeColor的思路，维护p,q
+            if(nums[i] <= pivot_val){//仔细看一些发现，类似于threeColor的思路，维护p,q
                 swap(nums[q++], nums[i]);//如果小于等于，先换到q的右边
-                if(nums[q-1] < nums[pivot])swap(nums[p++],nums[q-1]);//如果是小于，再换到p的右边
+                if(nums[q-1] < pivot_val)swap(nums[p++],nums[q-1]);//如果是小于，再换到p的右边
+            }
         }
         swap(nums[q++], nums[right]);
         //find Kth
         if (k < p)//k在[left,p)
             right = p - 1;
         else if (k < q)//k在[p,q)
-            return pivot;
+            return;
         else {//k在[q,right]
             left = q;
         }
@@ -262,7 +263,54 @@ i 其中 n 为数组长度， i 为虚拟下标。
 
 例如，当数组长度为 9 切访问的虚拟下标为 2 时，实际访问的下标为 5
 
-```cpp
+**代码：**
 
+```cpp
+//virtual mapping to new index
+//e.g. n = 8, [a, b, c, d, e, f, g, h] -> [a, e, b, f, c, g, d, h]
+//e.g. n = 9, [a, b, c, d, e, f, g, h, i] -> [a, f, b, g, c, h, d, i, e]
+int vmap(int n, int i) { //所有nums[i]都要替换成nums[vmap(len,i)]
+    return i <= (n - 1) / 2 ? i * 2 : (i - (n + 1) / 2) * 2 + 1;
+}
+
+void threeWayPartition_Kth(vector<int>&nums, int k){
+    //确认K在[0,len)范围之内
+    int len = nums.size();
+    int left = 0, right = len - 1;
+    while(true){
+        //目标：将pivot的数聚集起来，并找到第k小的pivot
+        //nums[left, p) < nums[pivot]
+        //nums[p, q) = nums[pivot]
+        //nums[q, right] > nums[pivot]
+        //threeWayPartition
+        int pivot_val = nums[vmap(len,right)], p = left, q = p;
+        for(int i = left; i < right; i++){
+            if(nums[vmap(len,i)] <= pivot_val){//仔细看一些发现，类似于threeColor的思路，维护p,q
+                swap(nums[vmap(len,q++)], nums[vmap(len,i)]);//如果小于等于，先换到q的右边
+                if(nums[vmap(len,q-1)] < pivot_val)swap(nums[vmap(len,p++)],nums[vmap(len,q-1)]);//如果是小于，再换到p的右边
+            }
+        }
+        swap(nums[vmap(len,q++)], nums[vmap(len,right)]);
+        //find Kth
+        if (k < p)//k在[left,p)
+            right = p - 1;
+        else if (k < q)//k在[p,q)
+            return;
+        else {//k在[q,right]
+            left = q;
+        }
+    }
+}
+void wiggleSort(vector<int>& nums) {
+    if(nums.size() <=  1)return;
+    int len = nums.size(), mid = (len - 1) / 2;
+    threeWayPartition_Kth(nums, mid);
+    //reverse index [0, 2, 4, 6, ...]
+    for (int p = 0, q = mid; p < q; p++, q--)
+        swap(nums[vmap(len,p)], nums[vmap(len,q)]);
+    //reverse index [1, 3, 5, 7, ...]
+    for (int p = mid + 1, q = len - 1; p < q; p++, q--)
+        swap(nums[vmap(len,p)], nums[vmap(len,q)]);
+}
 ```
 

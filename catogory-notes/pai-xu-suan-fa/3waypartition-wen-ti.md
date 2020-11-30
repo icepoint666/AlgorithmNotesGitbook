@@ -29,7 +29,7 @@
 ### **快排变体：聚集元素模板**
 
 ```cpp
-void quickSort(vector<inyint>,int low, int high)
+void quickSort(vector<<sasassasastinnt high)
 {
 	
         quickSort(arr,first,low - 1 - leftLen);

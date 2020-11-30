@@ -65,7 +65,7 @@
   * [快速排序变体：聚集元素, Kth](catogory-notes/pai-xu-suan-fa/3waypartition-wen-ti.md)
   * [快速排序题目](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu-ti-mu.md)
   * [归并排序题目](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu-ti-mu.md)
-  * [其他题目](catogory-notes/pai-xu-suan-fa/qi-ta-ti-mu.md)
+  * [归位排序](catogory-notes/pai-xu-suan-fa/qi-ta-ti-mu.md)
 * [STL数据结构运用](catogory-notes/shu-ju-jie-gou/README.md)
   * [红黑树std::map/std::set](catogory-notes/shu-ju-jie-gou/hong-hei-shu-stdmapstdset.md)
   * [哈希表std::unordered\_map/std::unordered\_set](catogory-notes/shu-ju-jie-gou/ha-xi-biao-stdunorderedmapstdunorderedset.md)

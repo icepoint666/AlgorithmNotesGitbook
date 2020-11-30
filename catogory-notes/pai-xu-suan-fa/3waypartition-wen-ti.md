@@ -1,6 +1,6 @@
 # 快速排序变体：聚集元素, Kth
 
-Three-way Partition （聚集元素）
+**Three-way Partition （聚集元素）**
 
 在快速排序中，有一个**变种**是**将选择的pivot都放到中间**。 
 
@@ -51,7 +51,7 @@ void quickSort(vector<int>& nums, int left, int right){
 
 ### 快速变体：kth模板
 
-注意是**TopK**，还是**Kth**
+注意是**TopK**，还是**Kth \(Kth都可以，当然也可以找中位数）**
 
 ```cpp
 //基本partition模板

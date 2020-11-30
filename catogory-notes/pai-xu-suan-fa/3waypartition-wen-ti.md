@@ -1,4 +1,4 @@
-# 快速排序变体：聚集元素， kth
+# 快速排序变体：聚集元素, Kth
 
 ### Three-way Partition （聚集元素）
 
@@ -29,11 +29,21 @@
 ### **快排变体：聚集元素模板**
 
 ```cpp
-void quickSort(vector<<sasassasastinnt high)
+//目标：将pivot的数聚集起来
+//nums[left, p) < nums[pivot]
+//nums[p, q) = nums[pivot]
+//nums[q, right] > nums[pivot]
+void quickSort(vector<int>& nums, int left, int right){
 {
-	
-        quickSort(arr,first,low - 1 - leftLen);
-        quickSort(arr,low + 1 + rightLen,last);
+    int pivot = nums[right], p = left, q = p;
+    for(int i = left; i < right; i++){
+        if(nums[i] <= nums[pivot]){//仔细看一些发现，类似于threeColor的思路，维护p,q
+            swap(nums[q++], nums[i]);//如果小于等于，先换到q的右边
+            if(nums[q-1] < nums[pivot])swap(nums[p++],nums[q-1]);//如果是小于，再换到p的右边
+    }
+    swap(nums[q++], nums[right]); //处理最右边的pivot
+    quickSort(nums, left, p-1);
+    quickSort(nums, q, right);
 }
 
 ```
@@ -78,85 +88,38 @@ int threeWayPartition_Kth(vector<int>nums, int k){
 
 ### **题目**
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">&#x5E8F;&#x53F7;/&#x96BE;&#x5EA6;</th>
-      <th style="text-align:left">&#x540D;&#x5B57;</th>
-      <th style="text-align:left">&#x5907;&#x6CE8;</th>
-      <th style="text-align:left"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">75</td>
-      <td style="text-align:left">&#x989C;&#x8272;&#x5206;&#x7C7B;&#xFF08;&#x8377;&#x5170;&#x56FD;&#x65D7;&#xFF09;</td>
-      <td
-      style="text-align:left">
-        <p>&#x5BF9;&#x53EA;&#x5B58;&#x5728;0,1,2&#x503C;&#x7684;&#x6570;&#x7EC4;&#x6392;&#x5E8F;</p>
-        <p>&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>&#x805A;&#x96C6;&#x5143;&#x7D20;</b>
-        </p>
-        </td>
-        <td style="text-align:left">&#x7406;&#x6E05;&#x5173;&#x7CFB;</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">&#x5251;&#x6307;Offer 40 / 215</td>
-      <td style="text-align:left">&#x6700;&#x5C0F;&#x7684;k&#x4E2A;&#x6570;&#xFF08;TopK, kth&#xFF09;</td>
-      <td
-      style="text-align:left">&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>kth</b>
-        </td>
-        <td style="text-align:left">&#x89E3;&#x9898;&#x6280;&#x5DE7;</td>
-    </tr>
-    <tr>
-      <td style="text-align:left">324</td>
-      <td style="text-align:left">&#x6446;&#x52A8;&#x6392;&#x5E8F;-II</td>
-      <td style="text-align:left">&#x5FEB;&#x6392;&#x53D8;&#x4F53;&#xFF1A;<b>&#x805A;&#x96C6;&#x5143;&#x7D20;</b> + <b>kth(&#x8FD9;&#x91CC;kth&#x5C31;&#x662F;&#x4E2D;&#x4F4D;&#x6570;)</b> + <b>&#x865A;&#x62DF;&#x6620;&#x5C04;</b>
-      </td>
-      <td style="text-align:left">&#x89E3;&#x9898;&#x6280;&#x5DE7;</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-    <tr>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
-    </tr>
-  </tbody>
-</table>
+| 序号/难度 | 名字 | 备注 |  |
+| :--- | :--- | :--- | :--- |
+| 75 | 颜色分类（荷兰国旗） | 快排变体：**聚集元素** | 模板 |
+| 剑指Offer 40 / 215 | 最小的k个数（TopK, kth） | 快排变体：**kth** | 解题技巧 |
+| 324 | 摆动排序-II | 快排变体：**聚集元素** + **kth\(这里kth就是中位数\)** + **虚拟映射** | 解题技巧 |
+|  |  |  |  |
+|  |  |  |  |
 
 **75. 颜色分类**
 
 **对一个只有0,1,2三种值的数组进行排序，要求只扫一遍**
 
-**解法：下面是直接按照题意的思路（本质上：按照聚集元素模板来做）**
+**解法：按照聚集元素模板来做,**
 
-* left指针代表其左边都是0（初始left = 0，表示左边没有0）
-* right指针代表其右边都是2（初始right = len - 1, 表示右边没有1）
-* i表示当前处理节点，从0开始处理到right
-  * 如果是2的话，右边其实0,1,2都有可能，将nums\[i\]与nums\[right\]交换，将right--
-    * 如果nums\[right\]是2，其实不用交换，只用right--
-    * 如果nums\[right\]是1，不用处理
-    * 如果nums\[right\]是0，还要再给它交换到left，left++
-  * 如果是0的话，交换到left，left++
-  * 如果是1的话，不用处理
+* **甚至不用递归更新left,right，只维护p，q**
+* **最右边也不是pivot，pivot数值确定了=1**
+  * nums\[left, p\) &lt; nums\[pivot\]
+  * nums\[p, q\) = nums\[pivot\]
+  * nums\[q, right\] &gt; nums\[pivot\]
 
 ```cpp
 void sortColors(vector<int>& nums) {
-    int len = nums.size();
-    if(len == 0)return;
-    int left = 0, right = len - 1;
-    for(int i = 0; i < len && i <= right; i++){
-        if(nums[i] == 2){
-            while(nums[right] == 2 && i < right)right--;
-            swap(nums[i], nums[right--]);
-        }
-        if(nums[i] == 0)swap(nums[i], nums[left++]);
-    }
+   int len = nums.size();
+   if(len == 0)return;
+   int p = 0, q = p;
+   int pivot_val = 1;
+   for(int i = 0; i < len; i++){
+      if(nums[i] <= pivot_val){
+           swap(nums[q++], nums[i]);//如果小于等于，先换到q的右边
+           if(nums[q-1] < pivot_val)swap(nums[p++],nums[q-1]);//如果是小于，再换到p的右边
+      }
+   }
 }
 ```
 

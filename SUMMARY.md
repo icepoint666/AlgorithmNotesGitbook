@@ -62,7 +62,7 @@
 * [排序算法](catogory-notes/pai-xu-suan-fa/README.md)
   * [六大排序算法模板](catogory-notes/pai-xu-suan-fa/jiu-da-pai-xu-suan-fa-mo-ban.md)
   * [快速排序](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu.md)
-  * [快速排序变体：聚集元素， kth](catogory-notes/pai-xu-suan-fa/3waypartition-wen-ti.md)
+  * [快速排序变体：聚集元素, Kth](catogory-notes/pai-xu-suan-fa/3waypartition-wen-ti.md)
   * [快速排序题目](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu-ti-mu.md)
   * [归并排序题目](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu-ti-mu.md)
   * [其他题目](catogory-notes/pai-xu-suan-fa/qi-ta-ti-mu.md)

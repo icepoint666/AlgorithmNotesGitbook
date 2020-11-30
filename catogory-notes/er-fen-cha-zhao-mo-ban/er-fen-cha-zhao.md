@@ -10,6 +10,7 @@
 | 剑指offer53 | 0~n-1缺失的数字 | 另一个二分查找模板的练习 | 简单 |
 | 1552 | 两球之间的磁力 | 对于求最大值的最小值问题（二分法） | 记忆 |
 | 自定义 | 高效判定字符串子序列 | 利用二分查找优化（见字符串专题） | 记忆 |
+| 4 | 寻找两个正序数组的中位数 | 时间复杂度O\(log\(m+n\)\)，需要二分查找 | 困难 |
 
 **二分查找一类经典应用：**
 
@@ -111,5 +112,36 @@ public:
         return W_MIN;
     }
 };
+```
+
+**4. 寻找两个正序数组的中位数**
+
+给定两个大小为 m 和 n 的正序（从小到大）数组 `nums1` 和 `nums2`。请你找出并返回这两个正序数组的中位数。
+
+**要求时间复杂度是 O\(log\(m+n\)\)**
+
+**题解：二分查找**
+
+```cpp
+double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+    int n = nums1.size(), m = nums2.size();
+    if(n > m)return findMedianSortedArrays(nums2, nums1); // 1.保证数组1一定最短
+    int mid1, mid2, low = 0, high = 2 * n; // midi 为第i个数组的割,比如mid1=2时表示第1个数组只有2个元素
+    //2.我们目前是虚拟加了'#'所以数组1是2*n长度
+    int l1, l2, r1, r2; //li为第i个数组割后的左元素。ri为第i个数组割后的右元素。
+    while (low <= high){
+        mid1 = (low + high) / 2;   //割出来mid1的左边+mid2的右边
+        mid2 = m + n - mid1;       //割出来mid2的左边+mid1的右边
+        l1 = (mid1 == 0) ? INT_MIN : nums1[(mid1 - 1) / 2];
+        r1 = (mid1 == 2 * n) ? INT_MAX : nums1[mid1 / 2];
+        l2 = (mid2 == 0) ? INT_MIN : nums2[(mid2 - 1) / 2];
+        r2 = (mid2 == 2 * m) ? INT_MAX : nums2[mid2 / 2];
+        
+        if (l1 > r2)high = mid1 - 1;
+        else if (l2 > r1)low = mid1 + 1;
+        else break;
+    }
+    return (max(l1, l2) + min(r1, r2)) / 2.0;
+}
 ```
 

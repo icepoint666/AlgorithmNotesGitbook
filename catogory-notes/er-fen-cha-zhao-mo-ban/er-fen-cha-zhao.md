@@ -141,7 +141,8 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         else if (l2 > r1)low = mid1 + 1;
         else break;
     }
-    return (max(l1, l2) + min(r1, r2)) / 2.0;
+    //最终的结果是l1 <= r2 && l2 <= r1，而且前提是mid1 + mid2 = m + n
+		return (max(l1, l2) + min(r1, r2)) / 2.0; //无论是奇数个还是偶数个都满足题意
 }
 ```
 

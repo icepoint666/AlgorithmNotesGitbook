@@ -27,7 +27,7 @@ vector<int> sortArray(vector<int>& nums) {
 }
 ```
 
-**非递归（只用改sort，用栈存就好了）**
+**非递归（只用改sort，用栈存传入参数left,right就好了）**
 
 ```cpp
 void sort(vector<int>&nums, int left, int right){

@@ -36,3 +36,37 @@
 
 计算前半段剩余比它大的数有几个，然后这个个数记在count上
 
+**有一个坑：见代码注释，一旦写的是小于号，那么等序对也会被count进去**
+
+```cpp
+int count;
+void mergeSort(vector<int>&nums, int left, int right){
+    if(left >= right)return;
+    int mid = (left + right) / 2;
+    mergeSort(nums, left, mid);
+    mergeSort(nums, mid+1, right);
+    int temp[right-left+1];
+    int i = left, j = mid+1, x = 0;
+    while(i <= mid && j <=right){
+        if(nums[i] <= nums[j])//这里的判断条件一定是小于等于，不然会多算上等序对
+            temp[x++] = nums[i++]; 
+        else{
+            temp[x++] = nums[j++];
+            count += mid + 1 - i;
+        }
+    }
+    while(i <= mid)temp[x++] = nums[i++];
+    while(j <= right)temp[x++] = nums[j++];
+    for(int i = left; i <= right; i++){
+        nums[i] = temp[i-left];
+    }
+}
+int reversePairs(vector<int>& nums) {
+    int len = nums.size();
+    if(len <= 1)return 0;
+    count = 0;
+    mergeSort(nums, 0, len-1);
+    return count;
+}
+```
+

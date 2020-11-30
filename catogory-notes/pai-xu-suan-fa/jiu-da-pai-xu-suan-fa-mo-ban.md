@@ -27,6 +27,34 @@ vector<int> sortArray(vector<int>& nums) {
 }
 ```
 
+**非递归（只用改sort，用栈存就好了）**
+
+```cpp
+void sort(vector<int>&nums, int left, int right){
+    if(left >= right)return;
+    stack<int>temp;
+    temp.push(right);//先存右指针
+    temp.push(left);//再存左指针
+    while (!temp.empty()){
+        left = temp.top();//先弹出左指针
+        temp.pop();
+        right = temp.top();//再弹出右指针
+        temp.pop();
+        if (left < right){
+            int k = partition(nums, left, right);
+            if (k > left){
+                temp.push(k - 1);
+                temp.push(left);
+            }
+            if (right > k){
+                temp.push(right);
+                temp.push(k + 1);
+            }
+        }
+    }
+}
+```
+
 **更优的快速排序实现：**
 
 * **①Median-of-3** 

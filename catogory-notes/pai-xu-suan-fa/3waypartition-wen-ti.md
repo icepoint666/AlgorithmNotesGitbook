@@ -1,6 +1,6 @@
 # 快速排序变体：聚集元素, Kth
 
-### Three-way Partition （聚集元素）
+Three-way Partition （聚集元素）
 
 在快速排序中，有一个**变种**是**将选择的pivot都放到中间**。 
 
@@ -35,6 +35,7 @@
 //nums[q, right] > nums[pivot]
 void quickSort(vector<int>& nums, int left, int right){
 {
+    //threeWayPartition
     int pivot = nums[right], p = left, q = p;
     for(int i = left; i < right; i++){
         if(nums[i] <= nums[pivot]){//仔细看一些发现，类似于threeColor的思路，维护p,q
@@ -125,11 +126,11 @@ void sortColors(vector<int>& nums) {
 
 **剑指Offer 40 / 215  TopK**
 
-**做法1：快速排序变体（O\(N\)）**
+**快速排序变体（O\(N\)）**
 
-经过**快速排序算法中的一次划分后**，基点左边的所有数小于基点，右边的所有数大于基点，基点位置pivot有三种情况：
+经过**快速排序算法中的一次普通划分后**，基点左边的所有数小于基点，右边的所有数大于基点，基点位置pivot有三种情况：
 
-* pivot == k 说明基点就是第k+1个小的元素，其左边的子数组就是最小的k个数。此时的子数组\[0, k\) 就是答案 
+* pivot = k 说明基点就是第k+1个小的元素，其左边的子数组就是最小的k个数。此时的子数组\[0, k\) 就是答案 
 * pivot &gt; k 说明基点"偏大"了，对其左子数组继续进行划分 
 * pivot &lt; k 说明基点"偏小"了，对其右子数组继续进行划分
 
@@ -179,7 +180,9 @@ class Solution {
 };
 ```
 
-**做法2：最大堆，最小堆（堆排序）O\(NlogK）**
+**另外做法：最大堆，最小堆（堆排序）O\(NlogK）**
+
+\*\*\*\*
 
 **324. 摆动排序 II**
 

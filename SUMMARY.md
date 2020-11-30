@@ -86,6 +86,7 @@
 * [深搜 / 广搜](catogory-notes/shen-sou-guang-sou.md)
 * [并查集](catogory-notes/bing-cha-ji.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
+* [矩阵](catogory-notes/ju-zhen.md)
 * [概率题](catogory-notes/gai-lv-ti.md)
 * [其他题](catogory-notes/qi-ta-ti.md)
 
@@ -101,7 +102,6 @@
   * [B+树](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/b+-shu.md)
   * [哈希表](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ha-xi-biao.md)
   * [LRU算法](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
-  * [排序算法](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/pai-xu-suan-fa.md)
 * [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
   * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)
 * [智力题](problem-notes/zhi-li-ti.md)

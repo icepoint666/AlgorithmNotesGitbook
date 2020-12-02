@@ -76,6 +76,8 @@
   * [翻转字符串——多步翻转法](catogory-notes/zi-fu-chuan/fan-zhuan-zi-fu-chuan-duo-bu-fan-zhuan-fa.md)
   * [strcpy等str函数实现代码](catogory-notes/zi-fu-chuan/strcpy-deng-str-han-shu-shi-xian-dai-ma.md)
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
+  * [包含KMP思想——字典序比较](catogory-notes/zi-fu-chuan/bao-han-kmp-si-xiang-zi-dian-xu-bi-jiao.md)
+  * [字典序相关](catogory-notes/zi-fu-chuan/zi-dian-xu-xiang-guan.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
 * [二分查找](catogory-notes/er-fen-cha-zhao-mo-ban/README.md)
   * [三种模板](catogory-notes/er-fen-cha-zhao-mo-ban/san-zhong-mo-ban.md)

@@ -166,27 +166,49 @@ while (right < s.size()) {
 
 **3. 无重复字符的最长子串**
 
+记录窗口有没有存在该字符，可以用的数据结构：
+
+* 代表hash的数组，字符类型128的话，就是bool has\[128\]
+* unordered\_map
+* unordered\_set
+
 **直接贴代码：**
 
 ```cpp
-class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        int left = 0, right = 0;
-        unordered_map<char, int> window;
-        int n = s.size();
-        int maxLength = 0;
-        while(right < n){
-            window[s[right]]++;
-            while(window[s[right]]>1){
-                window[s[left]]--;
-                left++;
-            }
-            right++;
-            maxLength = max(maxLength, right - left);
+//第一次写的代码
+int lengthOfLongestSubstring(string s) {
+    int left = 0, right = 0;
+    unordered_map<char, int> window;
+    int n = s.size();
+    int maxLength = 0;
+    while(right < n){
+        window[s[right]]++;
+        while(window[s[right]]>1){
+            window[s[left]]--;
+            left++;
         }
-        return maxLength;
+        right++;
+        maxLength = max(maxLength, right - left);
     }
-};
+    return maxLength;
+}
+//第二次写的代码
+int lengthOfLongestSubstring(string s) {
+    int left = 0, right = -1, len = s.size(), res = 0;
+    unordered_set<char>st;
+    while(1){
+        right++;
+        while(right < len && st.count(s[right])==0){
+            res = max(res, right - left + 1);
+            st.insert(s[right++]);
+        }
+        if(right == len)break;
+        do{
+            st.erase(s[left++]);
+        }while(st.count(s[right])!=0);
+        st.insert(s[right]);
+    }
+    return res;
+}
 ```
 

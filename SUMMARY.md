@@ -73,6 +73,7 @@
   * [哈希表std::unordered\_map/std::unordered\_set](catogory-notes/shu-ju-jie-gou/ha-xi-biao-stdunorderedmapstdunorderedset.md)
   * [排序std::sort](catogory-notes/shu-ju-jie-gou/pai-xu-stdsort.md)
 * [字符串](catogory-notes/zi-fu-chuan/README.md)
+  * [翻转字符串——多步翻转法](catogory-notes/zi-fu-chuan/fan-zhuan-zi-fu-chuan-duo-bu-fan-zhuan-fa.md)
   * [strcpy等str函数实现代码](catogory-notes/zi-fu-chuan/strcpy-deng-str-han-shu-shi-xian-dai-ma.md)
   * [KMP算法](catogory-notes/zi-fu-chuan/kmp-suan-fa.md)
   * [字符串操作](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)

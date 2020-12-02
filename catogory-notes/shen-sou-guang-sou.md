@@ -6,8 +6,9 @@
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 12 |  矩阵中的路径 | 经典字符矩阵中找一个字符串路径，经典dfs | 不够熟练 |
 | 剑指 Offer 13 | 机器人的运动范围 | 经典dfs + 记录访问过的地方 | 熟练完成 |
+| 386 | 字典序排数 | dfs枚举 | 想到dfs |
 | 剑指 Offer 32 | 从上到下打印二叉树 | 经典bfs | 模板 |
-| 剑指 Offer 32 Ⅲ | 从上到下打印二叉树 | bfs变体+deque双向队列+奇偶不同逻辑 | 很容易乱，多做几遍，尽量记忆！ |
+| 剑指 Offer 32 Ⅲ | 从上到下打印二叉树 | bfs变体+deque双向队列+奇偶不同逻辑 | 很容易乱 |
 
 **剑指 Offer 12. 矩阵中的路径**
 
@@ -80,6 +81,25 @@ public:
         return cnt;
     }
 };
+```
+
+**386. 字典序排数**
+
+ 给定 _n_ =13，返回 \[1,10,11,12,13,2,3,4,5,6,7,8,9\] 。
+
+**解法：能够想到通过递归dfs的方式**
+
+```cpp
+vector<int> ans;
+void dfs(int num, int& n){
+    if(num > n)return;
+    ans.push_back(num);
+    for(int i = 0; i <= 9; ++i)dfs(num * 10 + i, n);
+}
+vector<int> lexicalOrder(int n) {
+    for(int i = 1; i <= 9; ++i)dfs(i, n);
+    return ans;
+}
 ```
 
 **剑指 Offer 32 - I. 从上到下打印二叉树**

@@ -46,24 +46,26 @@ $$
 **按照这个位来分成两组（分别异或，其实if else就可以实现）**
 
 ```cpp
-vector<int> singleNumbers(vector<int>& nums) {
-    int nor = 0;
-    for(auto &e :nums){
-        nor = nor ^ e;
-    }
-    int i = 0;
-    while(!((1<<i)&nor)){
-        i++;
-    }
-    int nor_1 = 0, nor_2 = 0;
+vector<int> singleNumber(vector<int>& nums) {
+    int ret = 0;
     for(auto &e: nums){
-        if((1<<i)&e){
-            nor_1 = nor_1 ^ e;
-        }else{
-            nor_2 = nor_2 ^ e;
+        ret = ret ^ e;
+    }
+    int split = -1;
+    for(int i = 0; i < 32; i++){
+        if(ret & (1 << i)){
+            split = i;
+            break;
         }
     }
-    return vector<int>{nor_1, nor_2};
+    vector<int>ret_ = {0,0};
+    for(auto& e: nums){
+        if(e & (1 << split))
+            ret_[0] = ret_[0] ^ e;
+        else
+            ret_[1] = ret_[1] ^ e;
+    }
+    return ret_;
 }
 ```
 
@@ -78,10 +80,12 @@ int singleNumber(vector<int>& nums) {
     int res = 0;
     for(int i = 0; i < 31; i++){
         int cnt = 0;
-        for(auto &e:nums){
-            if((1<<i)&e)cnt++;
+        for(auto& e: nums){
+            if((1 << i) & e)
+                cnt++;
         }
-        if(cnt%3!=0)res+=(1<<i);
+        if(cnt % 3 != 0)
+            res += (1 << i);
     }
     return res;
 }

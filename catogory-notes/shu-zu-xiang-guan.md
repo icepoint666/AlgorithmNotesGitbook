@@ -10,6 +10,7 @@
 | 442 | 数组中的重复元素 | \(1\) 原地hash标记数组 \(2\)归位排序 | 有难度 |
 | 26/80 | 去除有序数组重复元素 | 数组删除原则，swap到一边，最后全删 | 技巧 |
 | 88 | 合并两个有序数组 | 倒序处理：时间O\(N\)空间O\(1\) | 技巧 |
+| 128 | 最长连续数字序列 | 要求：O\(n\)，O\(n\)特性的哈希表 | 技巧 |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -159,6 +160,32 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
     int i = m - 1 , j = n - 1;
     while(i>=0 && j>=0)nums1[right--] = nums1[i] > nums2[j] ?nums1[i--] : nums2[j--];
     while(j>=0)nums1[right--] = nums2[j--];
+}
+```
+
+**128. 最长连续序列**
+
+**核心：去重的hashset + 找到连续值的开头值（也就是最小值），检查是否存在基本只有O\(1\)复杂度**
+
+```cpp
+int longestConsecutive(vector<int>& nums) {
+    unordered_set<int>hashst;
+    for(auto& e: nums){
+        hashst.insert(e);
+    }
+    int res = 0;
+    for(auto it=hashst.begin(); it!=hashst.end();++it){
+        if(hashst.count(*it - 1) == 0){//需要找到连续值开头的点，很重要
+            int num = *it;
+            int len = 1;
+            while(hashst.count(num + 1) > 0){
+                num++;
+                len++;
+            }
+            res = max(res, len);
+        }
+    }
+    return res;
 }
 ```
 

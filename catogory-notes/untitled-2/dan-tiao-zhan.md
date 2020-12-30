@@ -30,7 +30,14 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
       <td
       style="text-align:left">&#x9006;&#x5E8F;&#x540E;&#x5E8F;&#x904D;&#x5386;&#xFF0C;&#x5355;&#x8C03;&#x6808;</td>
         <td
-        style="text-align:left">&#x4E0D;&#x4F1A;&#xFF0C;&#x503C;&#x5F97;&#x8BB0;&#x5FC6;</td>
+        style="text-align:left">&#x4E0D;&#x4F1A;&#xFF0C;&#x91CD;&#x70B9;&#x8BB0;&#x5FC6;</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">739</td>
+      <td style="text-align:left">&#x6BCF;&#x65E5;&#x6E29;&#x5EA6;</td>
+      <td style="text-align:left">&#x5176;&#x5B9E;&#x5C31;&#x662F;&#x627E;&#x4E0B;&#x4E00;&#x4E2A;&#x66F4;&#x5927;&#x7684;&#x5143;&#x7D20;</td>
+      <td
+      style="text-align:left">&#x88F8;&#x5355;&#x8C03;&#x6808;</td>
     </tr>
     <tr>
       <td style="text-align:left">&#x5251;&#x6307;Offer 59-II</td>

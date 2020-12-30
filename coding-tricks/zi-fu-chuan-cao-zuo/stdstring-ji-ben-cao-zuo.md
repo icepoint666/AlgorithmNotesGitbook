@@ -13,6 +13,7 @@ string s = "ssss";
 ```cpp
 string a = "hello"
 string s = a.substr(3,2); // "lo"
+string s = a.substr(2); //从pos = 2到end "llo"
 ```
 
 ### 添加字符串或者元素

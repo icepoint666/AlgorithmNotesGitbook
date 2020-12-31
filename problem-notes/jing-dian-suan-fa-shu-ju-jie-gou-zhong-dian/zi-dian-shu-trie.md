@@ -19,6 +19,62 @@
 * 整棵树的根节点是空的（这里我们设置根节点为root=0），这便于查找和插入
 * 每个节点结束的时候用一个特殊的标记来表示，这里我们用-1来表示结束
 
+**初始化**
+
+```cpp
+vector<vector<int>>trie;  //表示trie树的数组
+vector<int>leaf;          //是否为根节点
+vector<int>sum;           //统计节点出现次数
+int num;
+
+/** Initialize your data structure here. */
+Trie() {
+    num = 0;
+    trie.push_back(vector<int>(26, 0));
+    leaf.push_back(false);
+}
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        int root = 0;
+        for(auto&c: word){
+            char id = c - 'a';
+            if(!trie_[root][id]){
+                trie_[root][id] = ++num;
+                trie_.push_back(vector<int>(26, 0));
+                leaf.push_back(false);
+            }
+            root = trie_[root][id];
+        }
+        leaf[root] = true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        int root = 0;
+        for(auto&c: word){
+            char id = c - 'a';
+            if(!trie_[root][id])
+                return false;
+            root = trie_[root][id];
+        }
+        if(leaf[root])return true;
+        return false;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        int root = 0;
+        for(auto&c: prefix){
+            char id = c - 'a';
+            if(!trie_[root][id])
+                return false;
+            root = trie_[root][id];
+        }
+        return true;
+    }
+```
+
 **插入**
 
 申请数组：root\[NUM\_NODE\]\[26\] \(26表示只考虑小写字母）
@@ -26,18 +82,21 @@
 cnt初始为0，表示节点ID，root是0
 
 ```cpp
-void Insert(char s[])
-{
-    int root=0;
-    for(int i=0;s[i];i++) //s[i] = '\0'结束
-    {
-        int id=s[i]-'a';
-        if(tree[root][id]==-1) tree[root][id]=++cnt; //新建节点
-        sum[tree[root][id]];//用于统计前缀出现次数
-        root=tree[root][id];
+void insert(string word) {
+    int root = 0;
+    for(auto&c: word){
+        char id = c - 'a';
+        if(!trie[root][id]){
+            trie[root][id] = ++num;
+            trie.push_back(vector<int>(26, 0));
+            leaf.push_back(false);
+            sum.push_back(0);
+        }
+        sum[trie_[root][id]]++;
+        root = trie_[root][id];
     }
+    leaf[root] = true;
 }
-
 ```
 
 **查找**
@@ -49,30 +108,30 @@ void Insert(char s[])
 **从左往右扫描前缀单词中的每一个字母，然后从字典树的第一层开始找，能找到第一个字母就顺着字典树往下走，否则结束查找，即没有此前缀；若前缀单词扫完了到-1了，表示有这个前缀。**
 
 ```cpp
-int Search(char s[])
-{
-    int root=0;
-    for(int i=0;s[i];i++)
-    {
-        int id=s[i]-'a';
-        if(tree[root][id]==-1) return -1;
-        root=tree[root][id];
+bool search(string word) {
+    int root = 0;
+    for(auto&c: word){
+        char id = c - 'a';
+        if(!trie[root][id])
+            return false;
+        root = trie[root][id];
     }
+    if(leaf[root])return true;
+    return false;
 }
 ```
 
 **删除**
 
 ```cpp
-void Delete(char s[]) //假定必然存在+删除成功
-{
-    int root=0;
-    for(int i=0;s[i];i++) //s[i] = '\0'结束
-    {
-        int id=s[i]-'a';
-        sum[tree[root][id]]--;
-        root=tree[root][id];
-        if(sum[tree[root][id]]==0)tree[root][id]=-1;//这种实现会造成节点空洞
+void delete(string word){ //假定必然存在+删除成功
+    int root = 0;
+    for(auto&c: word){ //s[i] = '\0'结束
+        int id = c -'a';
+        sum[trie[root][id]]--;
+        root = trie[root][id];
+        if(sum[trie[root][id]] == 0)
+            trie[root][id]=-1;//这种实现会造成节点空洞
     }
 }
 ```

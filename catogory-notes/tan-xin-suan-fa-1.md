@@ -19,6 +19,7 @@
 | 56 | 合并区间 | 重载排序函数 | 简单 |
 | 621 | 任务调度器 | 模拟O\(N\*M\) | 自己做超时了 |
 |  |  | 桶思想 | 技巧 \(推荐\) |
+| 406 | 根据身高重建队列 | 重载排序函数 | 中等 |
 
 **452. 用最少数量的箭引爆气球**
 
@@ -162,5 +163,34 @@ int leastInterval(vector<char>& tasks, int n) {
     }
     return max(size, (n+1)*(num-1) + x);
 }
+```
+
+**406. 根据身高重建队列**
+
+**题意：详情见leetcode**
+
+```cpp
+vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+    int n = people.size();
+    vector<vector<int>>res (n, vector<int>(2, -1));
+    sort(people.begin(), people.end(), [](vector<int>&a, vector<int>&b){
+        return a[0] < b[0] || (a[0] == b[0] && a[1] < b[1]);
+    });
+    for(int i = 0; i < people.size(); i++){
+        int h = people[i][0];
+        int pos = people[i][1];
+        for(int j = 0; j < res.size(); j++){
+            if(res[j][0] == -1|| h == res[j][0]){
+                if(!pos){
+                    res[j][0] = people[i][0];
+                    res[j][1] = people[i][1];
+                    break;
+                }else
+                    pos--;
+            }
+        }
+    }
+    return res;
+}   
 ```
 

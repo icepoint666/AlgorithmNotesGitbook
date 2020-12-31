@@ -20,10 +20,17 @@ vector<int> vec = {1,2,3};
 vector<int> vec, vec.reserve(100); //预留空间，比较常用，性能比较高
 ```
 
-vector初始化一个长度为n的空数组, 之后可以直接下标访问
+初始化一维数组，二维数组
 
 ```cpp
-vector <int> vec;
+vector<int> vec(n, 0);                  //n的一维数组
+vector<int> vec(n, vector<int>(m, -1)); //n * m的二维数组
+```
+
+初始化一个长度为n的空数组, 之后可以直接下标访问（注意：resize并没有初始化值为0）
+
+```cpp
+vector<int> vec;
 vec.resize(n);
 for(int i = 0; i < n; i++){
    vec[i] = 1;

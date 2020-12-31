@@ -38,7 +38,7 @@ public:
 set<pair<int,int>, PairComp> s;
 ```
 
-### **STL中Map的按Value排序** 
+### **STL中Map的按Value排序 \(只能结合sort来排序，不能内定在map排序方式里）**
 
 STL中的sort算法只能对**序列容器进行排序**（如vector，list，deque）
 

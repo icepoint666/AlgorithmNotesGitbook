@@ -68,6 +68,7 @@
   * [字典序相关](catogory-notes/zi-fu-chuan/zi-dian-xu-xiang-guan.md)
   * [回文字符串](catogory-notes/zi-fu-chuan/hui-wen-zi-fu-chuan.md)
   * [字符串杂题](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
+  * [排列 next permutation](catogory-notes/zi-fu-chuan/pai-lie-next-permutation.md)
 * [二分查找](catogory-notes/er-fen-cha-zhao-mo-ban/README.md)
   * [三种模板](catogory-notes/er-fen-cha-zhao-mo-ban/san-zhong-mo-ban.md)
   * [题目](catogory-notes/er-fen-cha-zhao-mo-ban/er-fen-cha-zhao.md)

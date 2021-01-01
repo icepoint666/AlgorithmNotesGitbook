@@ -26,9 +26,9 @@
 
 示例：1 11 12 4 7 6 5 3 2
 
-* **step1 找**：从后往前寻找第一个非递增的下标i
+* **step1 找**：从后往前寻找第一个非递增的下标i（注意相等也属于递增，所以要继续找）
   * 示例中从后往前寻找，2,3,5...，如果一直是逐渐增大的，则表明已经是最大的permutation了
-  * 一旦出现一个减少的下标，例如7,4这里，那么后面的部分以及可以组成下一个排列
+  * 一旦出现一个**减少的下标**，例如7,4这里，那么后面的部分以及可以组成下一个排列
   * 本例中i 是 4对应的下标
 * **step2 交换**：然后从i 往后找到比下标i 对应的数字大的 且值最小的那个，令它为k
   * 本例中找到了5
@@ -37,5 +37,32 @@
   * 1 11 12 5 2 3 4 6 7
   * 注意：如果一直没有找到下降的点\(i = -1\)，则全部逆转即可。（从完全的降序改为了升序）
 
+时间复杂度：O\(N\)
 
+```cpp
+void nextPermutation(vector<int>& nums) {
+    if(nums.size() == 0 || nums.size() == 1)return;
+    //step 1: find
+    int i = nums.size() - 2;
+    while(i >= 0 && nums[i] >= nums[i+1])
+        i--;
+    //step 2: exchange
+    int j;
+    if(i >= 0){
+        j = i + 1;
+        while(j < nums.size() && nums[i] < nums[j]){
+            j++;
+        }
+        j--;
+        swap(nums[i], nums[j]);
+    }
+    //step 3: reverse
+    j = nums.size() - 1;
+    i = i + 1;
+    while(i < j){
+        swap(nums[i++], nums[j--]);
+    }
+    return;
+}
+```
 

@@ -1,5 +1,21 @@
 # 矩阵
 
+**矩阵乘法**
+
+```text
+     |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
+AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
+                  | 0 0 1 | 
+
+int AB[rowA][colB];
+memset(AB, 0, sizeof(AB));
+for (int i = 0; i < rowA; i++)
+    for (int j = 0; j < colB; j++)
+        for (int k = 0; k < columnA; k++)
+            AB[i][j] += A[i][k] * B[k][j];
+return AB;
+```
+
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 面试题01.07 | 旋转矩阵 | 90°旋转时 i,j坐标的位置关系 | 思路清晰 |

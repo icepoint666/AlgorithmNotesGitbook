@@ -38,7 +38,7 @@ dp\[i,j\] = dp\[i,k\] + dp\[k+1,j\] + sum\[j\] - sum\[i-1\] \(sum表示前缀和
 | 72 | 编辑距离 | 双串问题的方式定义dp\[i\]\[j\] | 中等 |
 | 1143 | 最长公共子序列 | 双串问题的方式定义dp\[i\]\[j\] | 中等 |
 | 322 | 零钱兑换 | 记忆化dp，纯01背包处理会超时 | 技巧 |
-|  |  |  |  |
+| 312 | 戳气球 | 区间dp | 技巧 hard |
 
 **剑指 Offer 14- I. 剪绳子**
 
@@ -644,5 +644,41 @@ int coinChange(vector<int>& coins, int amount) {
 }
 ```
 
+**312. 戳气球**
 
+```cpp
+输入: [3,1,5,8]
+输出: 167 
+解释: nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
+     coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
+```
+
+**设dp\[i\]\[j\]为消除区间\[i,j\]气球的max硬币**
+
+```cpp
+int maxCoins(vector<int>& nums) {
+    int n = nums.size();
+    int dp[n][n];
+    for(int i = 0; i < n; i++){
+        int left = i - 1 < 0 ? 1: nums[i - 1];
+        int right = i + 1 >= n ? 1: nums[i + 1];
+        dp[i][i] = left * nums[i] *right;
+    }
+    for(int i = n - 1; i >= 0; i--){
+        for(int j = i + 1; j < n; j++){
+            dp[i][j] = 0;
+            int left = i - 1 < 0 ? 1: nums[i - 1];
+            int right = j + 1 >= n ? 1: nums[j + 1];
+            for(int k = i; k <= j; k++){
+                int tmp = 0;
+                if(k - 1 >= i)tmp += dp[i][k-1];
+                tmp += left * nums[k] * right;
+                if(k + 1 <= j)tmp += dp[k+1][j];
+                dp[i][j] = max(dp[i][j], tmp);
+            }
+        }
+    }
+    return dp[0][n-1];
+}
+```
 

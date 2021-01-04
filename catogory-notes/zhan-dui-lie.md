@@ -26,6 +26,7 @@ while(!s.empty()){
 | 剑指offer 09 | 用两个栈实现队列 | 两个栈来实现队列 | 简单 |
 | 剑指offer 30 | 包含min函数的栈 | 单调栈辅助 | 中等 |
 | 剑指offer 31 | 判断是否可能是栈的弹出序列 | 双向链表 | 陷阱多，做的时间长 |
+| 394 | 字符串解码 | 带括号的字符串问题想到用栈 | 字符串技巧 |
 
 **剑指 Offer 09. 用两个栈实现队列**
 
@@ -114,5 +115,53 @@ public:
         return false;
     }
 };
+```
+
+**394. 字符串解码**
+
+**示例 1：**
+
+```text
+输入：s = "3[a]2[bc]"
+输出："aaabcbc"
+```
+
+**示例 2：**
+
+```text
+输入：s = "3[a2[c]]"
+输出："accaccacc"
+```
+
+**解法：**
+
+```cpp
+string decodeString(string s) {
+    stack<pair<int,string>>stk;
+    stk.push(make_pair(1, ""));
+    int i = 0;
+    while(i < s.size()){
+        if(s[i] >= '0' && s[i] <= '9'){
+            int times = atoi(s.c_str()+i); //识别出某个位置之后的数字字符，到非数字自动停止返回
+            while(s[i] != '[')i++;
+            stk.push(make_pair(times,""));
+            i++;
+        }else if(s[i] == ']'){
+            string tmp = "";
+            while(stk.top().first--){
+                tmp.append(stk.top().second);
+            }
+            stk.pop();
+            stk.top().second.append(tmp);
+            i++;
+        }else{
+            while(s[i] != ']' && !(s[i] >= '0' && s[i] <= '9') && i < s.size()){
+                stk.top().second += s[i];
+                i++;
+            }
+        }
+    }
+    return stk.top().second;
+}
 ```
 

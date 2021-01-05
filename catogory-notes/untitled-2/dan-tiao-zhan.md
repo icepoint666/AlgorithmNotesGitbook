@@ -73,6 +73,12 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
       <td style="text-align:left">&#x6CE8;&#x610F;int&#x7684;out-of-range&#x5904;&#x7406;</td>
       <td style="text-align:left">&#x4E2D;&#x7B49;</td>
     </tr>
+    <tr>
+      <td style="text-align:left">155</td>
+      <td style="text-align:left">&#x6700;&#x5C0F;&#x6808;</td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left"></td>
+    </tr>
   </tbody>
 </table>
 

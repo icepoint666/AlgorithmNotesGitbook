@@ -27,7 +27,7 @@ dp\[i,j\] = dp\[i,k\] + dp\[k+1,j\] + sum\[j\] - sum\[i-1\] \(sum表示前缀和
 | 剑指 Offer 19 | 正则表达式匹配 | 因为匹配规则特性，从后往前会更容易 | 复杂（很容易错细节） |
 | 剑指 Offer 46 | 数字翻译成字符串 | 动态规划基础 | 简单 |
 | 剑指Offer 49 | 丑数 | 分条件动态规划 | 记一下 |
-| 121.122.123 | 买卖股票的最佳时机 | 三道类似，记忆状态转移方法 | 类型题 |
+| 121.122.123, 309 | 买卖股票的最佳时机 | 三道类似，记忆状态转移方法 | 类型题 |
 | 516 | 最长回文子序列 | 定义dp\[i\]\[j\]区间最优解+关键状态转移 | 记一下 |
 | 5 | 最长回文子串 | 与上类似，定义dp\[i\]\[j\]表示是不是回文子串 | 同上类型 |
 | \(开头的题\) | 石子合并问题 | 类似，定义dp\[i\]\[j\]是合并i到j的最小代价 | 同上类型 |
@@ -244,11 +244,11 @@ bool isMatch(string s, string p) {
 
 对于卖来说，卖出股票后不在进行股票交易（还在卖状态）。
 
-只有在手上的钱才算钱，手上的钱购买当天的股票后相当于亏损。也就是说当天买的话意味着损失`-prices[i]`，当天卖的话意味着增加`prices[i]`，当天卖出总的收益就是 `buy+prices[i]` 。
+只有在手上的钱才算钱，手上的钱购买当天的股票后相当于亏损。也就是说当天买的话意味着损失`-prices[i]`，当天卖的话意味着增加`prices[i]`，当天卖出总的收益就是 `prices[i]+buy` 。
 
 所以我们只要考虑当天买和之前买哪个收益更高，当天卖和之前卖哪个收益更高。
 
-* buy = max\(buy, -price\[i\]\) （注意：根据定义 buy 是负数）
+* buy = min\(buy, -prices\[i\]\) 
 * sell = max\(sell, prices\[i\] + buy\)
 
 **边界**
@@ -267,7 +267,6 @@ public:
         for(int i = 1; i < prices.size(); i++) {
             buy = max(buy, -prices[i]);
             sell = max(sell, prices[i] + buy);
-        
         }
         return sell;
     }
@@ -302,7 +301,7 @@ public:
         int buy = -prices[0], sell = 0;
         for(int i = 1; i < prices.size(); i++) {
             sell = max(sell, prices[i] + buy);
-            buy = max( buy,sell - prices[i]);
+            buy = max(buy, sell - prices[i]);
         }
         return sell;
     }
@@ -377,6 +376,77 @@ public:
     }
 };
 ```
+
+**309. 最佳买卖股票时机含冷冻期（重点）**
+
+计算最大利润
+
+你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+ 卖出股票后，你无法在第二天买入股票 \(即冷冻期为 1 天\)。 
+
+**示例:**
+
+```text
+输入: [1,2,3,0,2]
+输出: 3 
+解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
+```
+
+**偏暴力：O\(N^2\)**
+
+```cpp
+int maxProfit(vector<int>& prices) {
+    int n = prices.size();
+    if(n == 0)return 0;
+    int buys[n];
+    int sells[n];
+    for(int i = 0; i < n; i++){
+        buys[i] = -prices[i]; //初始化表示之前没有买过，第一次在这里买的情况
+        sells[i] = 0;
+    }
+    int res = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= i; j++){
+            sells[i] = max(sells[i], buys[j] + prices[i]);
+        }
+        for(int j = 0; j + 1 < i; j++){
+            buys[i] = max(buys[i], sells[j] - prices[i]);
+        }
+        res = max(sells[i], res);
+    }
+    return res;
+}
+```
+
+**优化（有难度，需要想清楚）：其实**由于我们最多只能同时买入（持有）一支股票，并且卖出股票后有冷冻期的限制，因此我们会有三种不同的状态：
+
+* 我们目前持有一支股票，对应的「累计最大收益」记为 f\[i\]\[0\]；
+* 我们目前不持有任何股票，并且处于冷冻期中，对应的「累计最大收益」记为 f\[i\]\[1\]；
+* 我们目前不持有任何股票，并且不处于冷冻期中，对应的「累计最大收益」记为 f\[i\]\[2\]。
+
+```cpp
+int maxProfit(vector<int>& prices) {
+    if (prices.empty()) {
+        return 0;
+    }
+
+    int n = prices.size();
+    // f[i][0]: 手上持有股票的最大收益
+    // f[i][1]: 手上不持有股票，并且处于冷冻期中的累计最大收益
+    // f[i][2]: 手上不持有股票，并且不在冷冻期中的累计最大收益
+    vector<vector<int>> f(n, vector<int>(3));
+    f[0][0] = -prices[0];
+    for (int i = 1; i < n; ++i) {
+        f[i][0] = max(f[i - 1][0], f[i - 1][2] - prices[i]);
+        f[i][1] = f[i - 1][0] + prices[i];
+        f[i][2] = max(f[i - 1][1], f[i - 1][2]);
+    }
+    return max(f[n - 1][1], f[n - 1][2]);
+}
+```
+
+\*\*\*\*
 
 **516. 最长回文子序列**
 

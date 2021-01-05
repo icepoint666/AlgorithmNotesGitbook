@@ -76,8 +76,9 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
     <tr>
       <td style="text-align:left">155</td>
       <td style="text-align:left">&#x6700;&#x5C0F;&#x6808;</td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">&#x53CC;&#x6808;&#xFF1A;&#x8F85;&#x52A9;&#x6808; + &#x9012;&#x589E;id&#x6807;&#x8BB0;</td>
+      <td
+      style="text-align:left">&#x81EA;&#x5DF1;idea</td>
     </tr>
   </tbody>
 </table>

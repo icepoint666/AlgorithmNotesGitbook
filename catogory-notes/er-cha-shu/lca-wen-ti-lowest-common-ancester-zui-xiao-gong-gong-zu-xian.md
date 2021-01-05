@@ -113,6 +113,29 @@ public class Solution {
 
 **236. 二叉树的最近公共祖先**
 
+**自己做法：3个left, myself, right出现2个true的时候\(有p, 有q\)，就表明当前root是根节点**
+
+```cpp
+class Solution {
+public:
+    TreeNode* res;
+    bool find(TreeNode* root, TreeNode* p, TreeNode* q){
+        if(root == NULL || res)return false;
+        bool m = (root == p || root == q);
+        bool l = find(root->left, p, q);
+        bool r = find(root->right, p, q);
+        if(l && r || l && m || r && m){
+            res = root;
+        }
+        return l || r || m;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        bool _ = find(root, p, q);
+        return res;
+    }
+};
+```
+
 **1）暴力解法**：判断子树中 contains 的时间复杂度太高了，而且重复调用很多，完全没优化。
 
 **暴力解法的时间复杂度是 O\(n log n\)，因为对于一个 node 来讲，它被 check 的次数等于它和 root 的距离 \(也就是 height\)。**

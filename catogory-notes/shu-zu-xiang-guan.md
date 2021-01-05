@@ -305,7 +305,7 @@ l**int 406 和大于S的最小子数组**
 ```cpp
 int findDuplicate(vector<int>& nums) {
     for(int i = 0; i < nums.size() - 1; i++){
-        while(i= nums[j] - 1){
+        while(i nums[j] - 1){
             if(nums[j] == nums[nums[j]-1])return nums[j];
             swap(nums[j], nums[nums[j]-1]);
         }

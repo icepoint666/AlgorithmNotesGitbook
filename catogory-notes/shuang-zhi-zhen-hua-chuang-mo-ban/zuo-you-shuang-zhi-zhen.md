@@ -14,7 +14,8 @@
 |  |  | 排序+左右指针+遍历 | 笨办法 |
 | 剑指 Offer57 | 两数之和（裸） | 左右指针，从左右往中间扫 | 模板 |
 | 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
-| 15 | 三数之和 | 排序+双指针（返回的三数不重复，所以用不了哈希表） |  |
+| 15 | 三数之和 | 排序+双指针（返回的三数不重复，所以用不了哈希表） | 中等 |
+| lint 58 | 四数之和 | 前两个数枚举+排序+双指针 | 中等 |
 | 剑指 Offer 21 | 奇数位于偶数前 | 关键要想到不占空间的解法：双指针 |  |
 | 75 | 颜色分类 | 对只存在0,1,2值的数组排序，双指针 | 理清关系 |
 
@@ -178,56 +179,47 @@ int trap(vector<int>& height) {
 
 **15. 三数之和**
 
-**双指针复杂度：O\(N^2\)** 关键是不能重复，需要保证与上次枚举的不同，如果用哈希表的话超时
+**双指针复杂度：O\(N^2\)** 
+
+关键是不能重复，需要保证与上次枚举的不同
 
 **其实这里只需要在前面加一个限制，保证和上次枚举的数不同就行了**
 
 通过循环确定第一个数first
 
-然后second数以及third在first后面的nums数组搜索，这部分等价于**二数之和**的解法,但是不太一样
+然后左右双指针，这部分等价于**二数之和**的解法,但是不太一样
 
 （下面代码用的是二数之和的第一种解法）
 
 ```cpp
-class Solution {
-public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
-        int n = nums.size();
+vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
-        vector<vector<int>> ans;
-        // 枚举 a
-        for (int first = 0; first < n; ++first) {
-            // 需要和上一次枚举的数不相同
-            if (first > 0 && nums[first] == nums[first - 1]) {
-                continue;
-            }
-            // c 对应的指针初始指向数组的最右端
-            int third = n - 1;
-            int target = -nums[first];
-            // 枚举 b
-            for (int second = first + 1; second < n; ++second) {
-                // 需要和上一次枚举的数不相同
-                if (second > first + 1 && nums[second] == nums[second - 1]) {
-                    continue;
-                }
-                // 需要保证 b 的指针在 c 的指针的左侧
-                while (second < third && nums[second] + nums[third] > target) {
-                    --third;
-                }
-                // 如果指针重合，随着 b 后续的增加
-                // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
-                if (second == third) {
-                    break;
-                }
-                if (nums[second] + nums[third] == target) {
-                    ans.push_back({nums[first], nums[second], nums[third]});
-                }
+        set<vector<int>> st;
+        int n = nums.size();
+        for(int i = 0; i < n - 2; i++){
+            int left = i + 1;
+            int right = n - 1;
+            while(left < right){
+                if(nums[i] + nums[left] + nums[right] == 0){
+                    st.insert(vector<int>{nums[i], nums[left], nums[right]});
+                    while(left + 1 < right && nums[left] == nums[left+1])left++;
+                    left++;
+                    while(right - 1 > left && nums[right] == nums[right-1])right--;
+                    right--;
+                    //因为不允许重复，左指针,右指针考虑去重的同时移动
+                }else if(nums[i] + nums[left] + nums[right] > 0)right--;
+                else left++;
             }
         }
-        return ans;
+        vector<vector<int>>res;
+        for(auto it = st.begin(); it!=st.end(); ++it){
+            res.push_back(*it);
+        }
+        return res;
     }
-};
 ```
+
+\*\*\*\*
 
 **剑指 Offer 21. 调整数组顺序使奇数位于偶数前面**
 

@@ -21,7 +21,7 @@ return AB;
 | 面试题01.07 | 旋转矩阵 | 90°旋转时 i,j坐标的位置关系 | 思路清晰 |
 | lint 38 | 搜索二维矩阵-II | 从左下角往右上角搜索 O\(m+n\) | 技巧 |
 |  |  | 能否：二分+分治搜索，一次淘汰掉1/4，并继续搜索三个子区域 | 代码会麻烦 |
-| lint 114 | 不同的路径 | O\(n\) 排列组合 O\(N^2\) dp | 技巧 |
+| lint 114 | 不同的路径 | O\(n\)：排列组合 O\(N^2\)：dp，不太推荐 | 技巧 |
 
 
 
@@ -94,5 +94,47 @@ void rotate(vector<vector<int>>& matrix) {
 
 机器人每一时刻只能向下或者向右移动一步。机器人试图达到网格的右下角。
 
-问有多少条不同的路径？
+问有多少条不同的路径？（答案不超过32位）
+
+**解决：**
+
+```text
+Input:  n = 3, m = 3
+Output: 6        
+Explanation:
+        D : Down
+        R : Right
+        1) DDRR
+        2) DRDR
+        3) DRRD
+        4) RRDD
+        5) RDRD
+        6) RDDR
+```
+
+本质等于，对\(n - 1\)个Down 与 \(m-1\)个Right进行排列组合
+
+![](../.gitbook/assets/v2-c731670d039be54132f5314d53161448_720w.png)
+
+时间复杂度: O\(min\(m,n\)\)。计算阶乘的时间复杂度与m, n中的较小数成线性关系。
+
+```python
+def uniquePaths(self, m, n):
+    # corner case
+    if (m == 1 or n == 1):
+        return 1
+
+    # 保证m <= n
+    if (m > n):
+        m, n = n, m
+
+    # 计算阶乘
+    temp = 1
+    res = 1
+    for i in range(1, m):
+        temp *= i
+    for i in range(n, m + n - 1):
+        res *= i
+    return res//temp
+```
 

@@ -97,6 +97,7 @@
 * [数学问题](catogory-notes/shu-xue-wen-ti.md)
 * [并查集](catogory-notes/bing-cha-ji/README.md)
   * [题目](catogory-notes/bing-cha-ji/ti-mu.md)
+* [图](catogory-notes/tu.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
 * [矩阵](catogory-notes/ju-zhen.md)
 * [概率题](catogory-notes/gai-lv-ti.md)

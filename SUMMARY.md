@@ -79,6 +79,7 @@
   * [单调队列](catogory-notes/untitled-2/dan-tiao-dui-lie.md)
 * [堆](catogory-notes/dui-1/README.md)
   * [堆实现](catogory-notes/dui-1/dui-he-you-xian-dui-lie.md)
+  * [top K用堆来解决](catogory-notes/dui-1/topkyong-dui-lai-jie-jue.md)
   * [题目](catogory-notes/dui-1/dui.md)
   * [Leetcode 480 滑动窗口中位数](catogory-notes/dui-1/leetcode-480-hua-dong-chuang-kou-zhong-wei-shu.md)
 * [回溯算法 / 深搜 / 广搜](catogory-notes/hui-su-suan-fa/README.md)

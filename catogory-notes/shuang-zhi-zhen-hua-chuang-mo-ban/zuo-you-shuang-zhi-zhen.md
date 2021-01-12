@@ -194,9 +194,9 @@ vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
         set<vector<int>> st; //set去重
         int n = nums.size();
-        for(int i = 0; i < n - 2; i++){//diy第一个指针
-            int left = i + 1;
-            int right = n - 1;
+        for(int i = 0; i < n - 2; i++){//第一个指针
+            int left = i + 1;//第二个指针
+            int right = n - 1;//第三个指针
             while(left < right){
                 if(nums[i] + nums[left] + nums[right] == 0){
                     st.insert(vector<int>{nums[i], nums[left], nums[right]});

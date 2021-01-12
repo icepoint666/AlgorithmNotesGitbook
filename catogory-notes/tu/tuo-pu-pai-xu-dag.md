@@ -24,7 +24,7 @@
 
  通过课程前置条件列表 prerequisites 可以得到课程安排图的 邻接表 adjacency，以降低算法时间复杂度
 
-**入度表（广度优先遍历）** 
+**方法1：入度表（广度优先遍历）** 
 
 算法流程： 
 
@@ -59,4 +59,26 @@ bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
     return numCourses == 0;
 }
 ```
+
+**方法2：深度优先遍历** 原理是通过 DFS 判断图中是否有环。
+
+算法流程： 借助一个标志列表 **flags**，用于判断每个节点 i （课程）的状态：
+
+* 未被 DFS 访问：i == 0； 
+* 已被其他节点启动的 DFS 访问：i == -1； 
+* 已被当前节点启动的 DFS 访问：i == 1。 
+
+对 numCourses 个节点依次执行 DFS，判断每个节点起步 DFS 是否存在环，若存在环直接返回 False。
+
+DFS 终止条件： 
+
+* 当 flag\[i\] == -1，说明当前访问节点已被其他节点启动的 DFS 访问，无需再重复搜索，直接返回 True。
+* 当 flag\[i\] == 1，说明在本轮 DFS 搜索中节点 i 被第 22 次访问，即 课程安排图有环 ，直接返回 False。 
+* 将当前访问节点 i 对应 flag\[i\] 置 1，即标记其被本轮 DFS 访问过； 
+* 递归访问当前节点 i 的所有邻接节点 j，当发现环直接返回 False；
+* 当前节点所有邻接节点已被遍历，并没有发现环，则将当前节点 flag 置为 -1 并返回 True。 
+
+若整个图 DFS 结束并未发现环，返回 True。
+
+作者：jyd 链接：[https://leetcode-cn.com/problems/course-schedule/solution/course-schedule-tuo-bu-pai-xu-bfsdfsliang-chong-fa/](https://leetcode-cn.com/problems/course-schedule/solution/course-schedule-tuo-bu-pai-xu-bfsdfsliang-chong-fa/) 来源：力扣（LeetCode） 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 

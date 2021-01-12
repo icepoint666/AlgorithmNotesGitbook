@@ -181,22 +181,20 @@ int trap(vector<int>& height) {
 
 **双指针复杂度：O\(N^2\)** 
 
-关键是不能重复，需要保证与上次枚举的不同
+关键是不能重复，需要保证与上次枚举的不同，可以**用set**
 
-**其实这里只需要在前面加一个限制，保证和上次枚举的数不同就行了**
+（set可以存vector数组，但是unordered\_set不行，需要处理才可以）
 
-通过循环确定第一个数first
-
-然后左右双指针，这部分等价于**二数之和**的解法,但是不太一样
-
-（下面代码用的是二数之和的第一种解法）
+* **并且为了防止极端的样例，例如全都是0（会超时）需要在加两个while循环，保证和上次枚举的数不同就行了**
+* 通过循环确定第一个数first
+* 然后左右双指针，这部分等价于**二数之和**的解法,但是不太一样
 
 ```cpp
 vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
-        set<vector<int>> st;
+        set<vector<int>> st; //set去重
         int n = nums.size();
-        for(int i = 0; i < n - 2; i++){
+        for(int i = 0; i < n - 2; i++){//diy第一个指针
             int left = i + 1;
             int right = n - 1;
             while(left < right){
@@ -219,7 +217,20 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     }
 ```
 
-\*\*\*\*
+**lint 58 四数之和**
+
+解法：将其转换为三数之和，在转换为二数之和 （时间复杂度O\(n^3\) ）
+
+**不同于三数之和的核心代码：**
+
+```cpp
+for (int i = 0; i < size - 3; i++) {//第一个指针 
+    for (int j = i + 1;j < size - 2;j++) {//第二个指针 
+        if (j > i + 1 && numbers[j] == numbers[j-1]) { 
+            continue; 
+        }
+        ...
+```
 
 **剑指 Offer 21. 调整数组顺序使奇数位于偶数前面**
 

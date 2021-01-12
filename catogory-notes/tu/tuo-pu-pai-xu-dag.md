@@ -24,7 +24,7 @@
 
  通过课程前置条件列表 prerequisites 可以得到课程安排图的 邻接表 adjacency，以降低算法时间复杂度
 
-**方法一：入度表（广度优先遍历）** 
+**入度表（广度优先遍历）** 
 
 算法流程： 
 
@@ -36,4 +36,27 @@
 换个角度说，**若课程安排图中存在环，一定有节点的入度始终不为 0**。 因为拓扑排序出队次数等于课程个数，所以返回最终的 numCourses == 0 判断课程是否可以成功安排。 
 
 复杂度分析：O\(M+N\)
+
+```cpp
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<int>indegrees(numCourses, 0); //入度
+    vector<vector<int>>graph(numCourses, vector<int>{}); //邻接表（节点可能多连一，一连多）
+    for(int i = 0; i < prerequisites.size(); i++){
+        graph[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        indegrees[prerequisites[i][1]]++;
+    }
+    queue<int>que;
+    for(int i = 0; i < numCourses; i++)
+        if(!indegrees[i])que.push(i);
+    while(!que.empty()){
+        int cur = que.front();
+        que.pop();
+        numCourses--;
+        for(int i = 0; i < graph[cur].size(); i++){
+            if(!--indegrees[graph[cur][i]])que.push(graph[cur][i]);
+        }
+    }
+    return numCourses == 0;
+}
+```
 

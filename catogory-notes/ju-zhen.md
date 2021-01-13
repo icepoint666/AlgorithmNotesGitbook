@@ -112,7 +112,7 @@ Explanation:
         6) RDDR
 ```
 
-本质等于，对\(n - 1\)个Down 与 \(m-1\)个Right进行排列组合
+本质等于，对\(n - 1\)个Down 与 \(m-1\)个Right进行组合
 
 ![](../.gitbook/assets/v2-c731670d039be54132f5314d53161448_720w.png)
 

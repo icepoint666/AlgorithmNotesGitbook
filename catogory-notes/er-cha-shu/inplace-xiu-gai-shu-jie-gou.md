@@ -11,7 +11,7 @@
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 897 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代  | 多种做法 |
+| 897/面试题17.12 | 递增顺序查找树\(中序遍历重排\) | 递归/迭代  | 多种做法 |
 | 114 | 二叉树展开为链表\(前序遍历重排\) | 递归/迭代 + 前驱 | 多种做法 |
 | 814 | 二叉树剪枝 | 后序遍历剪枝法 | 巧法 |
 | 1110 | 删点成林 | 后序遍历，要注意一个细节 | 中等 |
@@ -90,6 +90,35 @@ public:
         return dummyhead->right;
     }
 };
+```
+
+自己写的做法（太麻烦，只是记录一下，最不推荐）：
+
+```cpp
+pair<TreeNode*,TreeNode*> convert(TreeNode* root){
+    if(root==NULL)return make_pair(nullptr,nullptr);
+    TreeNode* head, *tail;
+    if(root->left){
+        pair<TreeNode*, TreeNode*>ret = convert(root->left);
+        head = ret.first;
+        tail = ret.second;
+        root->left = NULL;
+        tail->right = root;
+        tail = root;
+    }else{
+        head = root;
+        tail = root;
+    }
+    pair<TreeNode*, TreeNode*>ret_ = convert(root->right);
+    if(ret_.first){
+        tail->right = ret_.first;
+        tail = ret_.second;
+    }
+    return make_pair(head, tail);
+}
+TreeNode* convertBiNode(TreeNode* root) {
+    return convert(root).first;
+}
 ```
 
 **114. 二叉树展开为链表**

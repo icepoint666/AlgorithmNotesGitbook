@@ -96,7 +96,7 @@ public:
 
 ```cpp
 pair<TreeNode*,TreeNode*> convert(TreeNode* root){
-    if(root==NULL)return make_pair(nullptr,nullptr);
+    if(root==NULL)return make_pair(nullptr,nullptr);//不能是NULL，完美转发失败的case
     TreeNode* head, *tail;
     if(root->left){
         pair<TreeNode*, TreeNode*>ret = convert(root->left);

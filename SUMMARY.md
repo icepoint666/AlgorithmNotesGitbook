@@ -69,6 +69,7 @@
   * [回文字符串](catogory-notes/zi-fu-chuan/hui-wen-zi-fu-chuan.md)
   * [字符串杂题](catogory-notes/zi-fu-chuan/zi-fu-chuan-cao-zuo.md)
   * [排列 next permutation](catogory-notes/zi-fu-chuan/pai-lie-next-permutation.md)
+  * [技巧：int数可以代替一个长度为26的bool标记数组](catogory-notes/zi-fu-chuan/ji-qiao-int-shu-ke-yi-dai-ti-yi-ge-chang-du-wei-26-de-bool-biao-ji-shu-zu.md)
 * [二分查找](catogory-notes/er-fen-cha-zhao-mo-ban/README.md)
   * [三种模板](catogory-notes/er-fen-cha-zhao-mo-ban/san-zhong-mo-ban.md)
   * [题目](catogory-notes/er-fen-cha-zhao-mo-ban/er-fen-cha-zhao.md)

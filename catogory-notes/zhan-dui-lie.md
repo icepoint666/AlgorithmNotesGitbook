@@ -65,6 +65,43 @@ stack1作为正向栈，stack2作为反向栈，每次更新可能一方都要�
 
 所以就没有必要记录8在单调栈里
 
+**实现的话为了要标记出minstack对应哪个元素，可以用`stack<pair<int,int>>stk`来实现  
+一个存值，一个存最小值, 这样在pop stack的时候，知道该去pop minstack对应的元素**
+
+```cpp
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    stack<pair<int,int>>stk;
+    MinStack() {
+
+    }
+    
+    void push(int x) {
+        if(stk.empty()){
+            stk.push(make_pair(x, x));
+        }else{
+            if(x < stk.top().second)stk.push(make_pair(x, x));
+            else stk.push(make_pair(x, stk.top().second));
+        }
+    }
+    
+    void pop() {
+        if(!stk.empty())stk.pop();
+    }
+    
+    int top() {
+        if(!stk.empty())return stk.top().first;
+        return -1;
+    }
+    
+    int getMin() {
+        if(!stk.empty())return stk.top().second;
+        return -1;
+    }
+};
+```
+
 **剑指 Offer 31. 栈的压入、弹出序列**
 
 题意：给定一个序列，从前后往后代表栈的压入，这里陷阱就是，很容易混淆搞成上面的数字代表栈的压入序列

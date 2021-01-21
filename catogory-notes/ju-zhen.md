@@ -22,7 +22,7 @@ return AB;
 | lint 38 | 搜索二维矩阵-II | 从左下角往右上角搜索 O\(m+n\) | 技巧 |
 |  |  | 能否：二分+分治搜索，一次淘汰掉1/4，并继续搜索三个子区域 | 代码会麻烦 |
 | lint 114 | 不同的路径 | O\(n\)：排列组合 O\(N^2\)：dp，不太推荐 | 技巧 |
-|  |  |  |  |
+| 1727 | 重新排列的最大子矩阵 | 动态规划的思想 | 技巧 |
 
 
 
@@ -137,5 +137,38 @@ def uniquePaths(self, m, n):
     for i in range(n, m + n - 1):
         res *= i
     return res//temp
+```
+
+**1727. 重新排列后的最大子矩阵**
+
+给你一个二进制矩阵 `matrix` ，它的大小为 `m x n` ，你可以将 `matrix` 中的 **列** 按任意顺序重新排列。
+
+请你返回最优方案下将 `matrix` 重新排列后，全是 `1` 的子矩阵面积。
+
+**解题：**
+
+**①**预处理数组，计算以这个点为结尾，上面有多少个连续的1
+
+②对每一行的结果进行贪心算法：5,4,4,3,==产生结果=&gt; 5, 8,12,12
+
+```python
+int largestSubmatrix(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+    for(int i = 0; i < m; i++){
+        for(int j = 1; j < n; j++){
+            if(matrix[j][i])matrix[j][i] += matrix[j-1][i];
+            else matrix[j][i] = 0;
+        }
+    }
+    int res = 0;
+    for(int i = 0; i < n; i++){
+        sort(matrix[i].begin(), matrix[i].end(), greater<int>());
+        for(int j = 0; j < m; j++){
+            res = max(res, matrix[i][j] * (j + 1));
+        }
+    }
+    return res;
+}
 ```
 

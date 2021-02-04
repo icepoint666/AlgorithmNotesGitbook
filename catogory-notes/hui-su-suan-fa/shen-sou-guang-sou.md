@@ -7,6 +7,7 @@
 | 剑指 Offer 12/79 |  矩阵中的路径 | 经典字符矩阵中找一个字符串路径，经典dfs | 尽量熟练 |
 | 剑指 Offer 13 | 机器人的运动范围 | 经典dfs + 记录访问过的地方 | 熟练完成 |
 | 386 | 字典序排数 | dfs枚举 | 想到dfs |
+| 301 | 删除无效的括号 | dfs枚举/剪枝 | 想到dfs，困难 |
 | 剑指 Offer 32 | 从上到下打印二叉树 | 经典bfs | 模板 |
 | 剑指 Offer 32 Ⅲ | 从上到下打印二叉树 | bfs变体+deque双向队列+奇偶不同逻辑 | 很容易乱 |
 | lint 600 | 包裹黑色像素点的最小矩形 | 方法1：dfs/bfs 方法2：二分 |  |
@@ -102,6 +103,56 @@ vector<int> lexicalOrder(int n) {
     for(int i = 1; i <= 9; ++i)dfs(i, n);
     return ans;
 }
+```
+
+**301. 删除无效的括号**
+
+dfs来枚举几种情况，注意几种剪枝都要考虑到
+
+```cpp
+class Solution {
+public:
+    set<string>res;
+    int min_op;
+    void dfs(string &s, string cur, int pos, int left){
+        if(pos == s.size()){
+            if(!left){
+                if(cur.size() < min_op){
+                    return;
+                }
+                if(cur.size() > min_op){
+                    res.clear();
+                    min_op = min_op < cur.size() ? cur.size() : min_op;
+                }
+                res.insert(cur);
+            }
+            return;
+        }
+        if(left < 0)
+            return;
+        if(pos + left > s.size() || pos - left > s.size()){ //剪枝
+            return;
+        }
+        if(cur.size() + s.size() - pos < min_op){ //剪枝
+            return;
+        }
+        if(s[pos] == '('){
+            dfs(s, cur+"(", pos+1, left+1);
+            dfs(s, cur, pos+1, left);
+        }else if(s[pos] == ')'){
+            dfs(s, cur+")", pos+1, left-1);
+            dfs(s, cur, pos+1, left);
+        }else{
+            dfs(s, cur+s[pos], pos+1, left);
+        }
+    }
+    vector<string> removeInvalidPaarentheses(string s) {
+        min_op = 0;
+        dfs(s, "", 0, 0);
+        vector<string> ret(res.begin(), res.end());
+        return ret;
+    }
+};
 ```
 
 **剑指 Offer 32 - I. 从上到下打印二叉树**

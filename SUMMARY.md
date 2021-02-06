@@ -46,6 +46,7 @@
   * [穿针引线问题](catogory-notes/lian-biao-mian-shi-zhong-dian/chuan-zhen-yin-xian-wen-ti/README.md)
     * [题目](catogory-notes/lian-biao-mian-shi-zhong-dian/chuan-zhen-yin-xian-wen-ti/ti-mu.md)
   * [特殊技巧题目](catogory-notes/lian-biao-mian-shi-zhong-dian/qi-ta-ti-mu.md)
+  * [链表排序类](catogory-notes/lian-biao-mian-shi-zhong-dian/lian-biao-pai-xu-lei.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa/README.md)
   * [六大排序算法模板](catogory-notes/pai-xu-suan-fa/jiu-da-pai-xu-suan-fa-mo-ban.md)
   * [快速排序](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu.md)

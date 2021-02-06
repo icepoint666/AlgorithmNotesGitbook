@@ -108,6 +108,16 @@ int mul(int a, int k){
 }
 ```
 
+### 阶乘的计算
+
+计算 C\_{m+n}^m
+
+```cpp
+for (int x = n, y = 1; y < m; ++x, ++y) {
+    ans = ans * x / y;
+}
+```
+
 ### **负数位运算 与 overflow的坑**
 
 注意负数的位运算，并不会考虑前面的“负位”

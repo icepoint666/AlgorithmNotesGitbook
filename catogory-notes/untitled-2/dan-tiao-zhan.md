@@ -80,6 +80,13 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
       <td
       style="text-align:left">&#x81EA;&#x5DF1;idea</td>
     </tr>
+    <tr>
+      <td style="text-align:left">84, 85</td>
+      <td style="text-align:left">&#x67F1;&#x72B6;&#x56FE;&#x4E2D;&#x6700;&#x5927;&#x7684;&#x77E9;&#x5F62;</td>
+      <td
+      style="text-align:left">&#x7EF4;&#x62A4;&#x5355;&#x8C03;&#x6808;</td>
+        <td style="text-align:left">&#x56F0;&#x96BE;&#xFF08;&#x8BB0;&#x5FC6;&#xFF09;</td>
+    </tr>
   </tbody>
 </table>
 
@@ -232,5 +239,64 @@ int nextGreaterElement(int n) {
 }
 ```
 
+**84. 柱状图中最大的矩形**
 
+**85.最大矩形**
+
+给定 _n_ 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+
+求在该柱状图中，能够勾勒出来的矩形的最大面积。
+
+**题解**
+
+**首先：暴力解法O\(N^2\)**
+
+**是循环每一个，计算以当前高度height\[i\]所在柱子为矩形高，所能构成的最大的面积**
+
+**之后优化O\(N\)**
+
+**stage1**
+
+* 在开头安放个高度为0，坐标为-1的哨兵，进入单调栈
+* 将比top\(\)高（或者一样高）的加入栈中，如果出现低的就将top\(\)移除，直到移除到单调
+* 移除栈的时候，意味着**当前高度height\[i\]所在柱子为矩形高的最大面积计算出来了**
+
+第一遍循环后，目前还有一个单调栈，接下来需要将单调栈清除
+
+**stage2**
+
+* 参考代码的策略
+
+```cpp
+int largestRectangleArea(vector<int>& heights) {
+    int res = 0;
+    stack <pair<int,int>> h;
+    h.push({-1,0});
+    //stage 1
+    for(int i = 0; i < heights.size(); i++){
+        if(heights[i] >= h.top().second)
+            h.push({i,heights[i]});
+        else{
+            while(h.top().second > heights[i]){
+                int idx = h.top().first;
+                h.pop();
+                int last_idx = h.top().first;
+                res = max(heights[idx] * (i - last_idx - 1), res);
+            }
+            h.push({i, heights[i]});
+        }
+    }
+    //stage 2
+    if(h.size() <= 1)return res;
+    int last_heights = h.top().second;
+    h.pop();
+    while(!h.empty()){
+        int idx = h.top().first;
+        res = max((int)(heights.size() - idx - 1) * last_heights, res);
+        last_heights = h.top().second;
+        h.pop();
+    }
+    return res;
+}
+```
 

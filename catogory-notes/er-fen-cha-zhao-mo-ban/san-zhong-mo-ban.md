@@ -100,6 +100,12 @@ if (nums[mid] == target)
 
 依旧使用左闭又开来写右侧边界，循环终止条件依旧是 `left == right`
 
+重点有三点：
+
+* 初始右边界right = nums.size\(\)而不是nums.size\(\)-1
+* left &lt; right ==&gt;  nums\[mid\] &lt;= target ==&gt; 更新left:left = mid + 1
+* 最终返回left - 1
+
 ```cpp
 int right_bound(int nums[], int target){
     if (nums.length == 0) return -1;

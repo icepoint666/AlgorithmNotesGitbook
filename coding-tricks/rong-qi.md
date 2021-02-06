@@ -9,6 +9,14 @@ std::vector<int> vec;
 std::map<int,int> mp;
 ```
 
+### 括号初始化
+
+```cpp
+map<int,int>mp = {{2,3},{3,4},{4,5}};
+vector<vector<int>>vec = {{1,2,3},{3,4,5,6,7},{2,3,4}};
+vector<int>tmp = vector<int>{2,3};
+```
+
 ### vector
 
 初始化

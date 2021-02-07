@@ -6,6 +6,7 @@
 | :--- | :--- | :--- | :--- |
 | 剑指offer 45 | 把数组排成最小的数 | 根据自定义的偏序来排序 | 中等 |
 | 类似题 | 拼接最小字典序 | 同上 |  |
+| 5674 | 构造字典序最大的合并字符串 | 提升字典序的理解 | 技巧 |
 
 **剑指 Offer 45. 把数组排成最小的数**
 
@@ -48,4 +49,28 @@ string minNumber(vector<int>& nums) {
 ```
 
 （同上做法，自定义排序方式）
+
+**5674. 构造字典序最大的合并字符串**
+
+**题意：将两个字符串任意组合，合成一个字典序最大的merge字符串**
+
+**解法：**实时比较剩余串的字典序，选那个串对应的字符
+
+```cpp
+string largestMerge(string word1, string word2) {
+    string res;
+    int i = 0,j = 0;
+    while(i < word1.length() && j < word2.length()){
+        if(word1.substr(i) < word2.substr(j)){
+            res += word2[j];
+            j += 1;
+        }else{
+            res += word1[i];
+            i += 1;
+        }
+    }
+    res += word1.substr(i) + word2.substr(j);
+    return res;
+}
+```
 

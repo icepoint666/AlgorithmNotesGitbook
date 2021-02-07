@@ -15,6 +15,7 @@
 | 剑指 Offer57 | 两数之和（裸） | 左右指针，从左右往中间扫 | 模板 |
 | 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
 | 15 | 三数之和 | 排序+双指针（返回的三数不重复，所以用不了哈希表） | 中等 |
+| 16 | 最接近的三数之和 | 排序+双指针，不用返回每个数字，只用返回和，更简单 | 简单 |
 | lint 58 | 四数之和 | 前两个数枚举+排序+双指针 | 中等 |
 | 1726 | 同积元组 | 类似于四数之和，不过因为元素都不等 哈希表可以降低复杂度 | 想到 |
 | 剑指 Offer 21 | 奇数位于偶数前 | 关键要想到不占空间的解法：双指针 |  |
@@ -217,6 +218,26 @@ vector<vector<int>> threeSum(vector<int>& nums) {
         }
         return res;
     }
+```
+
+**16. 最接近的三数之和**
+
+```cpp
+int threeSumClosest(vector<int>& nums, int target) {
+    int res = 100000;
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i < nums.size() - 2; i++){
+        int left = i + 1, right = nums.size() - 1;
+        while(left < right){
+            int sum = nums[i] + nums[left] + nums[right];
+            if(abs(sum - target) < abs(res - target))res = sum;
+            if(sum < target)left++;
+            else if(sum > target)right--;
+            else return target;
+        }
+    }
+    return res;
+}
 ```
 
 **lint 58 四数之和**

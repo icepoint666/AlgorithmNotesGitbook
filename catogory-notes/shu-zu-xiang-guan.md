@@ -23,6 +23,7 @@
 | 665 | 非递减数列 | 考虑到一种特例情况 | 想到 |
 | 454 | 四数相加-II | 想到给两个数组之和存哈希表，二次循环另外两个数组去比较 O\(N^2\) | 中等 |
 | 350 | 两个数组的交集-II | 排序双指针：分别对两个数组排序，然后从左到右比对 |  |
+| 334 | 递增的三元子序列 | 类单调栈思路：维护两个数值即可（个人做的维护了三个） |  |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -369,6 +370,20 @@ bool checkPossibility(vector<int>& nums) {
         }
     }
     return true;
+}
+```
+
+**334. 递增的三元子序列**
+
+```cpp
+bool increasingTriplet(vector<int>& nums) {
+    int one = INT_MAX,two = INT_MAX;
+    for(int three : nums){
+        if(three > two) return true;
+        else if(three <= one) one = three;
+        else two = three;
+    }
+    return false;
 }
 ```
 

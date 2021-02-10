@@ -27,6 +27,13 @@
       </td>
       <td style="text-align:left">&#x4E2D;&#x7B49;</td>
     </tr>
+    <tr>
+      <td style="text-align:left">378</td>
+      <td style="text-align:left">&#x6709;&#x5E8F;&#x77E9;&#x9635;&#x4E2D;&#x7B2C;k&#x5C0F;&#x7684;&#x5143;&#x7D20;</td>
+      <td
+      style="text-align:left">&#x5F52;&#x5E76;&#x6392;&#x5E8F;</td>
+        <td style="text-align:left"></td>
+    </tr>
   </tbody>
 </table>
 

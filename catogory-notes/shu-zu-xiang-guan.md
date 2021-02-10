@@ -20,6 +20,8 @@
 | 347 | 前K个高频元素 | 会用map按value排序模板 | 技巧 |
 | 238 | 除自身以外数组的乘积 | 要求：常数额外空间 + 不能用除法 | 自己idea |
 | 287 | 寻找重复数 | O\(N\)，不错的题，交换的往下transfer | 自己idea |
+| 665 | 非递减数列 | 考虑到一种特例情况 | 想到 |
+| 454 | 四数相加-II | 想到给两个数组之和存哈希表，二次循环另外两个数组去比较 O\(N^2\) | 中等 |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -341,6 +343,31 @@ int findDuplicate(vector<int>& nums) {
         }
     }
     return nums[nums.size() - 1];
+}
+```
+
+**665. 非递减数列**
+
+ 一个长度为 `n` 的整数数组，请你判断在 **最多** 改变 `1` 个元素的情况下，该数组能否变成一个非递减数列。
+
+**题解：需要想到一种模式，即使只有一个递减对，但是也不行：**
+
+nums\[i-1\] &gt; nums\[i+1\] && nums\[i\] &gt; nums\[i+2\]
+
+```cpp
+bool checkPossibility(vector<int>& nums) {
+    int c = -1;
+    for(int i = 0; i < nums.size() - 1; i++){
+        if(nums[i] > nums[i+1]){
+            if(c != -1)return false;
+            c = i;
+            if(i > 0 && i + 2 < nums.size()){
+                if(nums[i-1] > nums[i+1] && nums[i] > nums[i+2])
+                    return false;
+            }
+        }
+    }
+    return true;
 }
 ```
 

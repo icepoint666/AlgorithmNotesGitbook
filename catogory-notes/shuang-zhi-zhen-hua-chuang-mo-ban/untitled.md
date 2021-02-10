@@ -23,6 +23,9 @@
 | 992 | K个不同整数的数组 | 滑窗 + 关键点：K长度 = 至少为K - 至少为K-1 | 技巧 |
 | 209 | 长度最小的子数组 | 思路清晰，搞清边界 | 简单 |
 | 424 | 替换后的最长重复字符 | 思路清晰，搞清边界 | 简单 |
+| 795 | 区间子数组的个数 | 最大值大于等于L小于等于R数组数目 = 小于等于R - 小于等于L-1（不用滑窗） | 技巧 |
+| 467 | 环绕字符串中唯一的子字符串 | 关键: 不用存子串在set，用map存每个字符开头的最大长度，就可以知道子串个数了 | 技巧 |
+| 567 | 字符串的排列 | 关键：需要想到这个滑窗的尺寸是固定的right - left = s1.size\(\) | 技巧 |
 
 #### 题目笔记
 
@@ -214,6 +217,22 @@ int lengthOfLongestSubstring(string s) {
         st.insert(s[right]);
     }
     return res;
+}
+```
+
+**795. 区间子数组个数**
+
+```cpp
+int count(vector<int>&A, int R){
+    int ans = 0, cur = 0;
+    for(auto x: A){
+        cur = x <= R ? cur + 1: 0;
+        ans += cur;
+    } 
+    return ans;
+}
+int numSubarrayBoundedMax(vector<int>& A, int L, int R) {
+    return count(A, R) - count(A, L - 1);
 }
 ```
 

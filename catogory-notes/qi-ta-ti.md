@@ -6,7 +6,7 @@
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 61 | 扑克牌中的顺子 |  | 中等 |
 | 剑指 Offer 64 | 1+2+...+n | 逻辑符短路作为终止条件 | 记忆 |
-|  |  |  |  |
+| 384 | 打乱数组 | 洗牌算法 打乱数组 | 记忆 |
 
 **剑指 Offer 61. 扑克牌中的顺子**
 
@@ -37,5 +37,17 @@ int sumNums(int n) {
 }
 ```
 
+**384. 打乱数组**
 
+**洗牌算法**
+
+```cpp
+int random_range(int min_, int max_){
+    return min_ + rand() % (max_ - min_);
+}
+
+for(int i = 0; i < nums.size(); i++){
+    swap(nums[i], nums[random_range(i, nums.size())];
+}
+```
 

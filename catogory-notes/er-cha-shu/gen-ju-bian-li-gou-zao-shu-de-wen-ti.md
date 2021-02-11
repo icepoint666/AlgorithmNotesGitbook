@@ -10,6 +10,7 @@
 | 106 | 中序 + 后序 构造二叉树 | 利用后序前序的关联性，近似于105 | 中等 |
 | 889 | 前序 + 后序 构造二叉树 | 见下方题解 | 中等 |
 | 1008 | 前序遍历构造二叉搜索树 | 记录当前子树对应序列的st,ed | 中等 |
+| 1028 |  从先序遍历还原二叉树 | 递归，传递idx引用，从而能够复原 | 困难 |
 
 **1008. 前序遍历构造二叉搜索树**
 
@@ -139,5 +140,39 @@ public:
 };
 ```
 
+ **1028.从先序遍历还原二叉树**
 
+```cpp
+输入："1-2--3--4-5--6--7"
+输出：[1,2,5,3,4,6,7]
+```
+
+```cpp
+TreeNode* dfs(string& S, int &idx, int depth){
+    if(idx == S.size())return NULL;
+    int d = 0;
+    int pre_idx = idx;
+    while(idx < S.size() && S[idx]=='-'){
+        d++;
+        idx++;
+    }
+    if(depth > d){
+        idx = pre_idx;
+        return NULL;
+    }
+    int val = 0;
+    while(idx < S.size() && S[idx]!='-'){
+        val = val * 10 + S[idx] - '0';
+        idx++;
+    }
+    TreeNode* root = new TreeNode(val);
+    root->left = dfs(S, idx, depth+1);
+    root->right = dfs(S, idx, depth+1);
+    return root;
+}
+TreeNode* recoverFromPreorder(string S) {
+    int idx = 0;
+    return dfs(S, idx, 0);
+}
+```
 

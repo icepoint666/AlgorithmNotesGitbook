@@ -12,6 +12,7 @@
 | 剑指 Offer 32 Ⅲ | 从上到下打印二叉树 | bfs变体+deque双向队列+奇偶不同逻辑 | 很容易乱 |
 | lint 600 | 包裹黑色像素点的最小矩形 | 方法1：dfs/bfs 方法2：二分 |  |
 | 200 | 岛屿数量 | inplace修改矩阵，作为visited数组 | 简单 |
+| 329 | 矩阵中的最长递增路径 | 标记数组记录结果，dfs | 中等 |
 
 **剑指 Offer 12. 矩阵中的路径**
 
@@ -278,4 +279,39 @@ public:
 3. 判断​l​列是否存在黑色像素，若存在则​left = l​，否则​left = r​。注意一定要先判​l​列，因为​r​可能存在黑色像素，但并不是最左侧
 
 * 以此类推继续找到最右侧，最上侧，最下侧的黑色像素所在列或行
+
+**329. 矩阵中的最长递增路径**
+
+```cpp
+int res = 0;
+vector<vector<int>> visited;
+int n, m;
+int dfs(vector<vector<int>>&matrix, int x, int y){
+    if(visited[x][y])return visited[x][y];
+    int dx[] = {-1, 0, 1, 0};
+    int dy[] = {0, -1, 0, 1};
+    for(int i = 0; i < 4; i++){
+        int _x = x + dx[i];
+        int _y = y + dy[i];
+        if(_x >= 0 && _y >= 0 && _x < n && _y < m && matrix[_x][_y] > matrix[x][y]){
+            visited[x][y] = max(visited[x][y], dfs(matrix, _x, _y) + 1);
+        }
+    }
+    return visited[x][y];
+}
+int longestIncreasingPath(vector<vector<int>>& matrix) {
+    n = matrix.size();
+    m = matrix[0].size();
+    visited.resize(n, vector<int>(m, 0));
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            visited[i][j] = dfs(matrix, i, j);
+            res = max(visited[i][j]+1, res);
+        }
+    }
+    return res;
+}
+```
+
+\*\*\*\*
 

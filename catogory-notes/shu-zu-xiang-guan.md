@@ -1,5 +1,30 @@
 # 数组相关
 
+**归位排序**，交换数字模板（记忆）
+
+```cpp
+输入：nums = [3,0,1]
+输出：2
+
+int missingNumber(vector<int>& nums) {
+    int a = -1;
+    for(int i = 0; i < nums.size(); i++){
+        while(nums[i]!= -1 && nums[i] != i){
+            if(nums[i] == nums.size())
+                swap(nums[i], a);
+            else
+                swap(nums[i], nums[nums[i]]);
+        }
+    }
+
+    for(int i = 0; i < nums.size(); i++){
+        if(nums[i] == -1)
+            return i;
+    }
+    return nums.size();
+}
+```
+
 题目：
 
 | 序号/难度 | 名字 | 备注 |  |

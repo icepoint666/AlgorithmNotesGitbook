@@ -90,6 +90,7 @@ public:
 | 701 | 二叉搜索树的插入 | 模板 | 记忆 |
 | 450 | 二叉搜索树的删除 | 模板\(替换leftsubtree的rightmost\) | 记忆 |
 | lint 11 | 在二叉查找树中搜索区间 | 查找并返回有序区间的元素，其实就是中序遍历 | 不太容易立刻想出 |
+| 230 | 二叉搜索树第k小的元素 | 中序遍历，记录访问节点数 | 简单 |
 
 **剑指 Offer 36. 二叉搜索树与双向链表**
 
@@ -220,6 +221,29 @@ TreeNode* buildTree(vector<int>& preorder, int st, int ed){
 TreeNode* bstFromPreorder(vector<int>& preorder) {
     if(preorder.empty())return NULL;
     return buildTree(preorder, 0, preorder.size()-1);
+}
+```
+
+**230. 二叉搜索树中第K小的元素**
+
+```cpp
+int cnt, res, K;
+void findNode(TreeNode* root){
+    if(res != -1)return;
+    if(!root)return;
+    findNode(root->left);
+    cnt++;
+    if(K == cnt){
+        res = root->val;
+    }
+    findNode(root->right);
+}
+int kthSmallest(TreeNode* root, int k) {
+    cnt = 0;
+    res = -1;
+    K = k;
+    findNode(root);
+    return res;
 }
 ```
 

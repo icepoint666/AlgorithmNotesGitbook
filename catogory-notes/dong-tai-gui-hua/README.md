@@ -23,7 +23,7 @@ dp\[i,j\] = dp\[i,k\] + dp\[k+1,j\] + sum\[j\] - sum\[i-1\] \(sum表示前缀和
 | 剑指 Offer 14 | 剪绳子/分数字 | 动态规划来解决 | 有坑 |
 | 300 | 最长递增子序列 | 动态规划O\(N^2\) /耐心排序O\(NlogN\) | O\(NlogN）解法记一下 |
 | 354 | 信封嵌套问题 | 最长递增子序列变种 | 记一下，O\(NlogN） |
-| \(自选） | 正则表达式匹配 | 规则跟leetcode有点不一样，'\*’是匹配任意 | 困难 |
+| 44 | 正则表达式匹配 | 规则跟正则有点不一样，'\*’是匹配任意 | 困难 |
 | 剑指 Offer 19/10 | 正则表达式匹配 | 因为匹配规则特性，从后往前会更容易 | 复杂（很容易错细节） |
 | 剑指 Offer 46 | 数字翻译成字符串 | 动态规划基础 | 简单 |
 | 剑指Offer 49 | 丑数 | 分条件动态规划 | 记一下 |
@@ -125,7 +125,7 @@ int lengthOfLIS(vector<int>& nums) {
 
 
 
-**正则表达式匹配**
+**44**
 
  匹配包含`'. '`和`'*'`的正则表达式。模式中的字符`'.'`表示任意一个字符，而`'*'`表示任意字符出现任意次（含0次）
 
@@ -150,7 +150,7 @@ dp\[0\]\[j\]肯定都是false
 
 **主要是处理'\*'的转换，另外两种都很简单**
 
-如果第i个字符是'\*'那么dp\[i\]\[j\] = dp\[i-1\]\[j-1\] \|\| dp\[i\]\[j-1\] \|\| dp\[i-1\]\[j\];
+**关键：如果第i个字符是'\*'那么dp\[i\]\[j\] = dp\[i\]\[j-1\] \|\| dp\[i-1\]\[j\];**
 
 * 匹配1个：dp\[i-1\]\[j-1\]代表'\*'只匹配了一个的字符s\[j-1\]，前面的就不会用‘\*’继续匹配了
 * 匹配更多：dp\[i\]\[j-1\]代表‘\*’匹配了一个字符s\[j-1\]，但是没有消耗掉‘\*’，还可以用'\*'继续往前匹配，所以i没有减1
@@ -160,30 +160,27 @@ dp\[0\]\[j\]肯定都是false
 class Solution {
 public:
     bool isMatch(string s, string p) {
-        int m = s.size();
-        int n = p.size();
+        int n = s.size();
+        int m = p.size();
         bool dp[n+1][m+1];
         memset(dp, false, sizeof(dp));
         dp[0][0] = true;
-        for(int i = 1; i <= m; i++){
-            dp[0][i] = false;
-        }//可以不写
-        bool inMatch = false;
-        for(int i = 1; i <= n; i++){
-            if(p[i-1] == '*' && !inMatch){
-                dp[i][0] = true;
-                continue;
-            }else if(!inMatch){
-                inMatch = true;
+        for(int i = 0; i < p.size(); i++){
+            if(p[i] == '*'){
+                dp[0][i+1] = true;
+            }else{
+                break;
             }
-            dp[i][0] = false;
         }
         for(int i = 1; i <= n; i++){
-            for(int j = 1; j <=m; j++){
-                if(p[i-1] == '*')dp[i][j] = dp[i-1][j-1] || dp[i][j-1] ||dp[i-1][j];
-                else if(p[i-1] == '.')dp[i][j] = dp[i-1][j-1];
-                else if(p[i-1] == s[j-1])dp[i][j] = dp[i-1][j-1];
-                else dp[i][j] = false;
+            for(int j = 1; j <= m; j++){
+                if(p[j-1] == '?')
+                    dp[i][j] = dp[i-1][j-1];
+                else if(p[j-1] == '*'){
+                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                }else if(p[j-1] == s[i-1]){
+                    dp[i][j] = dp[i-1][j-1];
+                }
             }
         }
         return dp[n][m];

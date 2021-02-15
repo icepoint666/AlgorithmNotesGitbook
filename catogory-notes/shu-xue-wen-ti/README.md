@@ -139,6 +139,7 @@ for (int x = n, y = 1; y < m; ++x, ++y) {
 | 剑指Offer44 | 数字序列中某一位的数字 | 掌握规律，注意个位数因为有10个具有特殊性 | 中等 |
 | 剑指 Offer 62 | 圆圈中最后剩下的数字 | 约瑟夫环问题 | 套路**/**记忆 |
 | 29 | 两数相除 | 二分法 + 快速乘 + 负数位运算overflow的坑 | 易错 |
+| 50 | pow\(x, n\) | 注意讨论 |  |
 
 
 
@@ -222,5 +223,21 @@ int lastRemaining(int n, int m) {
 }
 ```
 
-\*\*\*\*
+**50.pow\(x,n\)**
+
+```cpp
+double pow_(double x, long n){
+    double a = 1.0;
+    while(n){
+        if(n & 1)a *= x;
+        x *= x;
+        n >>= 1;
+    }
+    return a;
+}
+double myPow(double x, int n) {
+    long N = n;
+    return N >= 0 ? pow_(x, N) : 1.0 / pow_(x, -N);
+}
+```
 

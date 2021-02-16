@@ -50,6 +50,7 @@ int missingNumber(vector<int>& nums) {
 | 350 | 两个数组的交集-II | 排序双指针：分别对两个数组排序，然后从左到右比对 |  |
 | 334 | 递增的三元子序列 | 类单调栈思路：维护两个数值即可（个人做的维护了三个） |  |
 | 134 | 加油站 | 找环形数组上的最大连续和 | 技巧 |
+| 152 | 乘积最大子数组 | 因为有负数，要同时维护最大，最小 | 技巧 |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -451,6 +452,34 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         if(sum < 0)return -1;
     }
     return max_idx;
+}
+```
+
+**152. 乘积最大子数组**
+
+给你一个整数数组 `nums` ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+
+* 令imax为当前最大值，则当前最大值为 imax = max\(imax  _nums\[i\], nums\[i\]\)_ 
+* _由于存在负数，那么会导致最大的变最小的，最小的变最大的。因此还需要维护当前最小值imin，imin = min\(imin_  nums\[i\], nums\[i\]\) 
+* 当负数出现时则imax与imin进行交换再进行下一步计算
+
+**因为乘的是整数，所以从开头乘除一定最大**
+
+```cpp
+int maxProduct(vector<int>& nums) {
+    int max_ = nums[0], imax = 1, imin = 1;
+    for(int i=0; i<nums.size(); i++){
+        if(nums[i] < 0){ //交换
+          int tmp = imax;
+          imax = imin;
+          imin = tmp;
+        }
+        imax = max(imax*nums[i], nums[i]);
+        imin = min(imin*nums[i], nums[i]);
+        
+        max_ = max(max_, imax);
+    }
+    return max_;
 }
 ```
 

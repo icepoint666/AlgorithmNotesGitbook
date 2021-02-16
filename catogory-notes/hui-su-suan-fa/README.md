@@ -43,7 +43,7 @@ void traverse(TreeNode root) {
 | 78 | 子集 | 回溯模板变体 |  |
 | 77 | 组合 | 回溯模板变体 |  |
 | 131 | 分割回文串 | 回文串用dp处理 + 回溯模板 | 技巧 |
-|  |  |  |  |
+| 140 | 单词拆分-II | 字典树的问题 回溯解决 | 技巧 |
 
 **46. 全排列**
 
@@ -255,5 +255,43 @@ vector<vector<string>> partition(string s) {
     dfs(s, cur, 0);
     return res;
 }
+```
+
+**140. 单词拆分 II**
+
+给定一个**非空**字符串 _s_ 和一个包含**非空**单词列表的字典 _wordDict_，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。
+
+```cpp
+class Solution {
+private:
+    unordered_map<int, vector<string>> ans;
+    unordered_set<string> wordSet;
+
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        wordSet = unordered_set(wordDict.begin(), wordDict.end());
+        backtrack(s, 0);
+        return ans[0];
+    }
+
+    void backtrack(const string& s, int index) {
+        if (!ans.count(index)) {
+            if (index == s.size()) {
+                ans[index] = {""};
+                return;
+            }
+            ans[index] = {};
+            for (int i = index + 1; i <= s.size(); ++i) {
+                string word = s.substr(index, i - index);
+                if (wordSet.count(word)) {
+                    backtrack(s, i);
+                    for (const string& succ: ans[i]) {
+                        ans[index].push_back(succ.empty() ? word : word + " " + succ);
+                    }
+                }
+            }
+        }
+    }
+};
 ```
 

@@ -6,7 +6,7 @@
 
 有效的运算符包括 `+`, `-`, `*`, `/` 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
 
-```text
+```cpp
 int val(vector<string>& tokens, int& st){
     string op = tokens[st--];
     if(op.size() > 1 || op[0] >= '0' && op[0] <= '9')return stoi(op);

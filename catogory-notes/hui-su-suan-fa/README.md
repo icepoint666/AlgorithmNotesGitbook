@@ -42,6 +42,7 @@ void traverse(TreeNode root) {
 | 51 | N皇后 | 回溯模板+特殊判定 | 中等 |
 | 78 | 子集 | 回溯模板变体 |  |
 | 77 | 组合 | 回溯模板变体 |  |
+| 131 | 分割回文串 | 回文串用dp处理 + 回溯模板 | 技巧 |
 |  |  |  |  |
 
 **46. 全排列**
@@ -203,5 +204,56 @@ public:
         return res;
     }
 };
+```
+
+**131. 分割回文串**
+
+给定一个字符串 _s_，将 _s_ 分割成一些子串，使每个子串都是回文串。
+
+返回 _s_ 所有可能的分割方案。
+
+**示例:**
+
+```text
+输入: "aab"
+输出:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+```
+
+**关键：回文串需要用dp来处理，避免以后每次都要O\(n\)的检查回文串**
+
+```cpp
+vector<vector<string>>res;
+vector<vector<bool>>dp;
+void dfs(string& s, vector<string>&cur, int pos){
+    if(pos == s.size())
+        res.push_back(cur);
+    for(int i = pos + 1; i <= s.size(); i++){
+        if(!dp[pos][i])continue;
+        cur.push_back(s.substr(pos, i - pos));
+        dfs(s, cur, i);
+        cur.pop_back();
+    }
+}
+vector<vector<string>> partition(string s) {
+    if(s.size() == 0)return res;
+    int n = s.size();
+    dp.resize(n, vector<bool>(n+1, false));
+    for(int i = 0; i < s.size(); i++){
+        dp[i][i] = true;
+        dp[i][i+1] = true;
+    }
+    for(int i = 2; i <= s.size(); i++){
+        for(int start = 0; start + i <= s.size(); start++){
+            if(s[start] == s[start + i - 1])dp[start][start + i] = dp[start+1][start + i - 1];
+        }
+    }
+    vector<string>cur;
+    dfs(s, cur, 0);
+    return res;
+}
 ```
 

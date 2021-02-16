@@ -104,6 +104,7 @@
   * [题目](catogory-notes/bing-cha-ji/ti-mu.md)
 * [图](catogory-notes/tu/README.md)
   * [拓扑排序，DAG](catogory-notes/tu/tuo-pu-pai-xu-dag.md)
+  * [邻接表](catogory-notes/tu/lin-jie-biao.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
 * [矩阵](catogory-notes/ju-zhen.md)
 * [概率题](catogory-notes/gai-lv-ti.md)

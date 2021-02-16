@@ -12,6 +12,7 @@
 | 自定义 | 高效判定字符串子序列 | 利用二分查找优化（见字符串专题） | 记忆 |
 | 4 | 寻找两个正序数组的中位数 | 时间复杂度O\(log\(m+n\)\)，需要二分查找 | 困难 |
 | 34 | 在排序数组中查找元素的第一个和最后一个位置 | 二分查找左右边界模板题 | 记忆 |
+| 162 | 寻找峰值 | 限定条件下找峰值，二分O\(logN\) | 记忆 |
 
 **剑指 Offer 11. 旋转数组的最小数字**
 
@@ -133,6 +134,25 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     }
     //最终的结果是l1 <= r2 && l2 <= r1，而且前提是mid1 + mid2 = m + n
 		return (max(l1, l2) + min(r1, r2)) / 2.0; //无论是奇数个还是偶数个都满足题意
+}
+```
+
+**162. 寻找峰值**
+
+ 给你一个输入数组 `nums`，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 **任何一个峰值** 所在位置即可。
+
+**因为限定条件**nums\[-1\] = nums\[n\] = -∞问题通过二分就可以找到
+
+```cpp
+int findPeakElement(vector<int>& nums) {
+    int l = 0, r = nums.size() - 1;
+
+    while (l < r) {
+        int mid = (l + r) >> 1;
+        if (nums[mid] > nums[mid + 1]) r = mid;
+        else l = mid + 1;
+    }
+    return l;           //此时l等于r，返回任意一个即可
 }
 ```
 

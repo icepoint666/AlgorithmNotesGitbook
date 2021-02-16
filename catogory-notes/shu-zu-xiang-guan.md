@@ -49,6 +49,7 @@ int missingNumber(vector<int>& nums) {
 | 454 | 四数相加-II | 想到给两个数组之和存哈希表，二次循环另外两个数组去比较 O\(N^2\) | 中等 |
 | 350 | 两个数组的交集-II | 排序双指针：分别对两个数组排序，然后从左到右比对 |  |
 | 334 | 递增的三元子序列 | 类单调栈思路：维护两个数值即可（个人做的维护了三个） |  |
+| 134 | 加油站 | 找环形数组上的最大连续和 | 技巧 |
 
 一个结论：**寻找数组中两个元素的最大差值**，要求最小值要在最大值右边是可以**O\(n\)**的实现
 
@@ -411,4 +412,47 @@ bool increasingTriplet(vector<int>& nums) {
     return false;
 }
 ```
+
+**134. 加油站**
+
+**题目：如果必有解，只会有一个解**
+
+**本质：找到一个环形数组上的最大连续和**
+
+```cpp
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int n = gas.size();
+    int diff[n];
+    for(int i = 0; i < n; i++){
+        diff[i] = gas[i] - cost[i];
+    }
+    bool flag = false;
+    int max_ = -1, max_idx = -1, cur = 0, cur_idx = -1;
+    for(int i = 0; i < n * 2; i++){
+        if(diff[i % n] >= 0 && !flag){
+            cur = diff[i % n];
+            cur_idx = i % n;
+            flag = true;
+        }else if(diff[i % n] >= 0){
+            cur += diff[i % n];
+        }else{
+            cur += diff[i % n];
+            if(cur < 0)flag = false;
+        }
+        if(cur > max_ ){
+            max_ = cur;
+            max_idx = cur_idx;
+        }
+    }
+    if(max_idx == -1)return -1;
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += diff[(i + max_idx) % n];
+        if(sum < 0)return -1;
+    }
+    return max_idx;
+}
+```
+
+
 

@@ -39,6 +39,7 @@
   * [二叉树概率题](catogory-notes/er-cha-shu/er-cha-shu-gai-lv-ti.md)
   * [如何泛化的将一个问题的递归解法转为迭代解法](catogory-notes/er-cha-shu/ru-he-fan-hua-de-jiang-yi-ge-wen-ti-de-di-gui-jie-fa-zhuan-wei-die-dai-jie-fa.md)
   * [多叉树NestedInteger问题](catogory-notes/er-cha-shu/duo-cha-shu-nestedinteger-wen-ti.md)
+  * [逆波兰表达式](catogory-notes/er-cha-shu/ni-bo-lan-biao-da-shi.md)
 * [链表](catogory-notes/lian-biao-mian-shi-zhong-dian/README.md)
   * [链表问题统一解决技巧](catogory-notes/lian-biao-mian-shi-zhong-dian/lian-biao-wen-ti-tong-yi-jie-jue-ji-qiao.md)
   * [节点移动问题](catogory-notes/lian-biao-mian-shi-zhong-dian/jie-dian-yi-dong-wen-ti/README.md)

@@ -26,6 +26,7 @@
 | 795 | 区间子数组的个数 | 最大值大于等于L小于等于R数组数目 = 小于等于R - 小于等于L-1（不用滑窗） | 技巧 |
 | 467 | 环绕字符串中唯一的子字符串 | 关键: 不用存子串在set，用map存每个字符开头的最大长度，就可以知道子串个数了 | 技巧 |
 | 567 | 字符串的排列 | 关键：需要想到这个滑窗的尺寸是固定的right - left = s1.size\(\) | 技巧 |
+| 395 | 至少有K个重复字符的最长子串 | 关键：枚举26次，限制滑动窗口内的不同字符数分别i \(1~26\)个 | 技巧 |
 
 #### 题目笔记
 
@@ -234,5 +235,50 @@ int count(vector<int>&A, int R){
 int numSubarrayBoundedMax(vector<int>& A, int L, int R) {
     return count(A, R) - count(A, L - 1);
 }
+```
+
+**395. 至少有K个重复字符的最长子串**
+
+找到给定字符串（由小写字符组成）中的最长子串 _**T**_ ， 要求 _**T**_ 中的每一字符出现次数都不少于 _k_ 。输出 _**T**_ 的长度。
+
+  
+**解题思路** 这个问题与一般性的滑动窗口问题最大的不同是：怎样保证滑动窗口能够取到所有可行解？
+
+解决这个问题的办法是，循环26次，限制滑动窗口内的不同字符数分别i \(1~26\)个，这样能保证不会漏掉任何一个可行解。
+
+时间复杂度O\(26 \* n\) 近似一下也就是O\(n\)了。
+
+```cpp
+int longestSubstring(string s, int k) {
+    int res = 0;
+    int record[26];     //记录滑动窗口内每个字符出现的次数，字符'a'对应位置0，'b'对应位置1...
+    for(int i=1; i<=26; ++i) {      //每个循环中，滑动窗口内只能有i个不同字符
+        memset(record, 0, sizeof(record));
+        int left = 0, right = 0;
+        int diff_count = 0, count = 0;    
+        while(right < s.length()) {
+            int add_index = s[right] - 'a';   
+            record[add_index] += 1;
+            if(record[add_index] == 1)
+                diff_count++;
+            if(record[add_index] == k)
+                count++;
+            right++;
+            while(left < right && diff_count > i) {
+                int del_index = s[left] - 'a'; 
+                if(record[del_index] == k)
+                    count--;
+                if(record[del_index] == 1)
+                    diff_count--;
+                record[del_index] -= 1;
+                left++;
+            }
+            if(diff_count == i && diff_count == count)
+                res = max(res, right - left);
+        }
+    }
+    return res;
+}
+
 ```
 

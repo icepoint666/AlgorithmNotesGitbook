@@ -105,7 +105,7 @@ void _memmove\(void_ str1, const void \*str2, size\_t n\) 从 str2 复制 n 个�
 * 如果目标区域和源区域有重叠的话，memmove\(\) 能够保证源串在被覆盖之前将重叠区域的字节拷贝到目标区域中，复制后源区域的内容会被更改。 
 * 如果目标区域与源区域没有重叠，则和 memcpy\(\) 函数功能相同。memcpy效率更高
 
-注意：临时变量 + 临时拷贝字符串数组tmp
+注意：**临时变量 + 临时拷贝**字符串数组tmp
 
 ```cpp
 #include <iostream>

@@ -1,6 +1,10 @@
 # strcat实现
 
-类似的写法可以写strcpy等其他,
+类似的写法可以写strcpy等其他
+
+### strcat
+
+**char \*strcat\(char \*dest, const char \*src\)** 把 **src** 所指向的字符串追加到 **dest** 所指向的字符串的结尾
 
 **关键**是输入的数组a，数组b必须有固定的长度
 

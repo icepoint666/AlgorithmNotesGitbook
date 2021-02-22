@@ -126,6 +126,7 @@
   * [哈希表](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ha-xi-biao.md)
   * [LRU算法](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
 * [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
+  * [海量数据场景题](problem-notes/da-shu-ju-wen-ti/hai-liang-shu-ju-chang-jing-ti.md)
   * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)
 * [智力题 / 博弈论](problem-notes/zhi-li-ti.md)
 * [概率问题](problem-notes/undefined/README.md)

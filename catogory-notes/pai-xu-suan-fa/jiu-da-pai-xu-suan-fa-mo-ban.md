@@ -2,8 +2,6 @@
 
 ### 快速排序 \(普通版 + 优化版）
 
-思想：就是
-
 **基本模板：4个关键点（注释上）**
 
 ```cpp
@@ -403,7 +401,16 @@ void radixSort(unsigned int array[], int length) {
 
 ```cpp
  vector<int> insertionSort()(vector<int>& nums) {
-    for
+    for(int i = 1; i < nums.size(); i++){
+        int key = nums[i];
+        int j = i - 1;
+        while(j >= 0 && nums[j] > key){
+            nums[j+1] = nums[j];
+            j--;
+        }
+        nums[j+1] = key;
+    }
+    return nums;
 }
 ```
 

@@ -1,6 +1,72 @@
 # 链表排序类
 
-**Leetcode148, 要求掌握：**
+**Leetcode148,** 
+
+**要求掌握：**
+
+**归并排序（不需要额外空间）**
+
+```cpp
+ListNode* sortList(ListNode* head) {
+    if(!head || !head->next)return head;
+    cout << head->val << endl;
+    ListNode* dummyhead = new ListNode(0);
+    ListNode* res = dummyhead;
+    ListNode* slow = head, *fast = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    ListNode* mid = slow->next;
+    slow->next = NULL; //cut
+    ListNode* left = sortList(head);
+    ListNode* right = sortList(mid);
+    
+    while(left && right){
+        if(left->val < right->val){
+            res->next = left;
+            left = left->next;
+        }else{
+            res->next = right;
+            right = right->next;
+        }
+        res = res->next;
+    }
+    res->next = left!=NULL ? left : right;
+    return dummyhead->next;
+}
+```
+
+  
+**快速排序（不需要额外空间）**
+
+  
+**Leetcode147 插入排序（不需要额外空间）**
+
+```cpp
+ListNode* sortList(ListNode* head) {
+    if(!head)return nullptr;
+    ListNode* dummyhead = new ListNode(0);
+    ListNode* node = head->next;
+    dummyhead->next = head;
+    ListNode* last = head;
+    while(node){
+        if(last->val <= node->val){ //直到找到逆序的node，再去插入
+            last = last->next;
+        }else{
+            ListNode* prev = dummyhead;
+            while(prev->next->val <= node->val){ //prev->next遍历法
+                prev = prev->next;
+            }
+            last->next = node->next;
+            node->next = prev->next;
+            prev->next = node;
+        }
+        node = last->next;
+    }
+    return dummyhead->next;
+}
+```
 
 **Leetcode23. 合并K个升序链表**
 

@@ -40,6 +40,31 @@ ListNode* sortList(ListNode* head) {
   
 **快速排序（不需要额外空间）**
 
+```cpp
+void sort(ListNode* left, ListNode* right){
+    if(left == right)return;
+    int val = left->val;
+    ListNode* p0 = left;
+    ListNode* p1 = left->next;
+    while(p1 != right){ //目的就是Partition，将小的分在左边，大的分在右边，可以通过快慢指针来实现
+        cout << p1->val << endl;
+        if(p1->val < val){
+            p0 = p0->next;
+            swap(p0->val, p1->val); //换指针，比换值的效率更高
+        }
+        p1 = p1->next;
+    }
+    swap(left->val, p0->val); //注意
+    sort(left, p0);
+    sort(p0->next, right);
+}
+ListNode* sortList(ListNode* head) {
+    if(!head)return NULL;
+    sort(head, NULL);
+    return head;
+}
+```
+
   
 **Leetcode147 插入排序（不需要额外空间）**
 

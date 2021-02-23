@@ -20,6 +20,12 @@ while(fast && fast->next) {
 }
 ```
 
+**判断奇偶可以用fast来判断**
+
+```cpp
+if(fast) slow = slow->next; //奇数链表处理
+```
+
 **（这两种初始化方式，视情况而定）**
 
 ### **题目：**

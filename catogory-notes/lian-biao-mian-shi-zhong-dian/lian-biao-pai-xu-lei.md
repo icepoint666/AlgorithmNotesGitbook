@@ -47,14 +47,13 @@ void sort(ListNode* left, ListNode* right){
     ListNode* p0 = left;
     ListNode* p1 = left->next;
     while(p1 != right){ //目的就是Partition，将小的分在左边，大的分在右边，可以通过快慢指针来实现
-        cout << p1->val << endl;
         if(p1->val < val){
             p0 = p0->next;
             swap(p0->val, p1->val); //换指针，比换值的效率更高
         }
         p1 = p1->next;
     }
-    swap(left->val, p0->val); //注意
+    swap(left->val, p0->val); //保证p0是ref_val
     sort(left, p0);
     sort(p0->next, right);
 }

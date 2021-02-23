@@ -402,8 +402,17 @@ void radixSort(unsigned int array[], int length) {
 从**nums\[i\]**往左边找\(j--\)，找到刚好比nums\[j\]大的插入到nums\[j+1\]的位置
 
 ```cpp
- vector<int> insertionSort()(vector<int>& nums) {
-    for
+vector<int> insertionSort()(vector<int>& nums) {
+    for(int i = 1; i < nums.size(); i++){
+        int val = nums[i];
+        int j = i - 1;
+        while(j >= 0 && val > nums[j]){
+            nums[j+1] = nums[j];
+            j--;
+        }
+        j++;
+        nums[j] = val; 
+    }
 }
 ```
 

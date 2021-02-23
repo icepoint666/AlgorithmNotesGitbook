@@ -179,6 +179,7 @@ c++标准库实现的Pair与Tuple都不是hashable，里面也允许放置动态
 
 ```cpp
 pair<int,int> pr = make_pair(2,3);
+pair<int,int> pr = {1,2}
 pair<int,int> pr(2,3);
 pr.first pr.second
 ```

@@ -63,7 +63,7 @@ bool operator< (const map_pair& lhs, const map_pair& rhs) {
     return lhs.second < rhs.second;
 }
 //这种方式可以
-struct CmpByValue {
+struct CmpByValue { //注意：用结构体
   bool operator()(const map_pair& lhs, const map_pair& rhs) {
     return lhs.second < rhs.second;
   }

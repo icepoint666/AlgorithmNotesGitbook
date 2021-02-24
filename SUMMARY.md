@@ -94,6 +94,7 @@
 * [双指针滑窗](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/README.md)
   * [滑动窗口（Sliding Window）](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/untitled.md)
   * [快慢双指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/kuai-man-shuang-zhi-zhen.md)
+  * [任何找循环问题都可以用快慢指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/ren-he-zhao-xun-huan-wen-ti-du-ke-yi-yong-kuai-man-zhi-zhen.md)
   * [左右双指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/zuo-you-shuang-zhi-zhen.md)
 * [贪心算法](catogory-notes/tan-xin-suan-fa-1.md)
 * [动态规划](catogory-notes/dong-tai-gui-hua/README.md)

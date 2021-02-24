@@ -12,6 +12,7 @@ template <class RandomAccessIterator, class Compare>
 ```cpp
 sort(vec.begin(), vec.end());             //内置比较方式
 sort(vec.begin(), vec.end(), Compare());
+sort(vec.begin(), vec.end(), greater<int>{});
 ```
 
 ### **默认sort的比较方式：（每个容器都有内置重载的 operater &lt;\)**

@@ -34,7 +34,27 @@
 解释：11 = 5 + 5 + 1
 ```
 
+```cpp
+//关键在于 k + coin < res的剪枝
 
+void dfs(vector<int>& coins, int cur, int coin, int amount, int& res){
+    if(amount == 0){
+        res = coin;
+        return;
+    }
+    if(cur == coins.size())return;
+    for (int k = amount / coins[cur]; k >= 0 && k + coin < res; k--){
+        dfs(coins, cur+1, coin+k, amount-k*coins[cur], res);
+    }
+}
+int coinChange(vector<int>& coins, int amount) {
+    if(amount == 0)return 0;
+    sort(coins.rbegin(), coins.rend());
+    int res = INT_MAX;
+    dfs(coins, 0, 0, amount, res);
+    return res == INT_MAX ? -1: res;
+}
+```
 
 **452. 用最少数量的箭引爆气球**
 

@@ -32,9 +32,20 @@ bool operator &lt;  return std::pair& lhs &lt; std::pair& rhs
 
 * 小于 lhs.first &lt; rhs.first，如果lhs.first == rhs.first则比较lhs.second &lt; rhs.second 
 
-### 自定义sort的比较方式：定义比较类
+### 自定义sort的比较方式：定义Lambda函数，定义比较类
 
 一般STL容器最好不要直接重载operator &lt; ，可能会报错
+
+方法1：
+
+```cpp
+auto cmp = [&](const auto &a, const auto &b){
+    return a[1] < b[1];
+};
+sort(points.begin(), points.end(), cmp);
+```
+
+方法2：
 
 ```cpp
 struct CmpByValue {

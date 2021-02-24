@@ -19,6 +19,67 @@
 
 ![](../../.gitbook/assets/heap.jpg)
 
+### **TopK堆排序实现**
+
+```cpp
+void minHeap(vector<int>& heap, int parent, int len){
+    int child = 2 * parent + 1;
+    while(child < len){
+        if(child + 1 < len && heap[child] > heap[child+1])child++;
+        if(heap[parent] > heap[child]){
+            swap(heap[parent], heap[child]);
+            parent = child;
+            child = 2 * parent + 1;
+        }else break;
+    }
+}
+int findKthLargest(vector<int>& nums, int k){
+    vector<int>heap;
+    heap.reserve(k);
+    for(int i = 0; i < k; i++){
+        heap.push_back(nums[i]);
+    }
+    for(int i = k / 2 - 1; i >= 0; i--){
+        minHeap(heap, i, k);
+    }
+    for(int i = k; i < nums.size(); i++){
+        if(nums[i] > heap[0]){
+            heap[0] = nums[i];
+            minHeap(heap, 0, k);
+        }
+    }//return kth
+    return heap[0];
+}
+
+int TopK(vector<int>& nums, int k){
+    vector<int>heap;
+    heap.reserve(k);
+    for(int i = 0; i < k; i++){
+        heap.push_back(nums[i]);
+    }
+    for(int i = k / 2 - 1; i >= 0; i--){
+        minHeap(heap, i, k);
+    }
+    for(int i = k; i < nums.size(); i++){
+        if(nums[i] > heap[0]){
+            heap[0] = nums[i];
+            minHeap(heap, 0, k);
+        }
+    }
+    //return topK
+    vector<int>res;
+    res.resize(k);
+    for(int i = 0; i < k; i++){
+        res[k-i-1] = heap[0];
+        heap[0] = heap[k-i-1];
+        if(i!=k-1)minHeap(heap, 0, k-i-1);
+    }
+    return res;
+}
+```
+
+### **=======\(忽略\)=======**
+
 ### **堆的结构**
 
 **堆通常是一个可以被看做一棵树的数组对象”**，所以它的结构就并不是左指针和右指针了，而是以数组的形式，而且为了方便后面的操作（像插入、删除...），堆的结构中还有Size代表它当前的长度和Capacity代表它的总容量：

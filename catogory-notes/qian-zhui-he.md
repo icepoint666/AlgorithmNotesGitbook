@@ -83,7 +83,7 @@ int maxSubArray(vector<int>& nums) {
     int min_ = 0, max_ = INT_MIN; //注意1：以后一定要用INT_MIN或者INT_MAX，不要用0x3f3f3f3f，这个不够大
     for(int i = 0; i < nums.size(); i++){
         sums[i+1] = sums[i] + nums[i];
-        max_ = max(sums[i+1]-min_, max_);
+        max_ = max(sums[i+1] - min_, max_);
         min_ = min(sums[i+1], min_);  //注意2：min_在后面可以防止 连续序列size为0的情况发生
     }
     return max_;

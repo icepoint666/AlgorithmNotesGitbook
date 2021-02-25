@@ -102,6 +102,7 @@
   * [高楼扔鸡蛋：动态规划/递归](catogory-notes/dong-tai-gui-hua/gao-lou-reng-ji-dan-dong-tai-gui-hua-di-gui.md)
   * [打家劫舍问题](catogory-notes/dong-tai-gui-hua/da-jia-jie-she-wen-ti.md)
   * [dp数组横向空间压缩](catogory-notes/dong-tai-gui-hua/dp-shu-zu-heng-xiang-kong-jian-ya-suo.md)
+  * [动态规划本质就是枚举子问题结果](catogory-notes/dong-tai-gui-hua/dong-tai-gui-hua-ben-zhi-jiu-shi-mei-ju-zi-wen-ti-jie-guo.md)
 * [位运算，数位](catogory-notes/wei-yun-suan-shu-wei.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti/README.md)
   * [尾随0问题](catogory-notes/shu-xue-wen-ti/wei-sui-0-wen-ti.md)

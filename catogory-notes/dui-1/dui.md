@@ -5,7 +5,7 @@
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 41 | 数据流中的中位数 | 最大堆/最小堆来做 | 思考/困难 |
-| 剑指 Offer 49 | 丑数 | 注意去重+long long处理 | 简单 |
+| 剑指 Offer 49/264 | 丑数 | 注意去重+long 处理 | 简单 |
 | 480 | 滑动窗口中位数 | 专题（缜密的考虑各种情况） | 困难 |
 
 **剑指 Offer 41. 数据流中的中位数**
@@ -26,19 +26,17 @@
 
 ```cpp
 int nthUglyNumber(int n) {
-    priority_queue<long long, vector<long long>, greater<long long>>q; //因为从小到大输出，所以是优先队列
+    priority_queue<long, vector<long>, greater<long>>q; //小顶堆是greater
     q.push(1);
-    int cnt = 1;
-    while(!q.empty() && cnt <= 1690){
-        long long tmp = q.top();
-        while(!q.empty()&&tmp==q.top())q.pop(); //因为会有重复去重
-        if(n == cnt)return (int)tmp;
-        q.push(tmp*2);
-        q.push(tmp*3);
-        q.push(tmp*5); //虽然执行次数不会很多次，但是这种暴力的方式可能会int overflow,所以longlong
-        cnt++;
+    long cur; //overflow long去处理
+    while(n--){
+        cur = q.top();
+        while(!q.empty() && q.top() == cur)q.pop(); //一定要去重，可能上一次push(6 = 3 * 2)这一次push(6 = 2 * 3)
+        q.push(cur*2);
+        q.push(cur*3);
+        q.push(cur*5);
     }
-    return 0;
+    return (int)cur;
 }
 ```
 

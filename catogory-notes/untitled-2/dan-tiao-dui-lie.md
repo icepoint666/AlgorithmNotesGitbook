@@ -46,7 +46,7 @@ private:
     deque<int> data;
 public:
     void push(int n) {
-        while (!data.empty() && data.back() < n) 
+        while (!data.empty() && data.back() < n) //如果相等也要加入，这是关键！
             data.pop_back();
         data.push_back(n);
     }

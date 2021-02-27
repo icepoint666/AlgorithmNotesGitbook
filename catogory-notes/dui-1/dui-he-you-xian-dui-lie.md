@@ -1,4 +1,4 @@
-# 堆实现
+# 堆
 
 ## 最大堆/最小堆
 
@@ -55,29 +55,6 @@ MaxHeap CreatHeap(){
 
 ![](../../.gitbook/assets/heap4.jpg)
 
-**代码实现**
-
-```cpp
-ElementType DeleteMaxHeap(MaxHeap H){
-    int child,parent;
-    ElementType temp,MaxItem;
-    if(IsEmpty(H)){
-        printf("Empty!")
-    }
-    MaxItem=H->Element[1];
-    temp=H->Element[H->Size--];
-    for(parent=1;parent*2>Size;parent=child){
-        child=parent*2;
-        if(child!=H->size&&H->Element[child+1]>H->Element[child]){
-            child++;
-        }
-        if(H->Element[child]>temp) H->Element[parent]=H->Element[child];
-        else break;
-    }
-    H->Element[parent]=temp;
-}
-```
-
 ### **插入堆**
 
 删除这么有意思，插入一定也是吧！！！还是一个最大堆，删除为了不影响完全二叉树性质是在第一个位置，那么插入则是在最后一个位置：
@@ -93,20 +70,6 @@ ElementType DeleteMaxHeap(MaxHeap H){
 ![](../../.gitbook/assets/heap7.jpg)
 
 得到最终结果，然后我们会发现一个问题，就是58会继续往上找，但是它并没有父节点怎么办呢？？我们的解决方法是设置一个**哨兵**，在所有堆的最上面（也就是数组的第0个元素），加一个一定比堆中所有值都大的数MAX就行啦~
-
-```cpp
-void Insert(ElementType Item,MaxHeap H){
-    int i;
-    if(IsFull(H)){
-        printf("Full!")；
-        return;
-    }
-    i=++H->Size;
-    for(;Item>H->Element[i/2];i=i/2)
-    H->Element[Size]=H->Element[Size/2];
-    H->Element[Size]=Item;
-}
-```
 
 
 

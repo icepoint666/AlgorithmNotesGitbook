@@ -42,7 +42,7 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
     <tr>
       <td style="text-align:left">&#x5251;&#x6307;Offer 59-II</td>
       <td style="text-align:left">&#x961F;&#x5217;&#x7684;&#x6700;&#x5927;&#x503C;</td>
-      <td style="text-align:left">&#x5355;&#x8C03;&#x6808;&#x6765;&#x7EF4;&#x62A4;&#x6700;&#x5927;&#x503C;</td>
+      <td style="text-align:left">&#x5355;&#x8C03;deque&#x6765;&#x7EF4;&#x62A4;&#x6700;&#x5927;&#x503C;</td>
       <td
       style="text-align:left">&#x4E2D;&#x7B49;</td>
     </tr>
@@ -110,6 +110,8 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
 
 再把posterior\[i\]加入到栈中
 
+**关键：这个循环，意思也就是说，如果遇到比当前top小的，就默认为已经是一个左子树了，因为是后续遍历的倒叙，这时候右子树的元素必然已经询问过了，之后如果出现比root大的就是矛盾所在**
+
 ```cpp
 class Solution {
 public:
@@ -121,7 +123,7 @@ public:
         for(int i = n - 1; i >= 0; i--){
             if(postorder[i] > root)return false;
             while(!stk.empty() && postorder[i] < stk.top()){ //这个循环是太关键了！理解这个循环的意思
-                root = stk.top();
+                root = stk.top(); //这个循环就是说，如果遇到比当前top小的，就默认为已经是一个左子树了，然后直接找到该左子树的对应的root
                 stk.pop();
             }
             stk.push(postorder[i]);
@@ -135,52 +137,46 @@ public:
 
  函数`max_value`、`push_back` 和 `pop_front` 的**均摊**时间复杂度都是O\(1\)
 
-**关键：如何维护一个deque使它能返回队列的最大值**
+**关键：使用deque**
 
 **讨论两种情况：**
 
-* **如果新加入的元素，大于deque的顶端值，那么pop这个顶端值，直到pop到比它大的值**
-* **如果新加入的元素，小于deque的顶端值，直接加入**
+* 如果新加入的元素，大于deque的顶端值，那么pop这个顶端值，直到pop到比它大的值
+* 如果新加入的元素，小于deque的顶端值，直接加入
 
-**需要保证deque能记录，元素的index（插入顺序）**
+**关键：需要保证deque能记录，元素的index吗（插入顺序）**
 
-**如果队列移除一个元素，这时队列开始点的index大于deque最底端元素的index，那么也要清楚这个deque的最底端元素**
+**\(不需要记录index）这里有一个trick：加入的时候如果相等的元素也加入单调deque，删除的时候通过相等来判断是否删除即可**
 
 ```cpp
 class MaxQueue {
 public:
+    deque<int>dq;
     queue<int>q;
-    deque<pair<int,int>>dq;
-    int start,end;
     MaxQueue() {
-        start = 0;
-        end = 0;
+        q = queue<int>();
+        dq = deque<int>();
     }
     
     int max_value() {
-        if(dq.empty())return -1;
-        return dq.front().first;
+        if(q.empty())return -1;
+        return dq.front();
     }
     
     void push_back(int value) {
+        while(!dq.empty() && dq.back() < value){
+            dq.pop_back();
+        }//注意相等的也要push
+        dq.push_back(value);
         q.push(value);
-        if(dq.empty()){
-            dq.push_back(make_pair(value,end++));
-        }else{
-            while(!dq.empty()&&value >= dq.back().first){
-                dq.pop_back();
-            }
-            dq.push_back(make_pair(value,end++));
-        }
     }
     
     int pop_front() {
         if(q.empty())return -1;
-        start++;
-        if(start > dq.front().second)dq.pop_front();
-        int tmp = q.front();
+        int val = q.front();
+        if(val == dq.front())dq.pop_front();
         q.pop();
-        return tmp;
+        return val;
     }
 };
 ```

@@ -8,6 +8,10 @@
 
 1. 初始化dp
 2. 影子建立以及，影子的更新
+
+   影子示例：                           abcabbc  
+   对应位置时影子的位置  X: 0001200  
+
 3. 匹配模板构建：dp数组更新
 4. 用模板匹配实际字符串
 
@@ -19,7 +23,7 @@ int strStr(string haystack, string needle) {
     memset(dp,0,sizeof(dp));
     dp[0][needle[0]] = 1; //初始化
     
-    int X = 0;  //影子：abcabc b的影子就是上一个b
+    int X = 0;
     //生成匹配模板，也就是dp数组
     for(int i = 1; i < m; i++){ //从第二个字符开始，很关键
         for(int c = 0; c < 256; c++){

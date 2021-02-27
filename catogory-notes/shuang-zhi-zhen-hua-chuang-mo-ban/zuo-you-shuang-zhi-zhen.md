@@ -182,11 +182,57 @@ int trap(vector<int>& height) {
 
 **15. 三数之和**
 
-**双指针复杂度：O\(N^2\)** 
+**推荐解法：解法1：纯双指针 复杂度：O\(N^2\)** 
+
+**通过定义规则维护结果 不重复**
+
+```cpp
+vector<vector<int>> threeSum(vector<int>& nums) {
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+    vector<vector<int>> ans;
+    // 枚举 a
+    for (int first = 0; first < n; ++first) {
+        // 需要和上一次枚举的数不相同
+        if (first > 0 && nums[first] == nums[first - 1]) {
+            continue;
+        }
+        // c 对应的指针初始指向数组的最右端
+        int third = n - 1;
+        int target = -nums[first];
+        // 枚举 b
+        for (int second = first + 1; second < n; ++second) {
+            // 需要和上一次枚举的数不相同
+            if (second > first + 1 && nums[second] == nums[second - 1]) {
+                continue;
+            }
+            // 需要保证 b 的指针在 c 的指针的左侧
+            while (second < third && nums[second] + nums[third] > target) {
+                --third;
+            }
+            // 如果指针重合，随着 b 后续的增加
+            // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
+            if (second == third) {
+                break;
+            }
+            if (nums[second] + nums[third] == target) {
+                ans.push_back({nums[first], nums[second], nums[third]});
+            }
+        }
+    }
+    return ans;
+}
+```
+
+**解法2：set + 双指针 复杂度：O\(N^2\*logN\)** 
 
 关键是不能重复，需要保证与上次枚举的不同，可以**用set**
 
 （set可以存vector数组，但是unordered\_set不行，需要处理才可以）
+
+**unordered\_set因为需要计算哈希值，处理后反而更加耗时了，会超时**
+
+**所以如果哈希的对象是很长的vector，不建议自定义哈希**
 
 * **并且为了防止极端的样例，例如全都是0（会超时）需要在加两个while循环，保证和上次枚举的数不同就行了**
 * 通过循环确定第一个数first
@@ -218,6 +264,19 @@ vector<vector<int>> threeSum(vector<int>& nums) {
         }
         return res;
     }
+    
+//===========自定义哈希==============
+
+struct Hash{
+    bool operator() (const vector<int>& st) const{
+        unsigned int val = 1;
+        for(auto& e: st){
+            val^=hash<int>{}(e);
+        }
+        return val;
+    }
+};
+unordered_set<vector<int>, Hash>st;
 ```
 
 **16. 最接近的三数之和**
@@ -243,10 +302,6 @@ int threeSumClosest(vector<int>& nums, int target) {
 **lint 58 四数之和**
 
 **推荐解法：哈希表（O\(n^2logn\)\)**
-
-```cpp
-
-```
 
 **普通解法：**将其转换为三数之和，在转换为二数之和 **（时间复杂度O\(n^3\) ）**
 

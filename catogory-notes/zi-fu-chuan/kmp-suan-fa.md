@@ -19,13 +19,13 @@ int strStr(string haystack, string needle) {
     memset(dp,0,sizeof(dp));
     dp[0][needle[0]] = 1; //初始化
     
-    int X = 0;  //影子
+    int X = 0;  //影子：abcabc b的影子就是上一个b
     //生成匹配模板，也就是dp数组
-    for(int i = 1; i < m; i++){
+    for(int i = 1; i < m; i++){ //从第二个字符开始，很关键
         for(int c = 0; c < 256; c++){
-            dp[i][c] = dp[X][c];
+            dp[i][c] = dp[X][c];  //其他没匹配上的字符都是回到影子时的匹配量
         }
-        dp[i][needle[i]] = i + 1;
+        dp[i][needle[i]] = i + 1;  //每一轮只有当前的字符可以往前说明匹配到这里
         X = dp[X][needle[i]]; 
     }
     int n = haystack.size();

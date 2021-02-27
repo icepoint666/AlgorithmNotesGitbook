@@ -40,13 +40,6 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
       style="text-align:left">&#x88F8;&#x5355;&#x8C03;&#x6808;</td>
     </tr>
     <tr>
-      <td style="text-align:left">&#x5251;&#x6307;Offer 59-II</td>
-      <td style="text-align:left">&#x961F;&#x5217;&#x7684;&#x6700;&#x5927;&#x503C;</td>
-      <td style="text-align:left">&#x5355;&#x8C03;deque&#x6765;&#x7EF4;&#x62A4;&#x6700;&#x5927;&#x503C;</td>
-      <td
-      style="text-align:left">&#x4E2D;&#x7B49;</td>
-    </tr>
-    <tr>
       <td style="text-align:left">496</td>
       <td style="text-align:left">&#x4E0B;&#x4E00;&#x4E2A;&#x66F4;&#x5927;&#x7684;&#x5143;&#x7D20;-i</td>
       <td
@@ -129,54 +122,6 @@ public:
             stk.push(postorder[i]);
         }
         return true;
-    }
-};
-```
-
-**剑指 Offer 59 - II. 队列的最大值**
-
- 函数`max_value`、`push_back` 和 `pop_front` 的**均摊**时间复杂度都是O\(1\)
-
-**关键：使用deque**
-
-**讨论两种情况：**
-
-* 如果新加入的元素，大于deque的顶端值，那么pop这个顶端值，直到pop到比它大的值
-* 如果新加入的元素，小于deque的顶端值，直接加入
-
-**关键：需要保证deque能记录，元素的index吗（插入顺序）**
-
-**\(不需要记录index）这里有一个trick：加入的时候如果相等的元素也加入单调deque，删除的时候通过相等来判断是否删除即可**
-
-```cpp
-class MaxQueue {
-public:
-    deque<int>dq;
-    queue<int>q;
-    MaxQueue() {
-        q = queue<int>();
-        dq = deque<int>();
-    }
-    
-    int max_value() {
-        if(q.empty())return -1;
-        return dq.front();
-    }
-    
-    void push_back(int value) {
-        while(!dq.empty() && dq.back() < value){
-            dq.pop_back();
-        }//注意相等的也要push
-        dq.push_back(value);
-        q.push(value);
-    }
-    
-    int pop_front() {
-        if(q.empty())return -1;
-        int val = q.front();
-        if(val == dq.front())dq.pop_front();
-        q.pop();
-        return val;
     }
 };
 ```

@@ -182,6 +182,32 @@ int nextGreaterElement(int n) {
 }
 ```
 
+**解法2：利用nextpermutation算法来做**
+
+```cpp
+void reverse(string& s, int left, int right){
+    while(left < right){
+        swap(s[left], s[right]);
+        left++;
+        right--;
+    }
+}
+int nextGreaterElement(int n){
+    string str = to_string(n);
+    if(str.size() == 1)return -1;
+    int i = str.size() - 1;
+    while(i >= 1 && str[i] <= str[i-1])i--;
+    if(!i)return -1;
+    i--;
+    int j = i + 1;
+    while(j < str.size() && str[j] > str[i])j++;
+    j--;
+    swap(str[j], str[i]);
+    reverse(str, i + 1, str.size() - 1);
+    return stol(str) > INT_MAX? -1: stoi(str);
+}
+```
+
 **84. 柱状图中最大的矩形**
 
 **85.最大矩形**

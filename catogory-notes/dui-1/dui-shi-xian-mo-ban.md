@@ -39,13 +39,15 @@ for(int i = k / 2 - 1; i >= 0; i--){
 
 ```cpp
  heap[0] = heap[k-1];
- minHeap(heap, 0, k);
+ minHeap(heap, 0, k-1);
 ```
 
 ### 插入堆
 
 ```cpp
-
+heap[k] = value;
+parent = k / 2;
+minHeap(heap, parent, k+1);
 ```
 
 

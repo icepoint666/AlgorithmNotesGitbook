@@ -38,7 +38,7 @@ void traverse(TreeNode root) {
 
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
-| 46 | 全排列 | 回溯模板 |  |
+| 46 | 全排列 | 回溯模板\(利用交换来遍历！） |  |
 | 51 | N皇后 | 回溯模板+特殊判定 | 中等 |
 | 78 | 子集 | 回溯模板变体 |  |
 | 77 | 组合 | 回溯模板变体 |  |
@@ -50,6 +50,29 @@ void traverse(TreeNode root) {
 给定一个 **没有重复** 数字的序列，返回其所有可能的全排列。
 
 **解决：回溯 + dfs**
+
+**简单版：swap交换！**
+
+```cpp
+vector<vector<int>> res;
+void backtrack(vector<int>&nums, int pos, vector<int>&track){
+    if(pos == nums.size())res.push_back(track);
+    for(int i = pos; i < nums.size(); i++){
+        swap(nums[i], nums[pos]);
+        track.push_back(nums[pos]);
+        backtrack(nums, pos+1, track);
+        track.pop_back();
+        swap(nums[i], nums[pos]);
+    }
+}
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<int> track;
+    backtrack(nums, 0,track);
+    return res;
+}
+```
+
+**复杂版：**
 
 无论对于**有重复**还是**没有重复，**思路都是**定义三个数组**：
 

@@ -4,6 +4,8 @@
 
 * **单调queue：滑动窗口最大值**
 * **单调deque：队列的最大值**
+  * **push\_back的时候需要判断back然后pop\_back**
+  * **pop\_front的时候需要判断front的是不是自己对应的元素，然后pop\_front**
 * **单调stack：栈的最大值/最小值**
 
 **单调栈简单介绍**

@@ -1,6 +1,6 @@
 # 栈与队列
 
-利用deque实现一个栈，先进先出
+利用deque实现一个队列，先进先出
 
 ```cpp
 deque<int>s;
@@ -25,7 +25,7 @@ while(!s.empty()){
 | 剑指offer 06 | 从尾到头打印链表 | 基本操作 | 简单 |
 | 剑指offer 09 | 用两个栈实现队列 | 两个栈来实现队列 | 简单 |
 | 剑指offer 30 | 包含min函数的栈 | 单调栈辅助 | 中等 |
-| 剑指offer 31 | 判断是否可能是栈的弹出序列 | 双向链表 | 陷阱多，做的时间长 |
+| 剑指offer 31 | 判断是否可能是栈的弹出序列 | 模拟栈的过程 | 中等，技巧 |
 | 394 | 字符串解码 | 带括号的字符串问题想到用栈 | 字符串技巧 |
 | 20 | 有效的括号 | 注意单独出来一个左括号或者右括号的测试例子 | 易错 |
 
@@ -116,41 +116,17 @@ public:
 ```cpp
 class Solution {
 public:
-    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
-        if(pushed.empty() && pushed.empty())return true;
-        map<int,int> mp;
-        int n = popped.size();
-        for(int i = 0; i < n; i++){
-            mp[pushed[i]] = i+1;
-        }
-        list<int> lst;
-        for(int i = 0; i < n; i++){
-            pushed[i] = i + 1;
-            popped[i] = mp[popped[i]];
-            lst.push_back(pushed[i]);
-        }
-        //转换为[1,2,3,...,]按照序数来表示pushed,popped
-        int i = 0;
-        //从头开始模拟
-        for(auto it = lst.begin(); it!=lst.end() && i < n;){
-            if(*it == popped[i]){//一旦匹配，就把这个从列表中删除，代表出栈
-                it = lst.erase(it);
-                if(lst.empty()){
-                    return true;
-                }else if(it == lst.begin()){
-                    i++;
-                }
-                else{
-                    it--;
-                    i++;
-                }
-            }else if(*it < popped[i]){//当前值小于，就继续往后直到匹配
-                it++;
-            }else{//表示坏了
-                return false;
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped){
+        stack<int> push_stk;
+        int push_idx = 0, pop_idx = 0;
+        while(push_idx != pushed.size()){
+            push_stk.push(pushed[push_idx++]);
+            while(!push_stk.empty() && push_stk.top() == popped[pop_idx]){
+                push_stk.pop();
+                pop_idx++;
             }
         }
-        return false;
+        return pop_idx == push_idx;
     }
 };
 ```

@@ -89,7 +89,8 @@ public:
 for(int i = 1; i <=n; ++i){
     dp[i] = 1;
     for(int j = 1; j < i; j++){
-        dp[i] = max(dp[i], nums[i-1]>nums[j-1]?dp[j]+1:1);
+        if(nums[i-1]>nums[j-1])
+            dp[i] = max(dp[i], dp[j]+1);
     }
 }
 ```

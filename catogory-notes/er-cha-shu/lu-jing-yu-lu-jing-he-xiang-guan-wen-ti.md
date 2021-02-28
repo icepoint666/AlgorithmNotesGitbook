@@ -124,7 +124,7 @@ int maxPathSum(TreeNode* root) {
 }
 ```
 
-**优化，重用findMax: 24ms**
+**优化，重用findMax: 16ms 击败99.88%**
 
 ```java
 int maxval;

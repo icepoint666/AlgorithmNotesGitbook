@@ -10,7 +10,7 @@
 | 113 | 路径之和-II | dfs+backtracing | 中等 |
 | 437 | 路径总和Ⅲ | 双重递归 | 简单 |
 | 1367 | 二叉树中的列表 | 双重递归 | 中等 |
-| 124 | 二叉树的最大路径和 | 思路清晰 | 困难/一遍A |
+| 124 | 二叉树的最大路径和 | 思路清晰 | 中等 |
 | 129 | 求根到叶子节点数字之和 | dfs+backtracing | 简单 |
 | 298 | 二叉树最长连续序列 | dfs | 中等 |
 | Facebook面试题 | 路径重排序后字典序比较大小 |  | 待解决 |
@@ -106,27 +106,43 @@ public:
 
 **最核心点：后序遍历**
 
-**后续补充：2/28第二遍做的时候：（不推荐！！重复计算了很多root-&gt;left, root-&gt;right，很慢：400ms，findMax可以重用\)**
+**后续补充：2/28第二遍做的时候：（刚开始重复计算了很多root-&gt;left, root-&gt;right，很慢：400ms，findMax可以重用\)**
 
 ```java
+int maxmal;
 int findMax(TreeNode* root){
     if(!root)return 0;
-    return max(0,root->val + max(findMax(root->left),findMax(root->right))); //这里一定要加max(0, )
-}
-void cal(TreeNode* root){
-    if(!root)return;
-    maxval = max(maxval, root->val+findMax(root->left)+findMax(root->right)); //root->val确保至少有一个节点
-    cal(root->left);
-    cal(root->right);
+    int l = findMax(root->left);
+    int r = findMax(root->right);
+    maxval = max(maxval, root->val+l+r)
+    return max(0,root->val + max(l,r)); //这里一定要加max(0, )
 }
 int maxPathSum(TreeNode* root) {
     maxval = INT_MIN;
-    cal(root);
+    int _ = findMax(root);
     return maxval;
 }
 ```
 
-**第一次做：40ms**
+**优化，重用findMax: 24ms**
+
+```java
+int maxval;
+int findMax(TreeNode* root){
+    if(!root)return 0;
+    int l = findMax(root->left);
+    int r = findMax(root->right);
+    maxval = max(maxval, root->val+l+r);
+    return max(0,root->val + max(l,r)); //这里一定要加max(0, )
+}
+int maxPathSum(TreeNode* root) {
+    maxval = INT_MIN;
+    int _ = findMax(root);
+    return maxval;
+}
+```
+
+**===================下面是第一次做（忽略，分析太复杂）===============**
 
 **后续遍历归结的时候，需要考虑两个问题：**
 

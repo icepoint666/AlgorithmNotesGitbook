@@ -64,6 +64,7 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 | :--- | :--- | :--- | :--- |
 | 102 | 二叉树的层序遍历 | 队列层序遍历 | 模板 |
 | 987 | 二叉树的垂序遍历 | bfs\(队列层序遍历\) + hashmap | 中等 |
+| 199 | 二叉树的右视图 | stack记录TreeNode,depth | 简单 |
 
 **Leetcode二叉树测试程序（有一个漏洞，因为int中存储NULL\('\0'\)与0本质上都是一样的，所以节点值不能为0）**
 
@@ -206,5 +207,31 @@ public:
         return res;
     }
 };
+```
+
+**199. 二叉树的右视图**
+
+```cpp
+vector<int> rightSideView(TreeNode* root) {
+    stack<pair<TreeNode*, int>>s;
+    vector<int>res;
+    if(root)s.push({root, 0});
+    int last_level = -1;
+    int level = -1;
+    TreeNode* cur;
+    while(!s.empty()){
+        level = s.top().second;
+        cur = s.top().first;
+        s.pop();
+        if(level > last_level){
+            res.push_back(cur->val);
+            last_level = level;
+        }
+        if(cur->left)s.push({cur->left, level+1});
+        if(cur->right)s.push({cur->right, level+1});
+    }
+    if(level == res.size())res.push_back(cur->val);
+    return res;
+}
 ```
 

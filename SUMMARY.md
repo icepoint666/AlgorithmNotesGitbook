@@ -23,7 +23,7 @@
 * [二叉树](catogory-notes/er-cha-shu/README.md)
   * [二叉树定义题](catogory-notes/er-cha-shu/er-cha-shu-ding-yi-ti.md)
   * [二叉树迭代化](catogory-notes/er-cha-shu/er-cha-shu-die-dai-hua.md)
-  * [前序，中序，后续遍历（Traversal）](catogory-notes/er-cha-shu/qian-xu-zhong-xu-hou-xu-bian-li-traversal.md)
+  * [前序，中序，后序遍历（Traversal）](catogory-notes/er-cha-shu/qian-xu-zhong-xu-hou-xu-bian-li-traversal.md)
   * [前继，后继问题\(successor\)](catogory-notes/er-cha-shu/qian-ji-hou-ji-wen-ti-successor.md)
   * [后序遍历\(Postorder Traversal\)的应用](catogory-notes/er-cha-shu/hou-xu-bian-li-postorder-traversal-de-ying-yong.md)
   * [层序遍历\(Level Order Traversal\)](catogory-notes/er-cha-shu/ceng-xu-bian-li-level-order-traversal.md)

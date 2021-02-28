@@ -1,4 +1,4 @@
-# 前序，中序，后续遍历（Traversal）
+# 前序，中序，后序遍历（Traversal）
 
 **前序\(preorder\)，中序\(inorder\)，后序\(postorder\)遍历** 
 
@@ -98,7 +98,7 @@ vector<int> preorder(TreeNode* root) {
 }
 ```
 
-### 中序遍历
+### 中序遍历\(迭代有技巧!\)
 
 **递归模板：**
 
@@ -186,7 +186,7 @@ vector<int> inorderTraversal(TreeNode* root){
 }
 ```
 
-### 后序遍历
+### 后序遍历\(迭代有难度!\)
 
 **递归模板**
 
@@ -200,7 +200,7 @@ vector<int> inorderTraversal(TreeNode* root){
 
 * ①每一步用 stack 顶元素作为新的 cur，在 while 循环中只需要以 !stack.isEmpty\(\) 为条件去判断
   * 用一个 stack 存着所有的 candidate node，栈顶为当前 candidate，并且以栈是否为空做唯一判断标准
-* ②post-order 是【左，右，中】，压栈的时候还是先压右再压左
+* ②post-order 是【左，右，中】，压栈的时候还是先压左再压右
 * **③最重要的是 prev 与 cur 的相对关系，相当于存了上一步的动作，用作下一步的方向**
   * prev表示上一次访问的节点，三种可能情况需要讨论
     * cur在prev的下面

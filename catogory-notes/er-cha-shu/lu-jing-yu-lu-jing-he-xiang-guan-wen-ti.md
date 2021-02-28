@@ -1,5 +1,7 @@
 # 路径与路径和相关问题
 
+### 双重递归很重要，一个递归开头，一个递归路径
+
 ### 题目
 
 | 序号/难度 | 名字 | 备注 |  |
@@ -103,6 +105,28 @@ public:
 **124. 二叉树中的最大路径和**
 
 **最核心点：后序遍历**
+
+**后续补充：2/28第二遍做的时候：（不推荐！！重复计算了很多root-&gt;left, root-&gt;right，很慢：400ms，findMax可以重用\)**
+
+```java
+int findMax(TreeNode* root){
+    if(!root)return 0;
+    return max(0,root->val + max(findMax(root->left),findMax(root->right))); //这里一定要加max(0, )
+}
+void cal(TreeNode* root){
+    if(!root)return;
+    maxval = max(maxval, root->val+findMax(root->left)+findMax(root->right)); //root->val确保至少有一个节点
+    cal(root->left);
+    cal(root->right);
+}
+int maxPathSum(TreeNode* root) {
+    maxval = INT_MIN;
+    cal(root);
+    return maxval;
+}
+```
+
+**第一次做：40ms**
 
 **后续遍历归结的时候，需要考虑两个问题：**
 

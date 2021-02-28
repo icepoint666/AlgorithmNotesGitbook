@@ -277,3 +277,20 @@ int numTrees(int n) {
 }
 ```
 
+**剑指offer26**
+
+**注意细节**
+
+```cpp
+bool isContain(TreeNode* A, TreeNode* B){
+    if(!B)return true;
+    if(!A || A->val != B->val)return false;
+    return isContain(A->left, B->left) && isContain(A->right, B->right);
+}
+bool isSubStructure(TreeNode* A, TreeNode* B) {
+    if(!A || !B)return false;
+    if(isContain(A, B))return true;
+    return isSubStructure(A->left, B) || isSubStructure(A->right, B);
+}
+```
+

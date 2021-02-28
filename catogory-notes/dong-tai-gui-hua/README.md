@@ -789,6 +789,14 @@ if (matrix(i - 1, j - 1) == '1') {
 
 **O\(1\)做法参考：**[**https://leetcode-cn.com/problems/longest-valid-parentheses/solution/zui-chang-you-xiao-gua-hao-by-leetcode-solution/**](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/zui-chang-you-xiao-gua-hao-by-leetcode-solution/)\*\*\*\*
 
+**dp\[i\]** 表示以下标 i 字符结尾的最长有效括号的长度
+
+**只有两种可能的更新情况 s\[i\]是"\)"** 
+
+**①s\[i-1\]是"\(" ②有效括号串之前的元素s\[i-s\[i-1\]-1\]是“\(”**
+
+**满足这两种都会更新dp\[i\[**
+
 ```cpp
 int longestValidParentheses(string s) {
     int maxans = 0, n = s.length();

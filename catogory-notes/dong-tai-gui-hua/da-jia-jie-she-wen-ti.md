@@ -70,27 +70,15 @@ public:
 ```cpp
 class Solution {
 public:
-    pair<int,int>visit(TreeNode* root){
-        pair<int,int> l;
-        pair<int,int> r;
-        if(root->left == NULL && root->right == NULL){
-            return make_pair(root->val, 0);
-        }
-        if(root->left == NULL){
-            r = visit(root->right);
-            return make_pair(r.second + root->val, max(r.second, r.first));
-        }
-        if(root->right == NULL){
-            l = visit(root->left);
-            return make_pair(l.second + root->val, max(l.second, l.first));
-        }
-        l = visit(root->left);
-        r = visit(root->right);
-        return make_pair(l.second + r.second + root->val, max(r.second, r.first) + max(l.second, l.first));
+    pair<int,int> find_max(TreeNode* root){
+        if(root==NULL)return {0,0};
+        pair<int,int>l = find_max(root->left);
+        pair<int,int>r = find_max(root->right);
+        return {max(l.first, l.second)+max(r.first, r.second), root->val+l.first+r.first};
     }
     int rob(TreeNode* root) {
-        if(root==NULL)return 0;
-        auto res = visit(root);
+        pair<int,int>res;
+        res = find_max(root);
         return max(res.first, res.second);
     }
 };

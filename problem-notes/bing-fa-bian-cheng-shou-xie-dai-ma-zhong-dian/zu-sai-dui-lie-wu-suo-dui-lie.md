@@ -137,5 +137,7 @@ int main(){
 }
 ```
 
+`$ g++ boundedqueue.cpp -o bounded_queue -l pthread`
+
 ### 无锁队列
 

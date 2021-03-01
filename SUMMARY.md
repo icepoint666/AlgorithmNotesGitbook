@@ -120,10 +120,6 @@
 
 ## Problem Notes
 
-* [并发编程手写代码（重点）](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/README.md)
-  * [线程池](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/xian-cheng-chi.md)
-  * [单例模式（饿汉，懒汉）](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/dan-li-mo-shi-ehan-lan-han.md)
-  * [阻塞队列，无锁队列](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/zu-sai-dui-lie-wu-suo-dui-lie.md)
 * [经典算法数据结构（重点）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/README.md)
   * [堆\(heap\)](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/dui-heap.md)
   * [平衡二叉树\(AVL\)](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ping-heng-er-cha-shu-avl.md)
@@ -134,6 +130,10 @@
   * [B+树](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/b+-shu.md)
   * [哈希表](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/ha-xi-biao.md)
   * [LRU算法\(双向链表实现）](problem-notes/jing-dian-suan-fa-shu-ju-jie-gou-zhong-dian/lru-suan-fa-zhong-dian.md)
+* [并发编程手写代码（重点）](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/README.md)
+  * [线程池](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/xian-cheng-chi.md)
+  * [单例模式（饿汉，懒汉）](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/dan-li-mo-shi-ehan-lan-han.md)
+  * [阻塞队列，无锁队列](problem-notes/bing-fa-bian-cheng-shou-xie-dai-ma-zhong-dian/zu-sai-dui-lie-wu-suo-dui-lie.md)
 * [大数据问题](problem-notes/da-shu-ju-wen-ti/README.md)
   * [海量数据场景题](problem-notes/da-shu-ju-wen-ti/hai-liang-shu-ju-chang-jing-ti.md)
   * [top K问题](problem-notes/da-shu-ju-wen-ti/topkwen-ti.md)

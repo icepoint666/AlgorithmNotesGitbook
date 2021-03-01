@@ -1,6 +1,6 @@
 # 阻塞队列，无锁队列
 
-### 阻塞队列（循环队列）
+### 阻塞队列（循环队列,multi-consumer, multi-producer）
 
 设计都是整个队列被一个互斥锁所控制
 
@@ -139,5 +139,7 @@ int main(){
 
 `$ g++ boundedqueue.cpp -o bounded_queue -l pthread`
 
-### 无锁队列
+### 无锁队列\(multi-producer, multi-consumer\)
+
+
 

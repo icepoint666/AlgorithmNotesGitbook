@@ -6,6 +6,12 @@ threadpool.h文件
 
 以及测试用的文件
 
+**测试命令**
+
+```cpp
+$ g++ threadpool_test.cpp -o threadpool -l pthread
+```
+
 ### 线程池（3个函数，5个对象，其中一个函数涉及到泛型编程）
 
 重点记住enqueue的泛型编程的实现

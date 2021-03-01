@@ -1,4 +1,4 @@
-# LRU算法
+# LRU算法\(双向链表实现）
 
 **Leetcode146 LRU算法实现**
 
@@ -46,89 +46,83 @@
 要记录一下LRU cache的size与 capacity
 
 ```cpp
-struct DLinkedNode {
-    int key, value;
-    DLinkedNode* prev;
-    DLinkedNode* next;
-    DLinkedNode(): key(0), value(0), prev(nullptr), next(nullptr) {}
-    DLinkedNode(int _key, int _value): key(_key), value(_value), prev(nullptr), next(nullptr) {}
+struct DListNode{
+    int key, val;
+    DListNode* prev;
+    DListNode* next;
+    DListNode():key(0), val(0), prev(nullptr), next(nullptr){};
+    DListNode(int key_, int val_):key(key_),val(val_), prev(nullptr), next(nullptr){};
 };
-
 class LRUCache {
 private:
-    unordered_map<int, DLinkedNode*> cache;
-    DLinkedNode* head;
-    DLinkedNode* tail;
-    int size;
     int capacity;
-
+    int size;
+    DListNode* head;
+    DListNode* tail;
+    unordered_map<int, DListNode*>mp;
 public:
-    LRUCache(int _capacity): capacity(_capacity), size(0) {
-        // 使用伪头部和伪尾部节点
-        head = new DLinkedNode();
-        tail = new DLinkedNode();
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+        this->size = 0;
+        mp.clear();
+        head = new DListNode();
+        tail = new DListNode();
         head->next = tail;
         tail->prev = head;
     }
     
     int get(int key) {
-        if (!cache.count(key)) {
-            return -1;
+        if(mp.count(key) > 0){
+            DListNode* node = mp[key];
+            int value = node->val;
+            moveToHead(node);
+            return value;
         }
-        // 如果 key 存在，先通过哈希表定位，再移到头部
-        DLinkedNode* node = cache[key];
-        moveToHead(node);
-        return node->value;
+        return -1;
     }
     
     void put(int key, int value) {
-        if (!cache.count(key)) {
-            // 如果 key 不存在，创建一个新的节点
-            DLinkedNode* node = new DLinkedNode(key, value);
-            // 添加进哈希表
-            cache[key] = node;
-            // 添加至双向链表的头部
-            addToHead(node);
-            ++size;
-            if (size > capacity) {
-                // 如果超出容量，删除双向链表的尾部节点
-                DLinkedNode* removed = removeTail();
-                // 删除哈希表中对应的项
-                cache.erase(removed->key);
-                // 防止内存泄漏
-                delete removed;
-                --size;
-            }
-        }
-        else {
-            // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
-            DLinkedNode* node = cache[key];
-            node->value = value;
+        DListNode* node;
+        if(mp.count(key) > 0){
+            node = mp[key];
+            node->val = value;
             moveToHead(node);
+            return;
+        }
+        if(size == capacity){
+            DListNode* tmp = removeTail();
+            mp.erase(tmp->key);
+            delete(tmp);
+            node = new DListNode(key, value);
+            addToHead(node);
+            mp[key] = node;
+        }else{
+            node = new DListNode(key, value);
+            addToHead(node);
+            mp[key] = node;
+            size++;
         }
     }
 
-    void addToHead(DLinkedNode* node) {
-        node->prev = head;
-        node->next = head->next;
-        head->next->prev = node;
-        head->next = node;
-    }
-    
-    void removeNode(DLinkedNode* node) {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
-    }
-
-    void moveToHead(DLinkedNode* node) {
+    void moveToHead(DListNode* node){
         removeNode(node);
         addToHead(node);
     }
 
-    DLinkedNode* removeTail() {
-        DLinkedNode* node = tail->prev;
+    DListNode* removeTail(){
+        DListNode* node = tail->prev;
         removeNode(node);
         return node;
+    }
+    void addToHead(DListNode* node){
+        node->next = head->next;
+        head->next->prev = node;
+        head->next = node;
+        node->prev = head;
+    }
+    void removeNode(DListNode* node){
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
     }
 };
 ```

@@ -141,5 +141,9 @@ int main(){
 
 ### 无锁队列\(multi-producer, multi-consumer\)
 
+采用的是moodycamel的实现方法：[https://github.com/cameron314/concurrentqueue](https://github.com/cameron314/concurrentqueue)
 
+**原理：**
+
+\*\*\*\*
 

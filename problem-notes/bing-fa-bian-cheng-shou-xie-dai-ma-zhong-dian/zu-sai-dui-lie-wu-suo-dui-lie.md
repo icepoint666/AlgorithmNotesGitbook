@@ -143,7 +143,11 @@ int main(){
 
 采用的是moodycamel的实现方法：[https://github.com/cameron314/concurrentqueue](https://github.com/cameron314/concurrentqueue)
 
-**原理：**
+**这个做法实现的原理是什么？**
+
+\*\*\*\*
+
+
 
 \*\*\*\*
 

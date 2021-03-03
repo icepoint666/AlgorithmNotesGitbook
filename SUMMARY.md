@@ -34,6 +34,7 @@
   * [根据遍历构造树](catogory-notes/er-cha-shu/gen-ju-bian-li-gou-zao-shu-de-wen-ti.md)
   * [序列化二叉树](catogory-notes/er-cha-shu/xu-lie-hua-er-cha-shu.md)
   * [二叉树横向串联](catogory-notes/er-cha-shu/er-cha-shu-heng-xiang-chuan-lian.md)
+  * [二叉树转换为双向链表](catogory-notes/er-cha-shu/er-cha-shu-zhuan-huan-wei-shuang-xiang-lian-biao.md)
   * [depth相关问题\(min/max/balanced depth\)](catogory-notes/er-cha-shu/depth-xiang-guan-wen-ti-minmaxbalanced-depth.md)
   * [路径与路径和相关问题](catogory-notes/er-cha-shu/lu-jing-yu-lu-jing-he-xiang-guan-wen-ti.md)
   * [inplace修改树结构](catogory-notes/er-cha-shu/inplace-xiu-gai-shu-jie-gou.md)

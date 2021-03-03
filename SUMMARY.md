@@ -105,6 +105,7 @@
   * [打家劫舍问题](catogory-notes/dong-tai-gui-hua/da-jia-jie-she-wen-ti.md)
   * [dp数组横向空间压缩](catogory-notes/dong-tai-gui-hua/dp-shu-zu-heng-xiang-kong-jian-ya-suo.md)
   * [动态规划本质就是枚举子问题结果](catogory-notes/dong-tai-gui-hua/dong-tai-gui-hua-ben-zhi-jiu-shi-mei-ju-zi-wen-ti-jie-guo.md)
+  * [滚动数组](catogory-notes/dong-tai-gui-hua/gun-dong-shu-zu.md)
 * [位运算，数位](catogory-notes/wei-yun-suan-shu-wei.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti/README.md)
   * [题目](catogory-notes/shu-xue-wen-ti/ti-mu.md)

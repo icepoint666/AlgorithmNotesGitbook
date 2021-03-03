@@ -14,7 +14,7 @@
 |  |  | 排序+左右指针+遍历 | 笨办法 |
 | 剑指 Offer57 | 两数之和（裸） | 左右指针，从左右往中间扫 | 模板 |
 | 42 | 接雨水 | 通过双指针可以实现时间空间最优 | 困难 |
-| 15 | 三数之和 | 排序+双指针（返回的三数不重复，所以用不了哈希表） | 中等 |
+| 15 | 三数之和 | 排序+双指针（返回的三数不重复，不需要哈希表） | 中等 |
 | 16 | 最接近的三数之和 | 排序+双指针，不用返回每个数字，只用返回和，更简单 | 简单 |
 | lint 58 | 四数之和 | 前两个数枚举+排序+双指针 | 中等 |
 | 1726 | 同积元组 | 类似于四数之和，不过因为元素都不等 哈希表可以降低复杂度 | 想到 |
@@ -184,44 +184,35 @@ int trap(vector<int>& height) {
 
 **推荐解法：解法1：纯双指针 复杂度：O\(N^2\)** 
 
-**通过定义规则维护结果 不重复**
+* 排序
+* 三个指针，每次移动都要判断跟上次是否相等，相等的话跳过继续移动
+  * 如果nums\[left\] + nums\[right\] == target，left/right移动都可以，所以可以归为left移动，所以这样其实只有两种情况
+    * nums\[left\] + nums\[right\] &lt;= target left判重++
+    * nums\[left\] + nums\[right\] &gt; target right判重--
 
 ```cpp
 vector<vector<int>> threeSum(vector<int>& nums) {
-    int n = nums.size();
-    sort(nums.begin(), nums.end());
-    vector<vector<int>> ans;
-    // 枚举 a
-    for (int first = 0; first < n; ++first) {
-        // 需要和上一次枚举的数不相同
-        if (first > 0 && nums[first] == nums[first - 1]) {
-            continue;
-        }
-        // c 对应的指针初始指向数组的最右端
-        int third = n - 1;
-        int target = -nums[first];
-        // 枚举 b
-        for (int second = first + 1; second < n; ++second) {
-            // 需要和上一次枚举的数不相同
-            if (second > first + 1 && nums[second] == nums[second - 1]) {
-                continue;
-            }
-            // 需要保证 b 的指针在 c 的指针的左侧
-            while (second < third && nums[second] + nums[third] > target) {
-                --third;
-            }
-            // 如果指针重合，随着 b 后续的增加
-            // 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
-            if (second == third) {
-                break;
-            }
-            if (nums[second] + nums[third] == target) {
-                ans.push_back({nums[first], nums[second], nums[third]});
+        if(nums.size() < 3)return vector<vector<int>>();
+        vector<vector<int>>res;
+        sort(nums.begin(), nums.end());
+        for(int first = 0; first < nums.size() - 2; first++){
+            if(first > 0 && nums[first] == nums[first-1])continue;
+            int left = first + 1, right = nums.size() - 1;
+            int target = 0 - nums[first];
+            while(left < right){
+                if(nums[left] + nums[right] <= target){
+                    if(nums[left] + nums[right] == target)
+                        res.push_back(vector<int>{nums[first], nums[left], nums[right]});
+                    left++;
+                    while(left > first + 1 && left < right && nums[left] == nums[left-1])left++;
+                }else{
+                    right--;
+                    while(right < nums.size() - 1 && left <right && nums[right] == nums[right + 1])right--;
+                }
             }
         }
+        return res;
     }
-    return ans;
-}
 ```
 
 **解法2：set + 双指针 复杂度：O\(N^2\*logN\)** 

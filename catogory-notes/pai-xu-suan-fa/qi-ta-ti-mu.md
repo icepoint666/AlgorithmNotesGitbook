@@ -63,6 +63,8 @@ vector<int> findDuplicates(vector<int>& nums) {
 * 如果nums\[i\]不在这个范围就不用管了（也不用处理）
 * 最后检查一遍不属于1,2,3..对应位置的第一个数就可以了
 
+**关键：归为排序第三个判断条件 nums\[i\] != nums\[nums\[i\]-1\] 保证数字移动到重复的地方时会停止**
+
 ```cpp
 int firstMissingPositive(vector<int>& nums) {
     int len = nums.size();

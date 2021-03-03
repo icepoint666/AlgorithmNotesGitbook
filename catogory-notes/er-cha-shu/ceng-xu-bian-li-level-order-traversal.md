@@ -65,6 +65,7 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 | 102 | 二叉树的层序遍历 | 队列层序遍历 | 模板 |
 | 987 | 二叉树的垂序遍历 | bfs\(队列层序遍历\) + hashmap | 中等 |
 | 199 | 二叉树的右视图 | stack记录TreeNode,depth | 简单 |
+| 958 | 二叉树的完全性检验 | 层序遍历 + 编号root=1,root-&gt;left=2 | 记住 |
 
 **Leetcode二叉树测试程序（有一个漏洞，因为int中存储NULL\('\0'\)与0本质上都是一样的，所以节点值不能为0）**
 

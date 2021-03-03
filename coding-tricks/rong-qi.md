@@ -54,6 +54,12 @@ for(int i = 0; i < n; i++){
 return vector<int>{0,0,0}; //直接返回一个vec对象
 ```
 
+返回数组范围/切片
+
+```cpp
+return vector<int>(vec.begin() + 1, vec.end() - 1);
+```
+
 添加元素
 
 ```cpp

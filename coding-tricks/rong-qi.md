@@ -60,6 +60,12 @@ return vector<int>{0,0,0}; //直接返回一个vec对象
 return vector<int>(vec.begin() + 1, vec.end() - 1);
 ```
 
+返回空的二维数组
+
+```cpp
+return vector<vector<int>>();
+```
+
 添加元素
 
 ```cpp

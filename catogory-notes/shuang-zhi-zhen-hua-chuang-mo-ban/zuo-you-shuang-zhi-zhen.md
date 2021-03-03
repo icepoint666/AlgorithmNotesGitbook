@@ -184,35 +184,35 @@ int trap(vector<int>& height) {
 
 **推荐解法：解法1：纯双指针 复杂度：O\(N^2\)** 
 
-* 排序
-* 三个指针，每次移动都要判断跟上次是否相等，相等的话跳过继续移动
+* **排序**
+* 三个指针，**每次移动都要判断跟上次是否相等，相等的话跳过继续移动**
   * 如果nums\[left\] + nums\[right\] == target，left/right移动都可以，所以可以归为left移动，所以这样其实只有两种情况
     * nums\[left\] + nums\[right\] &lt;= target left判重++
     * nums\[left\] + nums\[right\] &gt; target right判重--
 
 ```cpp
 vector<vector<int>> threeSum(vector<int>& nums) {
-        if(nums.size() < 3)return vector<vector<int>>();
-        vector<vector<int>>res;
-        sort(nums.begin(), nums.end());
-        for(int first = 0; first < nums.size() - 2; first++){
-            if(first > 0 && nums[first] == nums[first-1])continue;
-            int left = first + 1, right = nums.size() - 1;
-            int target = 0 - nums[first];
-            while(left < right){
-                if(nums[left] + nums[right] <= target){
-                    if(nums[left] + nums[right] == target)
-                        res.push_back(vector<int>{nums[first], nums[left], nums[right]});
-                    left++;
-                    while(left > first + 1 && left < right && nums[left] == nums[left-1])left++;
-                }else{
-                    right--;
-                    while(right < nums.size() - 1 && left <right && nums[right] == nums[right + 1])right--;
-                }
+    if(nums.size() < 3)return vector<vector<int>>();
+    vector<vector<int>>res;
+    sort(nums.begin(), nums.end());
+    for(int first = 0; first < nums.size() - 2; first++){
+        if(first > 0 && nums[first] == nums[first-1])continue;
+        int left = first + 1, right = nums.size() - 1;
+        int target = 0 - nums[first];
+        while(left < right){
+            if(nums[left] + nums[right] <= target){
+                if(nums[left] + nums[right] == target)
+                    res.push_back(vector<int>{nums[first], nums[left], nums[right]});
+                left++;
+                while(left > first + 1 && left < right && nums[left] == nums[left-1])left++;
+            }else{
+                right--;
+                while(right < nums.size() - 1 && left <right && nums[right] == nums[right + 1])right--;
             }
         }
-        return res;
     }
+    return res;
+}
 ```
 
 **解法2：set + 双指针 复杂度：O\(N^2\*logN\)** 

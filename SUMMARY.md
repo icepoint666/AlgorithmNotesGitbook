@@ -106,6 +106,7 @@
   * [动态规划本质就是枚举子问题结果](catogory-notes/dong-tai-gui-hua/dong-tai-gui-hua-ben-zhi-jiu-shi-mei-ju-zi-wen-ti-jie-guo.md)
 * [位运算，数位](catogory-notes/wei-yun-suan-shu-wei.md)
 * [数学问题](catogory-notes/shu-xue-wen-ti/README.md)
+  * [题目](catogory-notes/shu-xue-wen-ti/ti-mu.md)
   * [尾随0问题](catogory-notes/shu-xue-wen-ti/wei-sui-0-wen-ti.md)
   * [判断循环](catogory-notes/shu-xue-wen-ti/pan-duan-xun-huan.md)
 * [并查集](catogory-notes/bing-cha-ji/README.md)

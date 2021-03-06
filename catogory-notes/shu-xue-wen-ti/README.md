@@ -11,6 +11,29 @@ leetcode内置了`math.h`库，所以不需要实现一些数学运算的函数
 * int quotient = n / d;
 * int reminder = n % d;
 
+### 分解质因子\(O\(sqrt\(N\)\)
+
+关键：除到根号既可以停下来了
+
+```cpp
+int main(){
+    long a;
+    cin >> a;
+    long cur = 2;
+    long s = sqrt(a);
+    while(a > 1 && cur <= s){
+        if(a % cur == 0){
+            a /= cur;
+            cout << cur << " ";
+        }else{
+            cur++;
+        }
+    }
+    if(a > 1)cout << a << " ";
+    return 0;
+}
+```
+
 ### 验证素数 \(O\(sqrt\(N\)\)
 
 ```cpp

@@ -34,7 +34,6 @@
 //nums[p, q) = nums[pivot]
 //nums[q, right] > nums[pivot]
 void quickSort(vector<int>& nums, int left, int right){
-{
     //threeWayPartition
     int pivot = nums[right], p = left, q = p;
     for(int i = left; i < right; i++){

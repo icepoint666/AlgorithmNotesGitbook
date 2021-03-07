@@ -8,6 +8,7 @@
 | :--- | :--- | :--- | :--- |
 | 剑指 Offer 60 | n个骰子的点数 | dp储存概率 | 简单 |
 | 382 | 链表随机节点 | 蓄水池采样算法 | 技巧 |
+| 470 | 用rand7\(\)实现rand10\(\) | 乘法，拒绝采样，整除 | 技巧 |
 
 **剑指 Offer 60. n个骰子的点数**
 
@@ -85,4 +86,30 @@ int getRandom() {
     return ret;
 }
 ```
+
+**470. 用 Rand7\(\) 实现 Rand10\(\)**
+
+**参考：**[**https://leetcode-cn.com/problems/implement-rand10-using-rand7/solution/cong-zui-ji-chu-de-jiang-qi-ru-he-zuo-dao-jun-yun-/**](https://leetcode-cn.com/problems/implement-rand10-using-rand7/solution/cong-zui-ji-chu-de-jiang-qi-ru-he-zuo-dao-jun-yun-/)\*\*\*\*
+
+```cpp
+int rand10() {
+    while(true){
+        int num = (rand7() - 1) * 7 + rand7() - 1; //返回[0, 48]
+        if(num < 40)return num % 10 + 1;
+    }
+    return 0;
+}
+```
+
+**变体：尝试用rand35\(\)实现rand42\(\) 不同于Leetcode题中的意思这里的rand35是说从\[0,34\]**
+
+```cpp
+while(true){
+    num = (rand() % 35) * 35 + rand() % 35; 
+    if(num <= 1217)return num % 42; //核心在于拒绝采样 
+    //42 * 29 = 1218 < 35 * 35
+}
+```
+
+
 

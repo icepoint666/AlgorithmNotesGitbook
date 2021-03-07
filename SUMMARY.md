@@ -102,7 +102,7 @@
   * [左右双指针](catogory-notes/shuang-zhi-zhen-hua-chuang-mo-ban/zuo-you-shuang-zhi-zhen.md)
 * [贪心算法](catogory-notes/tan-xin-suan-fa-1.md)
 * [动态规划](catogory-notes/dong-tai-gui-hua/README.md)
-  * [01背包问题 / 完全背包问题](catogory-notes/dong-tai-gui-hua/01-bei-bao-wen-ti-wan-quan-bei-bao-wen-ti.md)
+  * [01背包问题 / 完全背包/ 多重背包问题](catogory-notes/dong-tai-gui-hua/01-bei-bao-wen-ti-wan-quan-bei-bao-wen-ti.md)
   * [高楼扔鸡蛋：动态规划/递归](catogory-notes/dong-tai-gui-hua/gao-lou-reng-ji-dan-dong-tai-gui-hua-di-gui.md)
   * [打家劫舍问题](catogory-notes/dong-tai-gui-hua/da-jia-jie-she-wen-ti.md)
   * [dp数组横向空间压缩](catogory-notes/dong-tai-gui-hua/dp-shu-zu-heng-xiang-kong-jian-ya-suo.md)

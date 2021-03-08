@@ -80,6 +80,13 @@ for(int i = nums.size() - 1; i >= 0; i--){ //可以从后往前，或者从前�
       style="text-align:left">&#x7EF4;&#x62A4;&#x5355;&#x8C03;&#x6808;</td>
         <td style="text-align:left">&#x56F0;&#x96BE;&#xFF08;&#x8BB0;&#x5FC6;&#xFF09;</td>
     </tr>
+    <tr>
+      <td style="text-align:left">402</td>
+      <td style="text-align:left">&#x79FB;&#x6389;K&#x4F4D;&#x6570;&#x5B57;</td>
+      <td style="text-align:left">&#x5355;&#x8C03;&#x6808; &#x8BB0;&#x5F55;&#x6700;&#x5927;&#x820D;&#x5F03;k&#x6B21;</td>
+      <td
+      style="text-align:left">&#x6280;&#x5DE7;</td>
+    </tr>
   </tbody>
 </table>
 

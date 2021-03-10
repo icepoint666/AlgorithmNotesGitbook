@@ -98,6 +98,12 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
 //删完后会得到{1，2，3，5}
 ```
 
+需要明白
+
+* erase是删除某个位置的元素
+* remove就是删除某个特定值的所有元素（当然很多时候并不是真正删除）
+* remove\_if就是删除满足某个特定条件的所有元素（类似于remove\)
+
 翻转数组
 
 ```cpp
@@ -125,6 +131,13 @@ for(auto it = lst.begin(); it!=lst.end(); it++){
     ...
     it = lst.erase(it); // 删除元素后，迭代器失效，要重新让迭代器指向被删元素的后面
 }
+```
+
+**移动链表元素：**关键操作，例如对于写一个LRU，想要将某个位置的元素（迭代器i）移动到链表x的头部或者尾部（刚好list的结果是一个环形链表，end\(\)代表一个空节点，**所以splice相当于是把iter移动到position的前面**）
+
+```cpp
+x.splice(x.begin(), x, iter);  //将iter位置，移动到链表的头部
+x.splice(x.end(), x, iter);    //将iter位置，移动到链表的尾部
 ```
 
 ### stack

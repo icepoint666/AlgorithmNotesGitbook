@@ -17,7 +17,7 @@
 | 162 | 寻找峰值 | 相当于找相邻左值大于右值的左边界，二分O\(logN\) | 记忆 |
 | 自定义 | 先增后减数组二分查找 | 先二分查找峰值，然后左右分别二分查找，三次二分 | 记忆 |
 | 69 | x的平方根 | 想到用二分，注意转long |  |
-|  |  |  |  |
+| 540 | 有序数组中的单一元素 | 二分偶数节点就好了 | 技巧 |
 
 **剑指 Offer 11. 旋转数组的最小数字**
 
@@ -173,6 +173,20 @@ int findPeakElement(vector<int>& nums) {
         else l = mid + 1;
     }
     return l;           //此时l等于r，返回任意一个即可
+}
+```
+
+**540. 有序数组中的单一元素**
+
+```cpp
+int singleNonDuplicate(vector<int>& nums) {
+    int left = 0, right = nums.size() / 2;
+    while(left < right){
+        int mid = (left + right) / 2;
+        if(nums[mid*2+1]!=nums[mid*2+2])left = mid + 1;
+        else right = mid;
+    }
+    return nums[left*2];
 }
 ```
 

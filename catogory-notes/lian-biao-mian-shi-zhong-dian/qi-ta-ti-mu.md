@@ -1,6 +1,13 @@
 # 特殊技巧题目
 
-### **快慢指针模板** \(快指针初始化有两个版本\)
+### **快慢指针模板** \(快指针初始化有两个版本!!\)
+
+**Leetcode 109. 有序链表转换二叉搜索树 就应该用版本2！**
+
+**版本1：保证无论奇数偶数（slow是中点分界后一个）**
+
+* **1-&gt;2-&gt;3-&gt;4-&gt;5的4**
+* **1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6的4**
 
 ```cpp
 ListNode* fast = head; //快指针第一种初始化情况
@@ -10,7 +17,14 @@ while(fast && fast->next) {
     fast = fast->next->next; //2倍慢指针的速度
     slow = slow->next;
 }
+```
 
+**版本2：slow是中点，或者中点分界前一个（找中点都是这个！）**
+
+* **1-&gt;2-&gt;3-&gt;4-&gt;5的3**
+* **1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6的3**
+
+```cpp
 ListNode* fast = head->next //快指针第二种初始化情况
 ListNode* slow = head;
 while(fast && fast->next) { 

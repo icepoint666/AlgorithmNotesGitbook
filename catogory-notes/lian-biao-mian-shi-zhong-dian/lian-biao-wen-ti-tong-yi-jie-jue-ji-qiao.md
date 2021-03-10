@@ -26,15 +26,17 @@ while(node!=NULL){
 
 * 先序遍历
 
-### 2.dummyhead技巧
+### 2.dummyhead技巧\(切记new出来的要delete\)
 
 如果链表的head经过变更后，返回结果可能不再是原来的head，那么就需要**创建一个dummyhead来作为辅助**
 
-```text
+```cpp
 ListNode* dummyhead = new ListNode(0);
 dummyhead->next = head;
 ...
-return dummyhead->next;
+ListNode* ret = dummyhead->next;
+delete(dummyhead);
+return ret;
 ```
 
 当然**有时候**面试官可能**要求禁止使用dummyhead**，因为毕竟dummyhead使用了新的空间

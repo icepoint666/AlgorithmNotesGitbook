@@ -1,5 +1,7 @@
 # 笔试输入输出相关注意事项
 
+**记住万能头文件：\#**include &lt;bits/stdc++.h&gt;
+
 ### 1.重复输入多组样例
 
 ```cpp
@@ -34,8 +36,9 @@ while(cin >> num){
 
 ### 2. 循环输入数组（每行不定有N个数 ，重点）
 
+**单行单个数组**
+
 ```cpp
-# 单行单个数组
 # input
 1 2 3 4 5 6 7
 # output
@@ -79,21 +82,59 @@ while(cin >> a[num]){
 }
 ```
 
+**多行多个数组**
+
+\*\*\*\*
+
+### 3.字符串输入
+
+输入n个以空格分隔的字符串
+
+```cpp
+# input:
+# c d a bb e
+# dddd f
+vector<string>s;
+string tmp;
+while(cin >> tmp){
+    s.push_back(tmp);
+    while(cin.get() != '\n'){
+        cin >> tmp;
+        s.push_back(tmp);
+    }
+    
+    //process
+    
+    s.clear();
+}
+```
+
+输入n个以逗号为分隔的字符串**（学会用stringstream\)**
+
+```cpp
+# input:
+# c,d,a,bb,e
+# dddd,f
+//可以尝试用stringstream
+string tmp;
+vector<string>s;
+while(getline(cin, tmp)){
+    stringstream res(tmp);
+    while(getline(res, tmp, ',')){
+        s.push_back(tmp);
+    }
+    
+    //process
+
+}
+```
+
 string字符串如果输入中包含空格，那么要这样输入**（二进制安全字符串输入）**
 
 ```cpp
+# input:
+# abc abc abc
 string s;
 getline(cin, s);
-```
-
-C++循环输入数组
-
-```cpp
-int arr[10000];
-int i = 0;
-while(cin >> arr[i]){
-    i++;
-    if(cin.get() == '\n')break;
-}
 ```
 

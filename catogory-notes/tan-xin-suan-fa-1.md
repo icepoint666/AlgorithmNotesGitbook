@@ -21,6 +21,7 @@
 | 621 | 任务调度器 | 模拟O\(N\*M\) | 自己做超时了 |
 |  |  | 桶思想 | 技巧 \(推荐\) |
 | 406 | 根据身高重建队列 | 重载排序函数 | 中等 |
+| 135 | 分发糖果 | 正反两遍遍历 | 技巧 |
 
 **322. 零钱兑换**
 
@@ -227,5 +228,35 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
     }
     return res;
 }   
+
+```
+
+**135.分发糖果**
+
+```cpp
+int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        if(!n)return 0;
+        vector<int> left(n, 0);
+        left[0] = 1;
+        for(int i = 1; i < n; i++){
+            if(ratings[i] > ratings[i-1]){
+                left[i] = left[i-1] + 1;
+            }else{
+                left[i] = 1;
+            }
+        }
+        int right = 1;
+        int sum = left[n-1];
+        for(int i = n - 2; i >= 0; i--){
+            if(ratings[i] > ratings[i+1]){
+                right++;
+            }else{
+                right = 1;
+            }
+            sum += max(left[i], right);
+        }
+        return sum;
+    }
 ```
 

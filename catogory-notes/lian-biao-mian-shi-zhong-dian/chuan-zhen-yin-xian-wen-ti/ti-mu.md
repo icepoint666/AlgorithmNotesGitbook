@@ -92,37 +92,41 @@ ListNode* reverseBetween(ListNode* head, int m, int n) {
 
 ```cpp
 ListNode* reverseKGroup(ListNode* head, int k) {
-    if(!head || !head->next || k == 1)return head;
-    ListNode* dummyhead = new ListNode(0);
-    dummyhead->next = head;
-    ListNode* pv, *nt, *prev, *node;
-    pv = dummyhead, nt = head, prev = pv, node = nt;
-    int cnt = 0;
-    /*窥探k个点*/
-    while(prev){//①注意：这种模型允许node为NULL，prev不能为NULL
-        if(cnt == k){
-            /*反转链表+穿针引线，这部分可以考虑画个图来更快速的写出关系*/
-            ListNode* prev_ = nt;
-            ListNode* node_ = nt->next;
-            ListNode* new_pv = prev_;
-            prev_->next = node;
-            while(node_!=node){
-                ListNode* nxt = node_->next;
-                node_->next = prev_;
-                prev_ = node_;
-                node_ = nxt;
+        if(!head || !head->next || k == 1)return head;
+        //初始化
+        ListNode* pv, *nt, *prev, *node;
+        ListNode* dummyhead = new ListNode(0);
+        dummyhead->next = head;
+        pv = dummyhead, prev = dummyhead;
+        nt = head, node = head;
+        //计数
+        int cnt = 0;
+        while(prev){ //prev很关键
+            if(cnt == k){
+                pv->next = prev;
+                ListNode* cur = nt->next;
+                nt->next = node;
+                ListNode* p = nt;
+                while(cur!=node){
+                    ListNode* nxt = cur->next;
+                    cur->next = p;
+                    p = cur;
+                    cur = nxt;
+                }
+                pv = nt;
+                nt = node;
+                prev = pv;
+                cnt = 0;
             }
-            pv->next = prev;
-            /*重置，相当于是下一次反转的初始化*/
-            pv = new_pv, nt = node, prev = pv;
-            cnt = 0;
+            if(!node)break; //配合prev来写注意！！
+            prev = node;
+            node = node->next;
+            cnt++;
         }
-        prev = node;
-        if(!node)break; //②
-        node = node->next;
-        cnt++;
+        //删除节点
+        ListNode* ret = dummyhead->next;
+        delete(dummyhead);
+        return ret;
     }
-    return dummyhead->next;
-}
 ```
 

@@ -1,35 +1,40 @@
 # 二叉树转换为双向链表
 
-两种思路：
+牛客链接：
 
-* 中序遍历（推荐）
+**两种思路：**
+
+* 中序遍历（迭代）
 * 后序遍历
 
-思路1：中序遍历（存一个pre,head, dfs出来之后再连接pre与head）
+**思路1：中序遍历**
+
+迭代的思路，事先申请一个dummyroot作为prev节点，之后中序遍历，跟prev连接
 
 ```cpp
-struct Node{
-    int val;
-    Node* left;
-    Node* right;
-};
-Node* head, *pre;
-void dfs(Node* cur) {
-    if(!cur) return;
-    dfs(cur->left);
-    //如果没有pre的话，就是只用让cur = head就好了，不然的话，就是需要用Pre连到cur
-    if(pre) pre->right = cur;
-    else head = cur;
-    cur->left = pre;
-    pre = cur;
-    dfs(cur->right);
-}
-Node* treeToDoublyList(Node* root) {
-    if(!root)return root;
-    dfs(root);
-    head->left = pre;
-    pre->right = head;
-    return head;
+TreeNode* Convert(TreeNode* pRootOfTree) {
+    stack<TreeNode*>stk;
+    TreeNode* cur = pRootOfTree;
+    TreeNode* dummyroot = new TreeNode(0);
+    TreeNode* prev = dummyroot;
+    while(cur!=NULL || !stk.empty()){
+        while(cur!=NULL){
+            stk.push(cur);
+            cur = cur->left;
+        }
+        cur = stk.top();
+        stk.pop();
+        //连接prev
+        prev->right = cur;
+        cur->left = prev;
+        prev = cur;
+        
+        cur = cur->right;
+    }
+    TreeNode* ret = dummyroot->right;
+    if(ret)ret->left = NULL; //删除的时候要注意把连接的指针设为NULL,注意自己也可能为NULL
+    delete(dummyroot);
+    return ret; 
 }
 ```
 

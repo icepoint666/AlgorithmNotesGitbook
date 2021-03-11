@@ -396,7 +396,7 @@ void radixSort(unsigned int array[], int length) {
 }
 ```
 
-### 插入排序
+### 插入排序（左边有序，逆序往前找合适位置插入）
 
 认定元素i左边已经是从小到大排好序的部分  
 从**nums\[i\]**往左边找\(j--\)，找到刚好比nums\[j\]大的插入到nums\[j+1\]的位置
@@ -416,7 +416,7 @@ vector<int> insertionSort()(vector<int>& nums) {
 }
 ```
 
-### 冒泡排序
+### 冒泡排序（相邻元素一直交换，把大的冒泡放最后）
 
 ```cpp
 vector<int> bubbleSort(vector<int>& nums){
@@ -428,4 +428,8 @@ vector<int> bubbleSort(vector<int>& nums){
     return nums;
 }
 ```
+
+### 选择排序
+
+选择排序是给每个位置选择当前元素最小的，比如给第一个位置选择最小的，在剩余元素里面给第二个元素选择第二小的，依次类推，直到第n - 1个元素，第n个元素不用选择了，因为只剩下它一个最大的元素了。
 

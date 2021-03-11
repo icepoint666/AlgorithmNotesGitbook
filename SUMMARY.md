@@ -56,6 +56,7 @@
   * [链表递归化](catogory-notes/lian-biao-mian-shi-zhong-dian/lian-biao-di-gui-hua.md)
 * [排序算法](catogory-notes/pai-xu-suan-fa/README.md)
   * [六大排序算法模板](catogory-notes/pai-xu-suan-fa/jiu-da-pai-xu-suan-fa-mo-ban.md)
+  * [分析几种排序算法的稳定性](catogory-notes/pai-xu-suan-fa/fen-xi-ji-zhong-pai-xu-suan-fa-de-wen-ding-xing.md)
   * [快速排序](catogory-notes/pai-xu-suan-fa/kuai-su-pai-xu.md)
   * [快速排序变体：聚集元素, Kth](catogory-notes/pai-xu-suan-fa/3waypartition-wen-ti.md)
   * [归并排序题目](catogory-notes/pai-xu-suan-fa/gui-bing-pai-xu-ti-mu.md)

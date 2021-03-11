@@ -213,46 +213,28 @@ public class Solution {
 **代码**：**如果在同一个 Tree 上要跑好多次 LCA，这个做法还是比较可取的~**
 
 ```cpp
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null) return root;
-        if(root.val == p.val) return p;
-        if(root.val == q.val) return q;
-
-        HashMap<TreeNode, Integer> map = new HashMap<TreeNode, Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-
-        TreeNode cur = root;
-        int index = 0;
-        while(cur != null || !stack.isEmpty()){
-            while(cur != null){
-                stack.push(cur);
-                cur = cur.left;
-            }
-            TreeNode node = stack.pop();
-            map.put(node, index++);
-            cur = node.right;
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    stack<TreeNode*>stk;
+    unordered_map<TreeNode*, int> mp;
+    int idx = 0;
+    TreeNode* cur= root;
+    while(cur != NULL || !stk.empty()){
+        while(cur != NULL){
+            stk.push(cur);
+            cur = cur->left;
         }
-
-        return getLCA(root, p, q, map);
+        cur = stk.top();
+        stk.pop();
+        mp[cur] = idx++;
+        cur = cur->right; 
     }
-
-    private TreeNode getLCA(TreeNode root, TreeNode p, TreeNode q, HashMap<TreeNode, Integer> map){
-        if(root == null) return root;
-        if(root.val == p.val) return p;
-        if(root.val == q.val) return q;
-
-        while(root != null){
-            if(map.get(q) < map.get(root) && map.get(p) < map.get(root)){
-                root = root.left;
-            } else if(map.get(q) > map.get(root) && map.get(p) > map.get(root)){
-                root = root.right;
-            } else {
-                break;
-            }
-        }
-
-        return root;
+    while(root){
+        if(mp[p] < mp[root] && mp[q] < mp[root])root = root->left;
+        else if(mp[p] > mp[root] && mp[q] > mp[root])root = root->right;
+        else break;
     }
+    return root;
+}
 ```
 
 **865. 具有所有最深节点的最小子树**

@@ -57,6 +57,24 @@ int move = (len - k%len)%len; //表示中断的节点位置，从head向后移�
 
 ### **反转链表问题**
 
+**3.11 新思路，prev设置为NULL，不用判断head或者head-&gt;next存不存在**
+
+```cpp
+ListNode* reverseList(ListNode* head){
+    ListNode* prev = NULL;
+    ListNode* cur = head;
+    while(cur){
+        ListNode* nxt = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = nxt;
+    }
+    return prev;
+}
+```
+
+**=========================下面是以前思路（不推荐了）==================**
+
 **三步：（4行）**
 
 * 1.声明指针

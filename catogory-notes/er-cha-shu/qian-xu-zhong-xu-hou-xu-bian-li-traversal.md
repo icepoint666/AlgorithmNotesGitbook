@@ -120,6 +120,11 @@ vector<int> inorderTraversal(TreeNode* root) {
 
 **迭代模板:**
 
+* **一定要明白cur是代表什么，stack是要存什么**
+* **cur就代表当前节点，stack要存的就是（其实就是走的路径）**
+  * 每次走到头遇到NULL,充内嵌while出来，就会回到刚刚的路径
+  * 重新回到路径的时候cur = s.top\(\)，这时候走right节点，而且不再需要s.top\(\)，所以就s.pop\(\)就好了
+
 **两个while循环，都是cur!=NULL**
 
 **内嵌的while就是要一直挖，找到最左边节点**

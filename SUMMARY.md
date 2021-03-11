@@ -121,7 +121,8 @@
   * [拓扑排序，DAG](catogory-notes/tu/tuo-pu-pai-xu-dag.md)
   * [邻接表](catogory-notes/tu/lin-jie-biao.md)
 * [前缀和](catogory-notes/qian-zhui-he.md)
-* [矩阵](catogory-notes/ju-zhen.md)
+* [矩阵](catogory-notes/ju-zhen/README.md)
+  * [稀疏矩阵\(十字链表）](catogory-notes/ju-zhen/xi-shu-ju-zhen-shi-zi-lian-biao.md)
 * [概率题](catogory-notes/gai-lv-ti.md)
 * [其他题](catogory-notes/qi-ta-ti.md)
 

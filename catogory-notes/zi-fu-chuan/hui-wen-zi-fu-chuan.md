@@ -1,5 +1,7 @@
 # 回文字符串
 
+**Manacher算法：马拉车算法 O\(N\)** [**https://www.cnblogs.com/grandyang/p/4475985.html**](https://www.cnblogs.com/grandyang/p/4475985.html)\*\*\*\*
+
 **题目**
 
 | 序号/难度 | 名字 | 备注 |  |

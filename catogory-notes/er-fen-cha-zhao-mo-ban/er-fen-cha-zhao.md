@@ -10,6 +10,7 @@
 |  |  | 个人练习二分：找右边界模板+找目标模板 | 易晕 |
 | 162 | 寻找峰值 | right = n - 1就不用判断mid+1越界 | 记忆 |
 |  |  | 相当于找相邻左值大于右值的左边界，二分O\(logN\) |  |
+| 自定义 | 旋转数组找目标值 | 假设是上升数组（不然讨论很麻烦）找目标值就用目标值模板 | 易晕 |
 | 剑指offer53 | 在排序数组中查找元素个数 | 二分法左侧边界模板+从左侧统计个数 | 易错 |
 | 剑指offer53 | 0~n-1缺失的数字 | 二分查找左边界 | 简单 |
 | 1552 | 两球之间的磁力 | 对于求最大值的最小值问题（二分法） | 记忆 |
@@ -61,6 +62,34 @@ public:
 int count = 0;
 while(l < n && nums[l++]==target)count++; 
 return count;
+```
+
+**旋转数组找目标值**
+
+给出一个转动过的有序数组，你事先不知道该数组转动了多少 \(例如,0 1 2 4 5 6 7可能变为4 5 6 7 0 1 2\). ****找出目标值1
+
+**关键：**
+
+* 查找数字模板：right = n - 1, left &lt;= right, right = mid - 1, left = mid + 1
+* 这样的**旋转数组有一个性质：从mid切开，必然有一边是单调递增**，利用这个性质，讨论是在哪一边，然后只用验证target是不是在单调那一边的range里面就好了
+
+```cpp
+int search(vector<int>&nums, int target) {
+    int n = nums.size();
+    int left = 0, right = n - 1;
+    while(left <= right){
+        int mid = (left + right) / 2;
+        if(nums[mid] == target)return mid;
+        if(nums[left] <= nums[mid]){
+            if(nums[left] <= target && target <= nums[mid])right = mid - 1;
+            else left = mid + 1;
+        }else{
+            if(nums[mid] <= target && target <= nums[right])left = mid + 1;
+            else right = mid - 1;
+        }
+    }
+    return -1;
+}
 ```
 
 **1552. 两球之间的磁力**

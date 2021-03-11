@@ -39,7 +39,7 @@ void traverse(TreeNode root) {
 | 序号/难度 | 名字 | 备注 |  |
 | :--- | :--- | :--- | :--- |
 | 46 | 全排列 | 回溯模板\(利用交换来遍历！） |  |
-| 51 | N皇后 | 回溯模板+特殊判定 | 中等 |
+| 51 | N皇后 | 回溯模板+判定易错 | 中等 |
 | 78 | 子集 | 回溯模板变体 |  |
 | 77 | 组合 | 回溯模板变体 |  |
 | 131 | 分割回文串 | 回文串用dp处理 + 回溯模板 | 技巧 |
@@ -119,46 +119,39 @@ public:
 
 **回溯模板基础上 + 对N皇后的坐标判定 + 输出处理**
 
+**判定一定是：**abs\(val - cur\[i\]\) == abs\(tmp - i\) 
+
+**不要写反！！是abs\(y2 - y1\) = abs \(x2 - x1\) 而不是abs\(y1 - x1\) = abs\(y2- x2\)**
+
 ```cpp
 class Solution {
 public:
-    vector<vector<int>> res;
-    void backtrack(int n, vector<int>&track){
-        if(track.size() == n){
-            res.push_back(track);
+    bool valid(vector<int>&cur, int val){
+        for(int i = 0; i < cur.size(); i++){
+            int tmp = cur.size();
+            if(val == cur[i] || abs(val - cur[i]) == abs(tmp - i))return false;
+        }
+        return true;
+    }
+    void dfs(vector<int>&cur, int n){
+        if(cur.size() == n){
+            cnt++;
             return;
         }
-        int y = track.size();
-        for(int i = 0; i < n; ++i){
-            bool conflict = false;
-            for(int j = 0; j < y; ++j){
-                if(i == track[j] || y + i == j + track[j] || y - j == i - track[j]){
-                    conflict = true;  //判定不在一条直线，不在一条斜线
-                    break;
-                }
+        for(int i = 0; i < n; i++){
+            int v = i;
+            if(valid(cur, v)){
+                cur.push_back(v);
+                dfs(cur, n);
+                cur.pop_back();
             }
-            if(conflict)continue;
-            track.push_back(i);
-            backtrack(n, track);
-            track.pop_back();
         }
-        return;
     }
-    vector<vector<string>> solveNQueens(int n) {
-        vector<int>track;
-        backtrack(n, track);
-        //输出处理
-        vector<vector<string>> output;
-        for(auto &r: res){
-            vector<string> mat;
-            for(int i = 0; i < n; ++i){
-                string tmp(n, '.');
-                tmp[r[i]]='Q';
-                mat.push_back(tmp);
-            }
-            output.push_back(mat);
-        }
-        return output;
+    int Nqueen(int n) {
+        cnt = 0;
+        vector<int>vec;
+        dfs(vec, n);
+        return cnt;
     }
 };
 ```

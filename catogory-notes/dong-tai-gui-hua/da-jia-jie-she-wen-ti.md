@@ -14,27 +14,29 @@
 
 给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。
 
+**核心：dp\[i\] = max\(dp\[i-2\]+nums\[i-1\], dp\[i-1\]\) \(i &gt;= 2\)**
+
 ```cpp
-class Solution {
-public:
-    int rob(vector<int>& nums) {
-        int n = nums.size();
-        int dp[n+1][2];
-        memset(dp, 0, sizeof(dp));
-        for(int i = 1;i <= n; i++){
-            dp[i][0] = max(dp[i-1][0], dp[i-1][1]);
-            dp[i][1] = dp[i-1][0] + nums[i-1];
-        }
-        return max(dp[n][0], dp[n][1]);
+int rob(vector<int>& nums) {
+    int dp[nums.size()+1];
+    memset(dp,0, sizeof(dp));
+    if(nums.empty())return 0;
+    dp[0] = 0;
+    dp[1] = nums[0];
+    for(int i = 2; i <= nums.size(); i++){
+        dp[i] = max(dp[i-2] + nums[i-1], dp[i-1]);
     }
-};
+    return dp[nums.size()];
+}
 ```
 
 **213.打家劫舍-II**
 
 变体： 这个地方所有的房屋都**围成一圈**
 
-**解决：正向一次，反向一次，（因为正向方向第一个要选的都会直接选择偷，那么最后一个就不会被选）取两种情况的最大值，注意讨论特殊情况**
+**解决：因为第一个与最后一个不可能同时打劫，所以计算**
+
+* 打家劫舍区间\[1,n-1\] 与 打家劫舍区间\[0, n-2\] 取一个最大值
 
 ```cpp
 class Solution {

@@ -44,16 +44,32 @@ nt->next = node;
 
 坑：注意是向右移动
 
-**这题题解：**
+坑：对于k % len == 0的例子全部直接返回head
 
-题意是向右移动，所以前面用长度减去k的mod就是从head移动move次到达中断节点
+**这题题解：穿针引线**
+
+* **我们需要知道长度**
+* **我们需要知道尾部节点，断开节点（前，后），head节点（已知）**
 
 ```cpp
-int move = (len - k%len)%len; //表示中断的节点位置，从head向后移动了move次
+ListNode* rotateRight(ListNode* head, int k){
+    if(!head || !head->next)return head;
+    ListNode* prev = head;
+    ListNode* node = head;
+    int len = 1;
+    while(node->next){
+        node = node->next;
+        len++;
+    }
+    if(!(k % len))return head;
+    int move = len - 1 - k % len;
+    while(move--)prev = prev->next;
+    ListNode* newhead = prev->next;
+    node->next = head;
+    prev->next = NULL;
+    return newhead;
+}
 ```
-
-* 所以这个问题示例中，也就是找到4， 5， 1， 3，
-* 然后4通过3来找到，作为head， 把5接到1上，完成穿针引线
 
 ### **反转链表问题**
 

@@ -62,7 +62,25 @@ for(int j = 1; j <= V; j++)
         if(j >= w[i])
             dp[j] = max(dp[j], dp[j-w[i])+v[i]);
 return dp[V]
-        
+```
+
+**变体：取硬币，求取出硬币组合数**
+
+**解法：这类背包组合类的问题，查数的时候关键要注意避免把2+ 1+ 2与 2+2+1算成一种情况，所以最好的办法就是 两层循环 外层的for循环要用i = 0;i &lt; N ; i++**
+
+```cpp
+int change(int amount, vector<int>& coins) {
+    int n = coins.size();
+    int dp[amount + 1];
+    memset(dp, 0, sizeof(dp));
+    dp[0] = 1;
+    for(auto e: coins){   //关键点在于一定要coins在外层循环，说明coins[0]用完了之后，coins[1]就不能再用了
+        for(int i = 1; i <= amount; i++){
+            if(i >= e)dp[i] += dp[i - e];
+        }
+    }
+    return dp[amount];
+}
 ```
 
 ### **多重背包（n种物品，各自有n\[i\]个）**

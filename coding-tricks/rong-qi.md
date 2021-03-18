@@ -96,6 +96,10 @@ for(auto it=vec.begin(); it!=vec.end(); ++it, ++i){
     }
 }
 //删完后会得到{1，2，3，5}
+
+#include <algorithm> //remove, remove_if
+v.erase(std::remove(v.begin(), v.end(), 5), v.end());
+v.erase(std::remove_if(v.begin(), v.end(), [](int i){i>5;}), v.end());
 ```
 
 需要明白

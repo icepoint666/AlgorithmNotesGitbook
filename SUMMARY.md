@@ -13,6 +13,7 @@
 * [哈希表中使用pair,tuple,string作为hashable key](coding-tricks/ha-xi-biao-zhong-shi-yong-pair-huo-zhe-tuple-zuo-wei-key.md)
 * [STL map/set排序，按key/value/自定义排序方式](coding-tricks/you-xu-ji-he-ying-she-zi-ding-yi-pai-xu-fang-shi.md)
 * [STL中的sort\(\), pair,tuple,string的默认比较规则](coding-tricks/stl-zhong-de-sort.md)
+* [STL中的一些算法](coding-tricks/stl-zhong-de-yi-xie-suan-fa.md)
 * [字符串操作](coding-tricks/zi-fu-chuan-cao-zuo/README.md)
   * [std::string基本操作](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-ji-ben-cao-zuo.md)
   * [std::string转int,float,double,long](coding-tricks/zi-fu-chuan-cao-zuo/stdstring-zhuan-intfloatdouble.md)

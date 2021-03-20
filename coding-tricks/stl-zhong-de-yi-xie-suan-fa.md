@@ -18,3 +18,19 @@ stable_partition(s.begin(),s.end(),[](char c){return c >= 'a'));
 //aaaabbCCCAA
 ```
 
+### find（返回找到的第一个目标的idx位置坐标）
+
+```cpp
+str.find('0');
+str.find('1', 2); //指定从2作为开始位置寻找
+
+str.find('1', str.find('0')) //从出现零之后开始寻找第一个出现1的位置
+
+//没找到
+str.find('1') == -1
+str.find('1') == string::npos  //表示没找到，也可以写成string::npos
+//string::npos就表示坐标中的str.end(), str.end()是对应的迭代器类型
+```
+
+
+

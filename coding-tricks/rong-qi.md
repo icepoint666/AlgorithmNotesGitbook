@@ -247,6 +247,10 @@ for(auto& [k, v]: mp){//推荐！！
 
 }
 
+for (auto &e: mp) {//推荐！！
+   e.first e.second
+}
+
 for(auto it=mp.begin();it!=mp.end();it++){
     it->first it->second
 }
@@ -314,6 +318,10 @@ c.insert(e);
 遍历set容器，类似的做法
 
 ```cpp
+for (auto &e: c) { //推荐
+    e
+}
+
 for(auto it=c.begin();it!=c.end();it++){
     *it
 }
